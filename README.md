@@ -1,7 +1,9 @@
-#ESS - 2020.2
-###Repositório para desenvolvimento do projeto e roteiro da disciplina Engenharia de Software e Sistemas.  
-  
-##### **Features:** Turmas
+ESS - 2020.2
+===
+Repositório para desenvolvimento do projeto e roteiro da disciplina Engenharia de Software e Sistemas.
+---
+---
+### **Features:** Turmas
 
 - Cadastro e manutenção de turmas (inserir, remover, atualizar) **(Peso 2)**
   * Responsáveis:
