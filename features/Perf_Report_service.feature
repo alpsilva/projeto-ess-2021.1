@@ -9,8 +9,13 @@ Feature: Performance Report in internal system
     And the account can see all existing classes
 
   Scenario: Successfull loading of data
-    When the account tries to see the performance of an existing class with unique identifier "3"
-    Then I retrieve the data about the class with the unique identifier "3"
+    When the account tries to see the performance of a class with unique identifier "3"
+    Then I receive the data about the class with the unique identifier "3"
     And I create a table with the grades of every student account on this class
     And I compare those grades between them
     And I show it to the teacher account
+
+  Scenario: Unsuccessfull loading of data
+    When the account tries to see the performance of a class with unique identifier "5"
+    And the class with unique identifier does not exist
+    Then I send an error message
