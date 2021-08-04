@@ -7,11 +7,16 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TeacherComponent } from './teacher.component';
+import { TurmasComponent } from './turmas.component';
+import { Turma } from '../../../commons/turma';
+import { Aluno } from '../../../commons/aluno';
+import { TurmaService } from './turmas.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TeacherComponent
+    TeacherComponent,
+    TurmasComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +28,15 @@ import { TeacherComponent } from './teacher.component';
         path: 'teacher',
         component: TeacherComponent
       }
+    ]),
+    RouterModule.forChild([
+      {
+        path: 'turmas',
+        component: TurmasComponent
+      }
     ])
   ],
-  providers: [],
+  providers: [TurmaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,45 @@
+<html (mousemove)="onMove()">
+
+    <h3>Turmas</h3>
+
+    <table>
+        <tr>
+            <td><label>Nome </label></td>
+            <td><input [(ngModel)]="turma.nome" name="turmaNameBox"></td>
+            <td><button (click)="criarTurma(turma)">Adicionar</button></td>
+        </tr>
+        <tr>
+            <td><label>Descrição </label></td>
+            <td><input [(ngModel)]="turma.descricao" name="turmaDescriptionBox"></td>
+            <!--<td><button (click)="deletarTurma(turma)">Deletar</button></td>-->
+        </tr>
+    </table>
+
+    <hr>
+    <h5>Deletar turmas:</h5>
+    <table>
+        <tr>
+            <td><label>ID </label></td>
+            <td><input [(ngModel)]="delId" name="deletTurmaIdBox"></td>
+            <td><button (click)="deletarTurma(delId)">Deletar</button></td>
+        </tr>
+    </table>
+
+    <table>
+        <tr *ngIf="turmas.length > 0">
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Acessar</th>
+        </tr>
+        <tr *ngFor="let t of turmas" name="turmaList">
+            <td name="turmaIdList">{{t.id}}</td>
+            <td name="turmaNomeList">{{t.nome}}</td>
+            <td name="turmaDescricaoList">{{t.descricao}}</td>
+            <td>
+                <button (click)="goToTurma(t.id)">Acessar</button>
+            </td>
+        </tr>
+    </table>
+
+</html>
