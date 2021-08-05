@@ -1,5 +1,5 @@
 import { Aluno } from "./aluno";
-import { CadastroAlunos } from "cadastroAlunos";
+import { CadastroAlunos } from "./cadastroAlunos";
 
 export class Turma {
     nome: string;
