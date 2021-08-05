@@ -31,4 +31,10 @@ export class Turma {
       this.alunoLista.copyCadastroAlunosFrom(from.alunoLista);
     }
 
+    toString(): string {
+      var result: string = "[";
+      result = result + "nome: " + this.nome + ", ";
+      result = result + "id: " + this.id + "]";
+      return result;
+    }
   }
