@@ -1,10 +1,11 @@
 import { Aluno } from "./aluno";
+import { CadastroAlunos } from "cadastroAlunos";
 
 export class Turma {
     nome: string;
     descricao: string;
     id: number;
-    alunoLista: Array<Aluno>;
+    alunoLista: CadastroAlunos;
   
     constructor() {
       this.clean();
@@ -14,7 +15,7 @@ export class Turma {
       this.nome = "";
       this.descricao = "";
       this.id = -1;
-      this.alunoLista = new Array<Aluno>();
+      this.alunoLista = new CadastroAlunos();
     }
   
     clone(): Turma {
@@ -27,13 +28,7 @@ export class Turma {
       this.nome = from.nome;
       this.descricao = from.descricao;
       this.id = from.id;
-      this.copyAlunoListaFrom(from.alunoLista);
+      this.alunoLista.copyCadastroAlunosFrom(from.alunoLista);
     }
-  
-    copyAlunoListaFrom(from: Array<Aluno>): void {
-      this.alunoLista = new Array<Aluno>();
-      for (let i = 0; i < from.length; i++) {
-        this.alunoLista[i] = from[i];
-      }
-    }
+
   }
