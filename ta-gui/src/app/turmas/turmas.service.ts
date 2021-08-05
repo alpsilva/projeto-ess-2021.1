@@ -5,8 +5,9 @@ import { Turma } from '../../../../commons/turma';
 @Injectable()
 export class TurmaService {
   turmas: Turma[] = [];
-  idLivre: number = 0;
+  idLivre: number = 1;
   accessId: number = -1;
+
 
   criar(turma: Turma): Turma {
     turma = turma.clone();
