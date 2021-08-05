@@ -1,6 +1,5 @@
 <html>
 
-    <h3>{{title}}</h3>
     <h4>
         <table *ngIf="listaTurmas.length > 0">
             <td *ngFor="let t of listaTurmas" name="turmaList">
@@ -11,6 +10,8 @@
             </td>
         </table>
     </h4>
+    <h3>{{turma.nome}}</h3>
+    <h4>ID: {{turma.id}}</h4>
     <h5>{{turma.descricao}}</h5>
 
     <nav>
