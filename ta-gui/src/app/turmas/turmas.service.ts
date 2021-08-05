@@ -44,6 +44,7 @@ export class TurmaService {
   }
 
   getOnlyTurma(id: number): Turma {
+    console.log("getOnlyTurma(" + id + ")");
     var result = null;
 
     for (let i = 0; i < this.turmas.length; i++){
@@ -51,6 +52,7 @@ export class TurmaService {
             result = this.turmas[i].clone();
         }
     }
+    console.log("End of: getOnlyTurma(" + id + ")");
 
     return result;
   }

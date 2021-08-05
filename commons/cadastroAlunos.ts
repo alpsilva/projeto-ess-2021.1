@@ -49,11 +49,13 @@ export class CadastroAlunos{
     }
 
     copyCadastroAlunosFrom(from: CadastroAlunos): void {
+      console.log("copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
         let fromLista = from.alunos;
         this.alunos = new Array<Aluno>();
         for (let i = 0; i < fromLista.length; i++) {
           this.alunos[i] = fromLista[i];
         }
+      console.log("End of: copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
     }
 
 }

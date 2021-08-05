@@ -51,7 +51,10 @@ export class TurmasComponent implements OnInit {
 
   // router para ir para a página da turma
   goToTurma(id: number): void{
+    console.log("goToTurma(" + id + ")");
     this.classe.setId(id);
+    console.log("End of: goToTurma(" + id + ")");
+    
     // algum tipo de lógica para redirecionar a página para o endereço da turma que possui identificação == id
   }
 
