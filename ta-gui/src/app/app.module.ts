@@ -35,6 +35,10 @@ import { ClasseComponent } from './classe/classe.component';
       {
         path: 'turmas',
         component: TurmasComponent
+      },
+      {
+        path: 'classe',
+        component: ClasseComponent
       }
     ])
   ],

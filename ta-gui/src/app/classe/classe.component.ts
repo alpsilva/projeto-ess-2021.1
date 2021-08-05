@@ -64,6 +64,10 @@ export class ClasseComponent implements OnInit {
     // algum tipo de lógica para redirecionar a página para o endereço da turma que possui identificação == id
   }
 
+  setId(id: number): void {
+
+  }
+
 }
 
   // this will be used when we have a server
