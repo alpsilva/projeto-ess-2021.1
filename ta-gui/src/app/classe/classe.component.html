@@ -1,1 +1,14 @@
-<p>classe works!</p>
+<html>
+
+    <h3>{{title}}</h3>
+    <h4>ID: {{turma.id}}</h4>
+    <h5>{{turma.descricao}}</h5>
+
+    <nav>
+        <a name="alunos" routerLink="/alunos">Alunos</a> 
+        <a routerLink="/metas">Metas</a>
+    </nav>
+
+    <router-outlet></router-outlet>
+
+</html>
