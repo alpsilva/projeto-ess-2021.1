@@ -20,7 +20,7 @@ export class MetasComponent implements OnInit {
   alunos: Aluno[];
 
   atualizarAluno(aluno: Aluno): void{
-    var result = this.turma.updateAluno(aluno);
+    this.turma.updateAluno(aluno);
     this.turmaService.atualizar(this.turma);
   }
 
