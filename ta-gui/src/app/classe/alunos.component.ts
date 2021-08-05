@@ -4,7 +4,7 @@ import { TurmaService } from '../turmas/turmas.service';
 import { Aluno } from '../../../../commons/aluno';
 
 @Component({
-  selector: 'app-root',
+  selector: 'alunos',
   templateUrl: './alunos.component.html',
   styleUrls: ['./alunos.component.css']
 })
@@ -34,7 +34,8 @@ export class AlunosComponent implements OnInit {
     }
   }
 
-  deletarAluno(cpf: string): void {
+  deletarAluno(a: Aluno): void {
+    var cpf = a.cpf;
     var result = this.turma.deleteAluno(cpf);
     if (result){
       this.turmaService.atualizar(this.turma);
