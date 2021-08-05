@@ -11,6 +11,7 @@ import { Aluno } from '../../../../commons/aluno';
 
 export class AlunosComponent implements OnInit {
 
+  turmaId: number = 1;
   turma: Turma = new Turma();
 
   aluno: Aluno = new Aluno();
@@ -52,6 +53,8 @@ export class AlunosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // falta setar a turma
+    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
     this.alunos = this.turma.getAlunos();
   }
 
