@@ -29,6 +29,8 @@ export class ClasseComponent implements OnInit {
   // adicionar metas para a turma
   
 
+  /*
+  ==================================
   criarTurma(t: Turma): void {
     var result = this.turmaService.criar(t);
     if (result){
@@ -48,14 +50,15 @@ export class ClasseComponent implements OnInit {
       }    
     }
   }
+  ======================================
+  */
 
   onMove(): void {
     //pode vir a ter algo
   }
 
   ngOnInit(): void {
-    this.turmaId = 
-    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
+    
   }
 
 
@@ -65,7 +68,8 @@ export class ClasseComponent implements OnInit {
   }
 
   setId(id: number): void {
-
+    this.turmaId = id;
+    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
   }
 
 }

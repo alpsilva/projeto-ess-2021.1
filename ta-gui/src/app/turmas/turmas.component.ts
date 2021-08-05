@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../commons/turma';
 import { TurmaService } from './turmas.service';
+import { ClasseComponent } from '../classe/classe.component';
 
 @Component({
    selector: 'app-root',
@@ -14,8 +15,10 @@ export class TurmasComponent implements OnInit {
   turma: Turma = new Turma();
   delId: number = -1;
   turmas: Turma[] = [];
-
+  
   constructor(private turmaService: TurmaService) {}
+  
+  classe: ClasseComponent = new ClasseComponent(this.turmaService);
 
   criarTurma(t: Turma): void {
     var result = this.turmaService.criar(t);
@@ -48,6 +51,7 @@ export class TurmasComponent implements OnInit {
 
   // router para ir para a página da turma
   goToTurma(id: number): void{
+    this.classe.setId(id);
     // algum tipo de lógica para redirecionar a página para o endereço da turma que possui identificação == id
   }
 
