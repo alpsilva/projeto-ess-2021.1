@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Turma } from '../../../commons/turma';
+import { Turma } from '../../../../commons/turma';
 
 @Injectable()
 export class TurmaService {

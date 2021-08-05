@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Turma } from '../../../commons/turma';
+import { Turma } from '../../../../commons/turma';
 import { TurmaService } from './turmas.service';
 
 @Component({
