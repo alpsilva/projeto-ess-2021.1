@@ -6,6 +6,7 @@ import { Turma } from '../../../../commons/turma';
 export class TurmaService {
   turmas: Turma[] = [];
   idLivre: number = 0;
+  accessId: number = -1;
 
   criar(turma: Turma): Turma {
     turma = turma.clone();
@@ -62,6 +63,20 @@ export class TurmaService {
     for (let t of this.turmas) {
       result.push(t.clone());
     }
+    return result;
+  }
+
+  updateAccessId(newAccessId: number): void {
+    console.log("updateAccessId(" + newAccessId + ")");
+    this.accessId = newAccessId;
+    console.log("End of: updateAccessId(" + newAccessId + ")");
+  }
+
+  getAcessId(): number {
+    console.log("getAccessId()");
+    var result: number;
+    result = this.accessId;
+    console.log("End of: getAccessId()");
     return result;
   }
 }
