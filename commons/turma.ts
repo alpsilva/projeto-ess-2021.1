@@ -35,6 +35,22 @@ export class Turma {
       console.log("End of: copyFrom(" + from.toString() + ")");
     }
 
+    insertAluno(a: Aluno): Aluno{
+      return this.alunoLista.criar(a);
+    }
+
+    getAlunos(): Aluno[]{
+      return this.alunoLista.getAlunos();
+    }
+
+    updateAluno(a: Aluno): void{
+      this.alunoLista.atualizar(a);
+    }
+
+    deleteAluno(cpf: string): Aluno{
+      return this.alunoLista.deletar(cpf);
+    }
+
     toString(): string {
       var result: string = "[";
       result = result + "nome: " + this.nome + ", ";

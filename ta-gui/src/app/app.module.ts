@@ -12,13 +12,17 @@ import { Turma } from '../../../commons/turma';
 import { Aluno } from '../../../commons/aluno';
 import { TurmaService } from './turmas/turmas.service';
 import { ClasseComponent } from './classe/classe.component';
+import { AlunosComponent } from './classe/alunos.component';
+import { MetasComponent } from './classe/metas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TeacherComponent,
     TurmasComponent,
-    ClasseComponent
+    ClasseComponent,
+    AlunosComponent,
+    MetasComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,14 @@ import { ClasseComponent } from './classe/classe.component';
       {
         path: 'classe',
         component: ClasseComponent
+      },
+      {
+        path: 'metas',
+        component: MetasComponent
+      },
+      {
+        path: 'alunos',
+        component: AlunosComponent
       }
     ])
   ],
