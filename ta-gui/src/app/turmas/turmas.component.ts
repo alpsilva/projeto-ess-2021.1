@@ -22,14 +22,29 @@ export class TurmasComponent implements OnInit {
 
   criarTurma(t: Turma): void {
     if (this.turmas.length < 3){
-      var result = this.turmaService.criar(t);
-      if (result){
-        this.turmas.push(result);
-        this.turma = new Turma();
+      if (!this.nomeDuplicado(t)){
+        var result = this.turmaService.criar(t);
+        if (result){
+          this.turmas.push(result);
+          this.turma = new Turma();
+        }
+      } else {
+        alert("Nome duplicado! Turmas devem ter nomes únicos.");
+        this.turma.nome = "";
       }
     } else {
       alert("Limite de 3 turmas atingido! Delete uma antes de tentar registrar a nova.");
     }
+  }
+
+  nomeDuplicado(t: Turma): boolean {
+    // Procura na lista de turmas se alguma tem o mesmo nome
+    for (let i = 0; i < this.turmas.length; i++){
+      if (this.turmas[i].nome == t.nome){
+        return true;
+      }
+    }
+    return false;
   }
 
   deletarTurma(id: number): void {
