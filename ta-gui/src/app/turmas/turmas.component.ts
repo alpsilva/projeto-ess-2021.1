@@ -21,10 +21,14 @@ export class TurmasComponent implements OnInit {
   classe: ClasseComponent = new ClasseComponent(this.turmaService);
 
   criarTurma(t: Turma): void {
-    var result = this.turmaService.criar(t);
-    if (result){
-      this.turmas.push(result);
-      this.turma = new Turma();
+    if (this.turmas.length < 3){
+      var result = this.turmaService.criar(t);
+      if (result){
+        this.turmas.push(result);
+        this.turma = new Turma();
+      }
+    } else {
+      alert("Limite de 3 turmas atingido! Delete uma antes de tentar registrar a nova.");
     }
   }
 
