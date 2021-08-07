@@ -24,6 +24,15 @@ AND I fill the description with “Turma de Engenharia de Software e Sistemas do
 THEN I see a message informing me that it was not registered because there is already a class with that name
 AND I see only one class with the name “ESS 2021.1 - Turma 1” (the one that was already registered) in the list of registered class
 
+Scenario: Teacher tries to create more than three classes
+And  I see, in the list of classes, a class with the name “ESS 2021.1 - Turma 1”
+And  I see, in the list of classes, a class with the name “Top. Avançados ESS”
+And  I see, in the list of classes, a class with the name “Qualidade de Software”
+When I try to create a new class with name “Seminários SaaS” and description “Seminários de software as a service do semestre letivo de 2021.1”
+Then I see a message informing me that it was not registered because there is already 3 classes registered
+And I see the class with the name “ESS 2021.1 - Turma 1” in the list of registered classes
+And I see the class with the name “Top. Avançados ESS” in the list of registered classes
+And I see the class with the name “Qualidade de Software” in the list of registered classes
 
 Scenario: Teacher tries to see more info about a class
 AND I see, in the list of classes, a class with the name “ESS 2021.1 - Turma 1”
