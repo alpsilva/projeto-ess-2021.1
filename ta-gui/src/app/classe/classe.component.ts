@@ -10,7 +10,7 @@ import { Aluno } from '../../../../commons/aluno';
 })
 export class ClasseComponent implements OnInit {
 
-  turmaId: number = -1;
+  turmaId: number;
   turma: Turma = new Turma();
   listaTurmas: Turma[] = [];
   title = this.turma.nome;
@@ -26,6 +26,8 @@ export class ClasseComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaTurmas = this.turmaService.getTurmas();
+    this.turmaId = this.turmaService.getAcessId();
+    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
     console.log("classe component => ngOnInit()");
     console.log("classe component => ngOnInit() : this.title = " + this.title);
     console.log("classe component => ngOnInit() : this.turmaId = " + this.turmaId);
