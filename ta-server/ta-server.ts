@@ -84,7 +84,7 @@ taserver.put('/turma', function (req: express.Request, res: express.Response) {
 })
 
 taserver.delete('/turma/:id', function (req: express.Request, res: express.Response) {
-  var id: string = <string> req.params.cpf;
+  var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
   var turma: Turma = cadastro.deletar(idNum);
   if (turma) {

@@ -67,17 +67,12 @@ export class TurmaService {
     );
   }
 
-  deletar(id: number): Turma {
-    var result = null;
-
-    for (let i = 0; i < this.turmas.length; i++){
-        if (this.turmas[i].id == id){
-            result = this.turmas[i].clone();
-            this.turmas.splice(i, 1);
-        }
-    }  
-
-    return result;
+  deletar(id: number): Observable<number> {
+    return this.http.delete<any>(this.taURL + "/turma/" + id, {headers: this.headers})
+    .pipe(
+      retry(2),
+      map( res => {if (res.success) {return id;} else {return null;}} )
+    );
   }
 
   getOnlyTurma(id: number): Observable <Turma> {
