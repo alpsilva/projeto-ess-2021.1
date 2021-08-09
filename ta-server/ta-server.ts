@@ -31,8 +31,12 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response) {
 
 taserver.post('/turma', function (req: express.Request, res: express.Response) {
   var turma: Turma = <Turma> req.body; //verificar se é mesmo Turma!
-  if (turma) {
-    res.send({"success": "A turma foi cadastrada com sucesso"});
+  var aux: Turma = new Turma();
+  aux.nome = turma.nome;
+  aux.descricao = turma.descricao;
+  aux = cadastro.criar(aux);
+  if (aux) {
+    res.send({"success": "A turma " + aux.id + " foi cadastrada com sucesso"});
   } else {
     res.send({"failure": "A turma não pode ser cadastrada"});
   }
@@ -40,8 +44,12 @@ taserver.post('/turma', function (req: express.Request, res: express.Response) {
 
 taserver.put('/turma', function (req: express.Request, res: express.Response) {
   var turma: Turma = <Turma> req.body;
-  turma = cadastro.atualizar(turma);
-  if (turma) {
+  var aux: Turma = new Turma();
+  aux.nome = turma.nome;
+  aux.descricao = turma.descricao;
+  aux.id = turma.id;
+  aux = cadastro.atualizar(aux);
+  if (aux) {
     res.send({"success": "A turma foi atualizada com sucesso"});
   } else {
     res.send({"failure": "A turma não pode ser atualizada"});

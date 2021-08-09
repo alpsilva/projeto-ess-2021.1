@@ -20,11 +20,16 @@ export class CadastroDeTurmas{
         turma = turma.clone();
         var result = null;
         for (let t of this.turmas) {
+            console.log("Searching id: " + t.id);
+            console.log("turma.id = " + turma.id);
             if (t.id == turma.id) {
+                console.log("Match on: " + t.id);
                 t.nome = turma.nome;
                 t.descricao = turma.descricao;
                 t.alunoLista = turma.alunoLista;
-
+                for (let i = 0; i < turma.metasLista.length; i++) {
+                    t.metasLista[i] = turma.metasLista[i];
+                }
                 result = t;
             }
         }
