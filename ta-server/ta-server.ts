@@ -33,6 +33,12 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastro.getTurmas()));
 })
 
+taserver.get('/turma/:id', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum = parseInt(id);
+  res.send(JSON.stringify(cadastro.getOnlyTurma(idNum)));
+})
+
 taserver.post('/turma', function (req: express.Request, res: express.Response) {
   var turma: Turma = <Turma> req.body; //verificar se é mesmo Turma!
   var aux: Turma = new Turma();
@@ -40,7 +46,7 @@ taserver.post('/turma', function (req: express.Request, res: express.Response) {
   aux.descricao = turma.descricao;
   aux = cadastro.criar(aux);
   if (aux) {
-    res.send({"success": "A turma " + aux.id + " foi cadastrada com sucesso"});
+    res.send({"success": "A turma foi cadastrada com sucesso"});
   } else {
     res.send({"failure": "A turma não pode ser cadastrada"});
   }

@@ -26,7 +26,8 @@ export class CadastroDeTurmas{
                 console.log("Match on: " + t.id);
                 t.nome = turma.nome;
                 t.descricao = turma.descricao;
-                t.alunoLista = turma.alunoLista;
+                console.log(turma.alunoLista.getAlunos()[0]);
+                t.alunoLista.copyCadastroAlunosFrom(turma.alunoLista);
                 for (let i = 0; i < turma.metasLista.length; i++) {
                     t.metasLista[i] = turma.metasLista[i];
                 }
