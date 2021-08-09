@@ -1,4 +1,7 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { retry, map } from 'rxjs/operators';
 
 import { Turma } from '../../../../commons/turma';
 
@@ -8,8 +11,13 @@ export class TurmaService {
   idLivre: number = 1;
   accessId: number = -1;
 
+  private headers = new HttpHeaders({'Content-Type':'application/json'});
+  private params = new HttpParams();
+  private taURL = 'http://192.168.0.105:3000';
 
-  criar(turma: Turma): Turma {
+  constructor(private http: HttpClient) {}
+
+  criar(turma: Turma): Observable<Turma> {
     turma = turma.clone();
     var result = null;
 
@@ -18,7 +26,19 @@ export class TurmaService {
     this.turmas.push(turma);
 
     result = turma;
-    return result;
+    return this.http.post<any>(this.taURL + "/turma", turma, {headers: this.headers})
+            .pipe(
+              retry(2),
+              map( res => {
+                if (res.success) {
+                  console.log(res.success);
+                  return turma;
+                } else {
+                  console.error(res.failure);
+                  return null;
+                }
+              })
+            );
   }
 
   //adicionar inserção de metas
@@ -77,12 +97,11 @@ export class TurmaService {
     return result;
   }
 
-  getTurmas(): Turma[] {
-    var result: Turma[] = [];
-    for (let t of this.turmas) {
-      result.push(t.clone());
-    }
-    return result;
+  getTurmas(): Observable <Turma[]> {
+    return this.http.get<Turma[]>(this.taURL + "/turmas")
+              .pipe(
+                retry(2)
+              );
   }
 
   updateAccessId(newAccessId: number): void {

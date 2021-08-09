@@ -23,11 +23,18 @@ export class TurmasComponent implements OnInit {
   criarTurma(t: Turma): void {
     if (this.turmas.length < 3){
       if (!this.nomeDuplicado(t)){
-        var result = this.turmaService.criar(t);
-        if (result){
-          this.turmas.push(result);
-          this.turma = new Turma();
-        }
+        var result = this.turmaService.criar(t)
+                        .subscribe(
+                          tr => {
+                            if (tr) {
+                              this.turmas.push(tr);
+                              this.turma = new Turma();
+                            } else {
+                              //server POST failure msg
+                            }
+                          },
+                          msg => { msg.alert }
+                        );
       } else {
         alert("Nome duplicado! Turmas devem ter nomes únicos.");
         this.turma.nome = "";
@@ -64,7 +71,11 @@ export class TurmasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.turmas = this.turmaService.getTurmas();
+    this.turmaService.getTurmas()
+        .subscribe(
+          tl => {this.turmas = tl;},
+          msg => { alert(msg.message);}
+        );
   }
 
 

@@ -25,7 +25,11 @@ export class ClasseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listaTurmas = this.turmaService.getTurmas();
+    this.turmaService.getTurmas()
+        .subscribe(
+          tl => {this.listaTurmas = tl;},
+          msg => { alert(msg.message);}
+        );
     this.turmaId = this.turmaService.getAcessId();
     this.turma = this.turmaService.getOnlyTurma(this.turmaId);
     console.log("classe component => ngOnInit()");
