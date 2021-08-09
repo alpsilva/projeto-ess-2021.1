@@ -6,12 +6,14 @@
         <tr>
             <td><label>Nome </label></td>
             <td><input [(ngModel)]="turma.nome" name="turmaNameBox"></td>
-            <td><button (click)="criarTurma(turma)">Adicionar</button></td>
         </tr>
         <tr>
             <td><label>Descrição </label></td>
             <td><input [(ngModel)]="turma.descricao" name="turmaDescriptionBox"></td>
             <!--<td><button (click)="deletarTurma(turma)">Deletar</button></td>-->
+        </tr>
+        <tr>
+            <td><button (click)="criarTurma(turma)">Adicionar</button></td>
         </tr>
     </table>
 

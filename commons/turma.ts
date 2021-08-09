@@ -63,11 +63,12 @@ export class Turma {
       result = result + "id: " + this.id + "]";
       return result;
     }
+
     insertMeta(meta: string): void{
       this.metasLista.push(meta);
     }
     
-    getMetas(): Array<String>{
+    getMetas(): Array<string>{
       return this.metasLista;
     }
   }

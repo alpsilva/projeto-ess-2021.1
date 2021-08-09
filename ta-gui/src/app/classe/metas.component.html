@@ -3,21 +3,23 @@
     <th>Nome</th>
     <th>CPF</th>
     <th>e-mail</th>
-    <th>Requisitos</th>
-    <th>Gerência de Configuração</th>
-    <th>Gerência de Projetos</th>
-    <th>Testes</th>
-    <!--- Aqui é preciso permitir ao professor a adição de novas metas--->
+    <th *ngFor="let m of turma.getMetas()">
+       {{m}}
+    </th>
+    <th>
+       <input [(ngModel)]="novaMeta" name="novaMetaBox">
+    </th>
+    <th>
+      <button (click)="adicionarMeta(novaMeta)">Adicionar Meta</button>
+   </th>
  </tr>
  <tr *ngFor="let a of alunos">
     <td>{{a.nome}}</td>
     <td>{{a.cpf}}</td>
     <td>{{a.email}}</td>
     <!---Aqui será preciso adaptar o número de metas ao número de metas que já foi inserido pelo professor-->
-    <td class="meta"><input [ngModel]="a.metas.get('requisitos')" (ngModelChange)="a.metas.set('requisitos', $event)" (change)="atualizarAluno(a)"></td>
-    <td class="meta"><input [ngModel]="a.metas.get('gerDeConfiguracao')" (ngModelChange)="a.metas.set('gerDeConfiguracao', $event)" (change)="atualizarAluno(a)"></td>
-    <td class="meta"><input [ngModel]="a.metas.get('gerDeProjetos')" (ngModelChange)="a.metas.set('gerDeProjetos', $event)" (change)="atualizarAluno(a)"></td>
-    <td class="meta"><input [ngModel]="a.metas.get('testes')" (ngModelChange)="a.metas.set('testes', $event)" (change)="atualizarAluno(a)"></td>
-   
+    <td class="meta" *ngFor="let m of turma.getMetas()">
+       <input [ngModel]="a.metas.get(m)" (ngModelChange)="a.metas.set(m, $event)" (change)="atualizarAluno(a)">
+    </td>
  </tr>
  </table>
