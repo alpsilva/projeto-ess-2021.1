@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "./node_modules/typescript/bin/tsc",
-    "start": "npm run tsc && node compiledCode/ta-server.js"
+    "start": "npm run tsc && node compiledCode/ta-server/ta-server.js"
   },
   "author": "André Luiz (github.com/alpsilva), Breno Rodrigues (github.com/BrenoOR), Pietro Masur (https://github.com/pietromasur)",
   "license": "MIT",

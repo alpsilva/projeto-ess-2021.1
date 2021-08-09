@@ -1,11 +1,12 @@
 import express = require('express');
+import { CadastroDeTurmas } from './cadastroDeTurmas';
 
 var taserver = express();
 
-var turmas = [{nome:'Turma 1',descricao:'Turma Teste 1',id:'1',alunoLista:{}}];
+var cadastro: CadastroDeTurmas = new CadastroDeTurmas();
 
 taserver.get('/', function (req, res) {
-  res.send(turmas);
+  res.send(cadastro.getTurmas());
 })
 
 taserver.listen(3000, function () {
