@@ -31,7 +31,12 @@ export class ClasseComponent implements OnInit {
           msg => { alert(msg.message);}
         );
     this.turmaId = this.turmaService.getAcessId();
-    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
+    this.turmaService.getOnlyTurma(this.turmaId).subscribe(
+      t => {
+        this.turma = t;
+      },
+      msg => { alert(msg.message);}
+    ); 
     console.log("classe component => ngOnInit()");
     console.log("classe component => ngOnInit() : this.title = " + this.title);
     console.log("classe component => ngOnInit() : this.turmaId = " + this.turmaId);
@@ -41,7 +46,12 @@ export class ClasseComponent implements OnInit {
   setId(id: number): void {
     console.log("setId(" + id + ")");
     this.turmaId = id;
-    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
+    this.turmaService.getOnlyTurma(this.turmaId).subscribe(
+      t => {
+        this.turma = t;
+      },
+      msg => { alert(msg.message);}
+    ); 
     console.log("End of: setId(" + id + ")");
   }
 }

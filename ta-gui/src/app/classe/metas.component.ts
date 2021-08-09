@@ -22,17 +22,28 @@ export class MetasComponent implements OnInit {
 
   atualizarAluno(aluno: Aluno): void{
     this.turma.updateAluno(aluno);
-    this.turmaService.atualizar(this.turma);
+    this.turmaService.atualizar(this.turma).subscribe(
+      (t) => { if (t == null) alert("Unexpected fatal error trying to update student information! Please contact the systems administrators."); },
+      (msg) => { alert(msg.message); }
+   );;
   }
 
   ngOnInit(): void {
     this.turmaId = this.turmaService.getAcessId();
-    this.turma = this.turmaService.getOnlyTurma(this.turmaId);
-    this.alunos = this.turma.getAlunos();
+    this.turmaService.getOnlyTurma(this.turmaId).subscribe(
+      t => {
+        this.turma = t;
+        this.alunos = this.turma.getAlunos();
+      },
+      msg => { alert(msg.message);}
+    ); 
   }
 
   adicionarMeta(meta: string): void {
     this.turma = this.turmaService.adicionarMeta(this.turma, meta);
-    this.turmaService.atualizar(this.turma);
+    this.turmaService.atualizar(this.turma).subscribe(
+      (t) => { if (t == null) alert("Unexpected fatal error trying to update class information! Please contact the systems administrators."); },
+      (msg) => { alert(msg.message); }
+   );;
   }
 }

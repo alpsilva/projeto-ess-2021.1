@@ -13,7 +13,7 @@ export class TurmaService {
 
   private headers = new HttpHeaders({'Content-Type':'application/json'});
   private params = new HttpParams();
-  private taURL = 'http://192.168.0.105:3000';
+  private taURL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
@@ -58,16 +58,13 @@ export class TurmaService {
     return result;
   }
 
-  atualizar(turma: Turma): void {
+  atualizar(turma: Turma): Observable<Turma> {
     turma = turma.clone();
-    for (let t of this.turmas) {
-        if (t.id == turma.id) {
-            t.nome = turma.nome;
-            t.descricao = turma.descricao;
-            t.alunoLista = turma.alunoLista;
-            t.metasLista = turma.metasLista;
-        }
-    }
+    console.log(turma.getAlunos());
+    return this.http.put<any>(this.taURL + "/turma",JSON.stringify(turma), {headers: this.headers}).pipe( 
+      retry(2),
+      map( res => {if (res.success) {return turma;} else {return null;}} )
+    );
   }
 
   deletar(id: number): Turma {
@@ -83,18 +80,11 @@ export class TurmaService {
     return result;
   }
 
-  getOnlyTurma(id: number): Turma {
-    console.log("getOnlyTurma(" + id + ")");
-    var result = null;
-
-    for (let i = 0; i < this.turmas.length; i++){
-        if (this.turmas[i].id == id){
-            result = this.turmas[i].clone();
-        }
-    }
-    console.log("End of: getOnlyTurma(" + id + ")");
-
-    return result;
+  getOnlyTurma(id: number): Observable <Turma> {
+    return this.http.get<Turma>(this.taURL + "/turma/" + id)
+              .pipe(
+                retry(2)
+              );
   }
 
   getTurmas(): Observable <Turma[]> {
@@ -111,10 +101,9 @@ export class TurmaService {
   }
 
   getAcessId(): number {
-    console.log("getAccessId()");
     var result: number;
     result = this.accessId;
-    console.log("End of: getAccessId()");
+    console.log("AccessId: ", result);
     return result;
   }
 }

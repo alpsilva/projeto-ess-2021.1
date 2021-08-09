@@ -3,6 +3,7 @@ import bodyParser = require("body-parser");
 
 import { Turma } from '../commons/turma';
 import { CadastroDeTurmas } from './cadastroDeTurmas';
+import { Aluno } from '../commons/aluno';
 
 var taserver = express();
 
@@ -53,13 +54,29 @@ taserver.post('/turma', function (req: express.Request, res: express.Response) {
 })
 
 taserver.put('/turma', function (req: express.Request, res: express.Response) {
-  var turma: Turma = <Turma> req.body;
-  var aux: Turma = new Turma();
-  aux.nome = turma.nome;
-  aux.descricao = turma.descricao;
-  aux.id = turma.id;
-  aux = cadastro.atualizar(aux);
-  if (aux) {
+  var aux: Turma = <Turma> req.body;
+  var turma: Turma = new Turma();
+  turma.nome = aux.nome;
+  turma.descricao = aux.descricao;
+  turma.id = aux.id;
+  for (let a of aux.alunoLista.alunos){
+    var aluno: Aluno = new Aluno();
+    aluno.nome = a.nome;
+    aluno.cpf = a.cpf;
+    aluno.email = a.email;
+    aluno.github = a.github;
+    for(var value in a.metas){
+      aluno.metas.set(value, a.metas[value]);
+    }
+    turma.insertAluno(aluno);
+  }
+  /*
+  for (let m of aux.metasLista){
+    // insertMetas precisa ser atributo de turma
+  }
+  */
+  turma = cadastro.atualizar(turma);
+  if (turma) {
     res.send({"success": "A turma foi atualizada com sucesso"});
   } else {
     res.send({"failure": "A turma não pode ser atualizada"});
