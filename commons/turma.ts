@@ -6,16 +6,18 @@ export class Turma {
     descricao: string;
     id: number;
     alunoLista: CadastroAlunos;
-  
+    metasLista: Array<string>;
+    
     constructor() {
       this.clean();
     }
-  
+
     clean(): void {
       this.nome = "";
       this.descricao = "";
       this.id = -1;
       this.alunoLista = new CadastroAlunos();
+      this.metasLista = new Array<string>();
     }
   
     clone(): Turma {
@@ -23,6 +25,7 @@ export class Turma {
       var turma: Turma = new Turma();
       turma.copyFrom(this);
       console.log("End of: clone()");
+
       return turma;
     }
   
@@ -32,6 +35,9 @@ export class Turma {
       this.descricao = from.descricao;
       this.id = from.id;
       this.alunoLista.copyCadastroAlunosFrom(from.alunoLista);
+      for (let i = 0; i < from.metasLista.length; i++) {
+        this.metasLista[i] = from.metasLista[i];
+      }
       console.log("End of: copyFrom(" + from.toString() + ")");
     }
 
@@ -56,5 +62,13 @@ export class Turma {
       result = result + "nome: " + this.nome + ", ";
       result = result + "id: " + this.id + "]";
       return result;
+    }
+
+    insertMeta(meta: string): void{
+      this.metasLista.push(meta);
+    }
+    
+    getMetas(): Array<string>{
+      return this.metasLista;
     }
   }

@@ -16,6 +16,7 @@ export class MetasComponent implements OnInit {
   
   turmaId: number = 1;
   turma: Turma = new Turma();
+  novaMeta: string = "";
 
   alunos: Aluno[];
 
@@ -25,9 +26,13 @@ export class MetasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // falta setar a turma
+    this.turmaId = this.turmaService.getAcessId();
     this.turma = this.turmaService.getOnlyTurma(this.turmaId);
     this.alunos = this.turma.getAlunos();
   }
 
+  adicionarMeta(meta: string): void {
+    this.turma = this.turmaService.adicionarMeta(this.turma, meta);
+    this.turmaService.atualizar(this.turma);
+  }
 }

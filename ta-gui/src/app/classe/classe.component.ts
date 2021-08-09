@@ -40,5 +40,4 @@ export class ClasseComponent implements OnInit {
     this.turma = this.turmaService.getOnlyTurma(this.turmaId);
     console.log("End of: setId(" + id + ")");
   }
-
 }

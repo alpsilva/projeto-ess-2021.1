@@ -21,6 +21,23 @@ export class TurmaService {
     return result;
   }
 
+  //adicionar inserção de metas
+  adicionarMeta(turma: Turma, meta: string): Turma {
+    turma = turma.clone();
+    var metaExists: boolean = false;
+    var result = null;
+    for (let key in turma.getMetas) {
+      if (meta == key) {
+        metaExists = true;
+      }
+    }
+    if (!metaExists) {
+      turma.insertMeta(meta);
+    }
+    result = turma;
+    return result;
+  }
+
   atualizar(turma: Turma): void {
     turma = turma.clone();
     for (let t of this.turmas) {
@@ -28,6 +45,7 @@ export class TurmaService {
             t.nome = turma.nome;
             t.descricao = turma.descricao;
             t.alunoLista = turma.alunoLista;
+            t.metasLista = turma.metasLista;
         }
     }
   }

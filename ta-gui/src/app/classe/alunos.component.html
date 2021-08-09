@@ -4,12 +4,10 @@
  <tr>
     <td><label>Nome </label></td>
     <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
-    <td><button (click)="criarAluno(aluno)">Adicionar</button></td>
  </tr>
  <tr>
     <td><label>CPF </label></td>
     <td><input [(ngModel)]="aluno.cpf" name="cpfbox"></td>
-    <td><button (click)="deletarAluno(aluno)">Deletar</button></td>
     <td *ngIf="cpfougitduplicado">
       Já existe um aluno com esse CPF ou login do github
     </td>
@@ -24,6 +22,10 @@
    <td *ngIf="cpfougitduplicado">
      Já existe um aluno com esse login do github ou CPF
    </td>
+</tr>
+<tr>
+   <td><button (click)="criarAluno(aluno)">Adicionar</button></td>
+   <td><button (click)="deletarAluno(aluno)">Deletar</button></td>
 </tr>
  </table>
 
