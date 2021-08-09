@@ -64,8 +64,19 @@ export class Turma {
       return result;
     }
 
-    insertMeta(meta: string): void{
-      this.metasLista.push(meta);
+    insertMeta(meta: string): string{
+      var metaExists: boolean = false;
+      var result = null;
+      for (let m in this.metasLista) {
+        if (m == meta) {
+          metaExists = true;
+        }
+      }
+      if (!metaExists) {
+        this.metasLista.push(meta);
+        result = meta;
+      }
+      return result
     }
     
     getMetas(): Array<string>{

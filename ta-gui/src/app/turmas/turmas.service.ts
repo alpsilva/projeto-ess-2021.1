@@ -41,23 +41,6 @@ export class TurmaService {
             );
   }
 
-  //adicionar inserção de metas
-  adicionarMeta(turma: Turma, meta: string): Turma {
-    turma = turma.clone();
-    var metaExists: boolean = false;
-    var result = null;
-    for (let key in turma.getMetas) {
-      if (meta == key) {
-        metaExists = true;
-      }
-    }
-    if (!metaExists) {
-      turma.insertMeta(meta);
-    }
-    result = turma;
-    return result;
-  }
-
   atualizar(turma: Turma): Observable<Turma> {
     turma = turma.clone();
     console.log(turma.getAlunos());

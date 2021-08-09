@@ -40,10 +40,15 @@ export class MetasComponent implements OnInit {
   }
 
   adicionarMeta(meta: string): void {
-    this.turma = this.turmaService.adicionarMeta(this.turma, meta);
-    this.turmaService.atualizar(this.turma).subscribe(
-      (t) => { if (t == null) alert("Unexpected fatal error trying to update class information! Please contact the systems administrators."); },
-      (msg) => { alert(msg.message); }
-   );;
+    var result = this.turma.insertMeta(meta);
+    if (result){
+      this.turmaService.atualizar(this.turma).subscribe(
+        (t) => { if (t == null) alert("Unexpected fatal error trying to update class information! Please contact the systems administrators."); },
+        (msg) => { alert(msg.message); }
+     );
+    } else {
+      alert("Meta já existente!");
+      this.novaMeta = "";
+    }
   }
 }
