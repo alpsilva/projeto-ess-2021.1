@@ -32,7 +32,7 @@ export class MetasComponent implements OnInit {
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
-        this.turma = t;
+        this.turma.copyFrom(t);
         this.alunos = this.turma.getAlunos();
       },
       msg => { alert(msg.message);}
@@ -43,8 +43,13 @@ export class MetasComponent implements OnInit {
     var result = this.turma.insertMeta(meta);
     if (result){
       this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { if (t == null) alert("Unexpected fatal error trying to update class information! Please contact the systems administrators."); },
-        (msg) => { alert(msg.message); }
+        (t) => { if (t == null){
+          alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
+          //removes newly added goal
+          this.turma.removeLastMeta();
+        }
+      },
+      (msg) => { alert(msg.message); }
      );
     } else {
       alert("Meta já existente!");

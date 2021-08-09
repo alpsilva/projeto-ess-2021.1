@@ -78,6 +78,10 @@ export class Turma {
       }
       return result
     }
+
+    removeLastMeta(): void{
+      this.metasLista.splice(-1);
+    }
     
     getMetas(): Array<string>{
       return this.metasLista;
