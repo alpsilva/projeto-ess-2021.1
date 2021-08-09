@@ -20,7 +20,7 @@ export class TurmaService {
     result = turma;
     return result;
   }
-
+  //adicionar inserção de metas
   atualizar(turma: Turma): void {
     turma = turma.clone();
     for (let t of this.turmas) {
@@ -28,6 +28,7 @@ export class TurmaService {
             t.nome = turma.nome;
             t.descricao = turma.descricao;
             t.alunoLista = turma.alunoLista;
+            t.metasLista = turma.metasLista;
         }
     }
   }
