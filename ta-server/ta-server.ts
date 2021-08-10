@@ -95,6 +95,18 @@ taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.R
   }
 })
 
+taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum: number = parseInt(id);
+  var metas: Array<string> = req.body;
+  var turma: Turma = cadastro.atualizarMetas(idNum, metas);
+  if (turma) {
+    res.send({"success": "A turma teve o cadastro de metas atualizado com sucesso"});
+  } else {
+    res.send({"failure": "A turma não pôde atualizar o cadastro de metas"});
+  }
+})
+
 taserver.delete('/turma/:id', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);

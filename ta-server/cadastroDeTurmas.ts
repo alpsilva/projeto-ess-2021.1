@@ -45,6 +45,13 @@ export class CadastroDeTurmas{
         return this.turmas[index];
     }
 
+    atualizarMetas(id: number, metas: Array<string>): Turma {
+        var index = this.findIndexById(id);
+        this.turmas[index].cleanMetas();
+        this.turmas[index].insertManyMetas(metas);
+        return this.turmas[index];
+    }
+
     findIndexById(id: number): number {
         for (let i = 0; i < this.turmas.length; i++){
             if (this.turmas[i].id == id){

@@ -67,6 +67,16 @@ export class Turma {
       }
     }
 
+    cleanMetas(): void {
+      this.metasLista = new Array<string>();
+    }
+
+    insertManyMetas(ms: Array<string>): void{
+      for (let m of ms){
+        this.metasLista.push(m);
+      }
+    }
+
     toString(): string {
       var result: string = "[";
       result = result + "nome: " + this.nome + ", ";
