@@ -22,10 +22,15 @@ export class MetasComponent implements OnInit {
 
   atualizarAluno(aluno: Aluno): void{
     this.turma.updateAluno(aluno);
-    this.turmaService.atualizar(this.turma).subscribe(
-      (t) => { if (t == null) alert("Unexpected fatal error trying to update student information! Please contact the systems administrators."); },
+    this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
+      (as) => { if (as == null){
+        alert("Unexpected fatal error trying to update student information! Please contact the systems administrators.");
+      } else {
+        this.alunos = as;
+      }
+    },
       (msg) => { alert(msg.message); }
-   );;
+   );
   }
 
   ngOnInit(): void {
@@ -42,11 +47,13 @@ export class MetasComponent implements OnInit {
   adicionarMeta(meta: string): void {
     var result = this.turma.insertMeta(meta);
     if (result){
-      this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { if (t == null){
+      this.turmaService.atualizarMetas(this.turma.id, this.turma.metasLista).subscribe(
+        (ms) => { if (ms == null){
           alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           //removes newly added goal
           this.turma.removeLastMeta();
+        } else {
+          this.turma.metasLista = ms;
         }
       },
       (msg) => { alert(msg.message); }

@@ -86,7 +86,19 @@ taserver.put('/turma', function (req: express.Request, res: express.Response) {
 taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
-  var alunos: Array<Aluno> = req.body;
+  var as: Array<Aluno> = <Array<Aluno>> req.body;
+  var alunos: Array<Aluno> = new Array<Aluno>();
+  for (let a of as){
+    var aluno: Aluno = new Aluno();
+    aluno.nome = a.nome;
+    aluno.cpf = a.cpf;
+    aluno.email = a.email;
+    aluno.github = a.github;
+    for(var value in a.metas){
+      aluno.metas.set(value, a.metas[value]);
+    }
+    alunos.push(aluno);
+  }
   var turma: Turma = cadastro.atualizarAlunos(idNum, alunos);
   if (turma) {
     res.send({"success": "A turma teve o cadastro de alunos atualizado com sucesso"});
@@ -98,7 +110,7 @@ taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.R
 taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
-  var metas: Array<string> = req.body;
+  var metas: Array<string> = <Array<string>> req.body;
   var turma: Turma = cadastro.atualizarMetas(idNum, metas);
   if (turma) {
     res.send({"success": "A turma teve o cadastro de metas atualizado com sucesso"});

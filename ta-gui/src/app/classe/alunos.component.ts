@@ -26,12 +26,12 @@ export class AlunosComponent implements OnInit {
   criarAluno(a: Aluno): void {
     var result = this.turma.insertAluno(a);
     if (result){
-      this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { 
-            if (t == null){
+      this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
+        (as) => { 
+            if (as == null){
               alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
             } else {
-              this.alunos.push(result);
+              this.alunos = as;
               this.aluno = new Aluno();
             }
           },
@@ -46,17 +46,12 @@ export class AlunosComponent implements OnInit {
     var cpf = a.cpf;
     var result = this.turma.deleteAluno(cpf);
     if (result){
-      this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { 
-          if (t == null){
+      this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
+        (as) => { 
+          if (as == null){
             alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           } else {
-            // procura a posição do objeto deletado no array local e dá splice
-            for (let i = 0; i < this.alunos.length; i++){
-              if (this.alunos[i].cpf == result.cpf){
-                this.alunos.splice(i, 1);
-              }
-            }
+            this.alunos = as;
             this.aluno = new Aluno();
           }
         },

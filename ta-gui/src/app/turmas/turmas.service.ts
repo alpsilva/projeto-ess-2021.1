@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
 import { Turma } from '../../../../commons/turma';
+import { Aluno } from '../../../../commons/aluno';
 
 @Injectable()
 export class TurmaService {
@@ -47,6 +48,20 @@ export class TurmaService {
     return this.http.put<any>(this.taURL + "/turma",JSON.stringify(turma), {headers: this.headers}).pipe( 
       retry(2),
       map( res => {if (res.success) {return turma;} else {return null;}} )
+    );
+  }
+
+  atualizarAlunos(id: number, newAlunos: Array<Aluno>): Observable<Array<Aluno>> {
+    return this.http.put<any>(this.taURL + "/turma/" + id + "/alunos",JSON.stringify(newAlunos), {headers: this.headers}).pipe( 
+      retry(2),
+      map( res => {if (res.success) {return newAlunos;} else {return null;}} )
+    );
+  }
+
+  atualizarMetas(id: number, newMetas: Array<string>): Observable<Array<string>> {
+    return this.http.put<any>(this.taURL + "/turma/" + id + "/metas",JSON.stringify(newMetas), {headers: this.headers}).pipe( 
+      retry(2),
+      map( res => {if (res.success) {return newMetas;} else {return null;}} )
     );
   }
 
