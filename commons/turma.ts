@@ -57,6 +57,16 @@ export class Turma {
       return this.alunoLista.deletar(cpf);
     }
 
+    cleanAlunos(): void {
+      this.alunoLista = new CadastroAlunos();
+    }
+
+    insertManyAlunos(as: Array<Aluno>): void{
+      for (let a of as){
+        this.alunoLista.criar(a);
+      }
+    }
+
     toString(): string {
       var result: string = "[";
       result = result + "nome: " + this.nome + ", ";

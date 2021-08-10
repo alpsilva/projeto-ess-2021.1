@@ -83,6 +83,18 @@ taserver.put('/turma', function (req: express.Request, res: express.Response) {
   }
 })
 
+taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum: number = parseInt(id);
+  var alunos: Array<Aluno> = req.body;
+  var turma: Turma = cadastro.atualizarAlunos(idNum, alunos);
+  if (turma) {
+    res.send({"success": "A turma teve o cadastro de alunos atualizado com sucesso"});
+  } else {
+    res.send({"failure": "A turma não pôde atualizar o cadastro de alunos"});
+  }
+})
+
 taserver.delete('/turma/:id', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);

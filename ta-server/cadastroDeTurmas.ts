@@ -1,4 +1,5 @@
 import { Turma } from '../commons/turma';
+import { Aluno } from '../commons/aluno';
 
 export class CadastroDeTurmas{
     turmas: Turma[] = [];
@@ -35,6 +36,22 @@ export class CadastroDeTurmas{
             }
         }
         return result;
+    }
+
+    atualizarAlunos(id: number, newAlunos: Array<Aluno>): Turma {
+        var index = this.findIndexById(id);
+        this.turmas[index].cleanAlunos();
+        this.turmas[index].insertManyAlunos(newAlunos);
+        return this.turmas[index];
+    }
+
+    findIndexById(id: number): number {
+        for (let i = 0; i < this.turmas.length; i++){
+            if (this.turmas[i].id == id){
+                return i;
+            }
+        }
+        return -1;
     }
 
     deletar(id: number): Turma {
