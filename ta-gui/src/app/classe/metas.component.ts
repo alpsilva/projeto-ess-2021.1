@@ -37,11 +37,29 @@ export class MetasComponent implements OnInit {
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
-        this.turma.copyFrom(t);
-        this.alunos = this.turma.getAlunos();
+        var nt: Turma = new Turma();
+        nt.nome = t.nome;
+        nt.descricao = t.descricao;
+        nt.id = t.id;
+        for (let a of t.alunoLista.alunos){
+          var aluno: Aluno = new Aluno();
+          aluno.nome = a.nome;
+          aluno.cpf = a.cpf;
+          aluno.email = a.email;
+          aluno.github = a.github;
+          for(var value in a.metas){
+            aluno.metas.set(value, a.metas.get(value));
+          }
+          nt.insertAluno(aluno);
+        }
+        for (let m of t.metasLista){
+          nt.insertMeta(m);
+        }
+        this.turma = nt;
+        this.alunos = this.turma.alunoLista.alunos;
       },
       msg => { alert(msg.message);}
-    ); 
+    );
   }
 
   adicionarMeta(meta: string): void {
