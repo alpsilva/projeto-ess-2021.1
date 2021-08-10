@@ -22,6 +22,7 @@ export class ClasseComponent implements OnInit {
 
   onMove(): void {
     //pode vir a ter algo
+    
   }
 
   ngOnInit(): void {
@@ -49,6 +50,18 @@ export class ClasseComponent implements OnInit {
         this.turma = nt;
       },
       msg => { alert(msg.message);}
+    );
+    this.turmaService.getTurmas().subscribe(
+      list => {
+        var nl: Turma[] = [];
+        console.log(list);
+        for (let t of list) {
+          nl.push(t);
+        }
+        this.listaTurmas = nl;
+        console.log(this.listaTurmas);
+      },
+      msg => { alert(msg.message); }
     );
   }
 

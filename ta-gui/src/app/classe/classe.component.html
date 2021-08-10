@@ -1,12 +1,8 @@
 <html>
-
     <h4>
         <table *ngIf="listaTurmas.length > 0">
             <td *ngFor="let t of listaTurmas" name="turmaList">
                 <button (click)="setId(t.id)">{{t.nome}}</button>
-                <!--
-                    <a name="goToTurma" routerLink = "/classe" (click)="goToTurma(t.id)">Acessar</a>
-                -->
             </td>
         </table>
     </h4>

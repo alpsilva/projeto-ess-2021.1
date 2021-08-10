@@ -43,21 +43,22 @@ export class AlunosComponent implements OnInit {
   }
 
   deletarAluno(a: Aluno): void {
-    var cpf = a.cpf;
-    var result = this.turma.deleteAluno(cpf);
-    if (result){
-      this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
-        (as) => { 
-          if (as == null){
-            alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
-          } else {
-            this.alunos = as;
-            this.aluno = new Aluno();
-          }
-        },
-        (msg) => { alert(msg.message); }
-     );
-      
+    if (confirm("Deseja mesmo excluir " + a.nome + "?")) {
+      var cpf = a.cpf;
+      var result = this.turma.deleteAluno(cpf);
+      if (result){
+        this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
+          (as) => { 
+            if (as == null){
+              alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
+            } else {
+              this.alunos = as;
+              this.aluno = new Aluno();
+            }
+          },
+          (msg) => { alert(msg.message); }
+       ); 
+      }
     }
   }
 
