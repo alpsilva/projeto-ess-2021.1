@@ -40,6 +40,18 @@ taserver.get('/turma/:id', function (req: express.Request, res: express.Response
   res.send(JSON.stringify(cadastro.getOnlyTurma(idNum)));
 })
 
+taserver.get('/turma/:id/alunos', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum = parseInt(id);
+  res.send(JSON.stringify(cadastro.getOnlyTurma(idNum).getAlunos()));
+})
+
+taserver.get('/turma/:id/metas', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum = parseInt(id);
+  res.send(JSON.stringify(cadastro.getOnlyTurma(idNum).getMetas()));
+})
+
 taserver.post('/turma', function (req: express.Request, res: express.Response) {
   var turma: Turma = <Turma> req.body; //verificar se é mesmo Turma!
   var aux: Turma = new Turma();
