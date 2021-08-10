@@ -78,7 +78,7 @@ export class TurmasComponent implements OnInit {
     this.turmaService.getTurmas()
         .subscribe(
           tl => {this.turmas = tl;},
-          msg => { alert(msg.message);}
+          msg => { console.error(msg.message);}
         );
   }
 
