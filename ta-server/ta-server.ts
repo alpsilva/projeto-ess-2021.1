@@ -59,6 +59,9 @@ taserver.put('/turma', function (req: express.Request, res: express.Response) {
   turma.nome = aux.nome;
   turma.descricao = aux.descricao;
   turma.id = aux.id;
+  for (let meta of aux.metasLista) {
+    turma.insertMeta(meta);
+  }
   for (let a of aux.alunoLista.alunos){
     var aluno: Aluno = new Aluno();
     aluno.nome = a.nome;
