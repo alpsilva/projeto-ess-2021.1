@@ -80,6 +80,16 @@ export class TurmaService {
 
   getAcessId(): number {
     var result: number;
+    var urlAtual: string = window.location.href;
+    urlAtual = urlAtual.substring(urlAtual.indexOf("/teacher"));
+    if (urlAtual.includes("/teacher/turmas/classe/")) {
+      console.log("UEPA");
+      console.log(urlAtual.substring(urlAtual.indexOf("classe/") + 7));
+      if (this.accessId != parseInt(urlAtual.substring(urlAtual.indexOf("classe/") + 7))) {
+        console.log(parseInt(urlAtual.substring(urlAtual.indexOf("classe/") + 7)));
+        this.accessId = parseInt(urlAtual.substring(urlAtual.indexOf("classe/") + 7));
+      }
+    }
     result = this.accessId;
     console.log("AccessId: ", result);
     return result;
