@@ -178,4 +178,21 @@ export class TurmaService {
   getMetasOf(id: number, aluno: Aluno): Observable <[string,string][]> {
     return this.http.get<[string,string][]>(this.taURL + "/turma/" + id + "/metas/" + aluno.cpf);
   }
+
+  updateIdLivre(){
+    this.getIdLivre().subscribe(
+      il => {
+        var ilNum = parseInt(il);
+        this.idLivre = ilNum;
+      },
+      msg => {console.log(msg.message);}
+    );
+  }
+
+  getIdLivre(){
+    return this.http.get<string>(this.taURL + "/turma/idlivre", {headers: this.headers})
+    .pipe(
+      retry(2)
+    );
+  }
 }
