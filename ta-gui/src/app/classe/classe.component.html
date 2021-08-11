@@ -3,7 +3,7 @@
         <table *ngIf="listaTurmas.length > 0">
             <td><button routerLink="../../">Inserir nova Turma</button></td>
             <td *ngFor="let t of listaTurmas" name="turmaList">
-                <button (click)="setId(t.id)">{{t.nome}}</button>
+                <button (click)="setId(t.id)" [routerLink]="['../', t.id]">{{t.nome}}</button>
             </td>
         </table>
     </h4>
