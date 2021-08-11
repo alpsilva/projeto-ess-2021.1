@@ -26,12 +26,11 @@ export class AlunosComponent implements OnInit {
   criarAluno(a: Aluno): void {
     var result = this.turma.insertAluno(a);
     if (result){
-      this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
-        (as) => { 
-            if (as == null){
+      this.turmaService.insertAluno(this.turma.id, result).subscribe(
+        (ar) => { 
+            if (ar == null){
               alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
             } else {
-              this.alunos = as;
               this.aluno = new Aluno();
             }
           },
@@ -44,21 +43,18 @@ export class AlunosComponent implements OnInit {
 
   deletarAluno(a: Aluno): void {
     if (confirm("Deseja mesmo excluir " + a.nome + "?")) {
-      var cpf = a.cpf;
-      var result = this.turma.deleteAluno(cpf);
-      if (result){
-        this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
-          (as) => { 
-            if (as == null){
-              alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
-            } else {
-              this.alunos = as;
-              this.aluno = new Aluno();
-            }
-          },
-          (msg) => { alert(msg.message); }
-       ); 
-      }
+      this.turmaService.deleteAluno(this.turma.id, a).subscribe(
+        (ad) => { 
+          if (ad == null){
+            alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
+          } else {
+            var result = this.turma.deleteAluno(ad.cpf);
+            this.alunos = this.turma.getAlunos();
+            this.aluno = new Aluno();
+          }
+        },
+        (msg) => { alert(msg.message); }
+     );
     }
   }
 

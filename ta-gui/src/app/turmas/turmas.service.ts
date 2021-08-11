@@ -58,6 +58,27 @@ export class TurmaService {
     );
   }
 
+  insertAluno(id: number, newAluno: Aluno): Observable<Aluno> {
+    var metas: [string, string][] = [];
+    for (let m of newAluno.metas){
+      var chave: string = m[0];
+      var val: string = m[1];
+      metas.push([chave, val]);
+    }
+    var mergedObj = {newAluno, metas};
+    return this.http.put<any>(this.taURL + "/turma/" + id + "/aluno",JSON.stringify(mergedObj), {headers: this.headers}).pipe( 
+      retry(2),
+      map( res => {if (res.success) {return newAluno;} else {return null;}} )
+    );
+  }
+
+  deleteAluno(id: number, delAluno: Aluno): Observable<Aluno> {
+    return this.http.put<any>(this.taURL + "/turma/" + id + "/" + delAluno.cpf + "/aluno", {headers: this.headers}).pipe( 
+      retry(2),
+      map( res => {if (res.success) { return delAluno; } else {return null;}} )
+    );
+  }
+
   atualizarListaMetas(id: number, newMetas: Array<string>): Observable<Array<string>> {
     return this.http.put<any>(this.taURL + "/turma/" + id + "/metas",JSON.stringify(newMetas), {headers: this.headers}).pipe( 
       retry(2),

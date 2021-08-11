@@ -139,6 +139,46 @@ taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.R
   }
 })
 
+taserver.put('/turma/:id/aluno', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum: number = parseInt(id);
+  var a: Aluno = <Aluno> req.body.newAluno;
+  var ms: [string, string][] = <[string, string][]> req.body.metas;
+  console.log(req.body);
+  console.log(a);
+  console.log(ms);
+  var aluno: Aluno = new Aluno();
+  aluno.nome = a.nome;
+  aluno.cpf = a.cpf;
+  aluno.email = a.email;
+  aluno.github = a.github;
+  for (let m in ms){
+    var chave: string = m[0];
+    var valor: string = m[1];
+    aluno.metas.set(chave, valor);
+  }
+  
+  var result: Aluno = cadastro.inserirAluno(idNum, aluno);
+  if (result) {
+    res.send({"success": "O aluno novo pôde ser inserido com sucesso"});
+  } else {
+    res.send({"failure": "O aluno novo não pôde ser inserido"});
+  }
+})
+
+taserver.put('/turma/:id/:cpf/aluno', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum: number = parseInt(id);
+  var delCpf: string = req.params.cpf;
+  
+  var result: Aluno = cadastro.deletarAluno(idNum, delCpf);
+  if (result) {
+    res.send({"success": "O aluno pôde ser deletado com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pôde ser deletado"});
+  }
+})
+
 taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);

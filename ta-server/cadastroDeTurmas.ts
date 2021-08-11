@@ -38,6 +38,16 @@ export class CadastroDeTurmas{
         return result;
     }
 
+    inserirAluno(id: number, newAluno: Aluno): Aluno{
+        var index = this.findIndexById(id);
+        return this.turmas[index].insertAluno(newAluno);     
+    }
+
+    deletarAluno(id: number, delCpf: string): Aluno{
+        var index = this.findIndexById(id);
+        return this.turmas[index].deleteAluno(delCpf);     
+    }
+
     atualizarAlunos(id: number, newAlunos: Array<Aluno>): Turma {
         var index = this.findIndexById(id);
         this.turmas[index].cleanAlunos();
