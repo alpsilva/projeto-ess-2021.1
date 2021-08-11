@@ -134,6 +134,21 @@ taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Re
   }
 })
 
+taserver.put('/turma/:id/:cpf/metas', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum: number = parseInt(id);
+  var cpf: string = <string> req.params.cpf;
+  console.log(req.body);
+  var metas: Map<string, string> = <Map<string, string>> req.body;
+  console.log(metas);
+  var turma: Turma = cadastro.atualizarMetasUmAluno(idNum, cpf, metas);
+  if (turma) {
+    res.send({"success": "O aluno teve as notas atualizadas com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pôde ter as notas atualizadas"});
+  }
+})
+
 taserver.delete('/turma/:id', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);

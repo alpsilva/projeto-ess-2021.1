@@ -58,10 +58,18 @@ export class TurmaService {
     );
   }
 
-  atualizarMetas(id: number, newMetas: Array<string>): Observable<Array<string>> {
+  atualizarListaMetas(id: number, newMetas: Array<string>): Observable<Array<string>> {
     return this.http.put<any>(this.taURL + "/turma/" + id + "/metas",JSON.stringify(newMetas), {headers: this.headers}).pipe( 
       retry(2),
       map( res => {if (res.success) {return newMetas;} else {return null;}} )
+    );
+  }
+
+  atualizarMetasUmAluno(id: number, cpf: string, metas: Map<string, string>): Observable<Map<string, string>> {
+    console.log(metas);
+    return this.http.put<any>(this.taURL + "/turma/" + id + "/" + cpf + "/metas",JSON.stringify(metas), {headers: this.headers}).pipe( 
+      retry(2),
+      map( res => {if (res.success) {return metas;} else {return null;}} )
     );
   }
 

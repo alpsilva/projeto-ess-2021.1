@@ -52,6 +52,16 @@ export class CadastroDeTurmas{
         return this.turmas[index];
     }
 
+    atualizarMetasUmAluno(id: number, cpf: string, metas: Map<string, string>): Turma {
+        var index = this.findIndexById(id);
+        for (let i = 0; i < this.turmas[index].alunoLista.alunos.length; i++){
+            if (this.turmas[index].alunoLista.alunos[i].cpf == cpf){
+                this.turmas[index].alunoLista.alunos[i].metas = new Map<string, string>(metas);
+            }
+        }
+        return this.turmas[index];
+    }
+
     findIndexById(id: number): number {
         for (let i = 0; i < this.turmas.length; i++){
             if (this.turmas[i].id == id){

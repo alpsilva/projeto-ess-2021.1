@@ -21,16 +21,16 @@ export class Turma {
     }
   
     clone(): Turma {
-      console.log("clone()");
+      //console.log("clone()");
       var turma: Turma = new Turma();
       turma.copyFrom(this);
-      console.log("End of: clone()");
+      //console.log("End of: clone()");
 
       return turma;
     }
   
     copyFrom(from: Turma): void {
-      console.log("copyFrom(" + from.toString() + ")");
+      //console.log("copyFrom(" + from.toString() + ")");
       this.nome = from.nome;
       this.descricao = from.descricao;
       this.id = from.id;
@@ -38,7 +38,7 @@ export class Turma {
       for (let i = 0; i < from.metasLista.length; i++) {
         this.metasLista[i] = from.metasLista[i];
       }
-      console.log("End of: copyFrom(" + from.toString() + ")");
+      //console.log("End of: copyFrom(" + from.toString() + ")");
     }
 
     insertAluno(a: Aluno): Aluno{

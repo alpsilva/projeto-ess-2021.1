@@ -49,12 +49,12 @@ export class CadastroAlunos{
     }
 
     copyCadastroAlunosFrom(from: CadastroAlunos): void {
-      console.log("copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
+      //console.log("copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
         this.alunos = [];
         for (let i = 0; i < from.alunos.length; i++) {
           this.alunos[i] = from.alunos[i];
         }
-      console.log("End of: copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
+      //console.log("End of: copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
     }
 
 }

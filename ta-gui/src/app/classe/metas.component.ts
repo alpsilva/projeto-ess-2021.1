@@ -22,11 +22,9 @@ export class MetasComponent implements OnInit {
 
   atualizarAluno(aluno: Aluno): void{
     this.turma.updateAluno(aluno);
-    this.turmaService.atualizarAlunos(this.turma.id, this.turma.getAlunos()).subscribe(
+    this.turmaService.atualizarMetasUmAluno(this.turma.id, aluno.cpf, aluno.metas).subscribe(
       (as) => { if (as == null){
         alert("Unexpected fatal error trying to update student information! Please contact the systems administrators.");
-      } else {
-        this.alunos = as;
       }
     },
       (msg) => { alert(msg.message); }
@@ -65,7 +63,7 @@ export class MetasComponent implements OnInit {
   adicionarMeta(meta: string): void {
     var result = this.turma.insertMeta(meta);
     if (result){
-      this.turmaService.atualizarMetas(this.turma.id, this.turma.metasLista).subscribe(
+      this.turmaService.atualizarListaMetas(this.turma.id, this.turma.metasLista).subscribe(
         (ms) => { if (ms == null){
           alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           //removes newly added goal
