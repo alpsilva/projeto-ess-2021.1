@@ -22,25 +22,47 @@ export class ClasseComponent implements OnInit {
 
   onMove(): void {
     //pode vir a ter algo
+    
   }
 
   ngOnInit(): void {
-    this.turmaService.getTurmas()
-        .subscribe(
-          tl => {this.listaTurmas = tl;},
-          msg => { alert(msg.message);}
-        );
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
-        this.turma = t;
+        var nt: Turma = new Turma();
+        nt.nome = t.nome;
+        nt.descricao = t.descricao;
+        nt.id = t.id;
+        for (let a of t.alunoLista.alunos){
+          var aluno: Aluno = new Aluno();
+          aluno.nome = a.nome;
+          aluno.cpf = a.cpf;
+          aluno.email = a.email;
+          aluno.github = a.github;
+          for(var value in a.metas){
+            aluno.metas.set(value, a.metas.get(value));
+          }
+          nt.insertAluno(aluno);
+        }
+        for (let m of t.metasLista){
+          nt.insertMeta(m);
+        }
+        this.turma = nt;
       },
       msg => { alert(msg.message);}
-    ); 
-    console.log("classe component => ngOnInit()");
-    console.log("classe component => ngOnInit() : this.title = " + this.title);
-    console.log("classe component => ngOnInit() : this.turmaId = " + this.turmaId);
-    console.log("classe component => ngOnInit() : this.turma = " + this.turma.toString());
+    );
+    this.turmaService.getTurmas().subscribe(
+      list => {
+        var nl: Turma[] = [];
+        console.log(list);
+        for (let t of list) {
+          nl.push(t);
+        }
+        this.listaTurmas = nl;
+        console.log(this.listaTurmas);
+      },
+      msg => { alert(msg.message); }
+    );
   }
 
   setId(id: number): void {

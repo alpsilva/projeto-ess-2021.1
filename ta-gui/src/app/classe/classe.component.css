@@ -12,3 +12,19 @@ nav a:hover {
   color: black;
   background-color: #cfd8dc;
 }
+
+button {
+  font-family: Arial;
+  background-color: black;
+  color: #cfd8dc;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+  color: black;
+}

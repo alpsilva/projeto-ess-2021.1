@@ -21,16 +21,16 @@ export class Turma {
     }
   
     clone(): Turma {
-      console.log("clone()");
+      //console.log("clone()");
       var turma: Turma = new Turma();
       turma.copyFrom(this);
-      console.log("End of: clone()");
+      //console.log("End of: clone()");
 
       return turma;
     }
   
     copyFrom(from: Turma): void {
-      console.log("copyFrom(" + from.toString() + ")");
+      //console.log("copyFrom(" + from.toString() + ")");
       this.nome = from.nome;
       this.descricao = from.descricao;
       this.id = from.id;
@@ -38,7 +38,7 @@ export class Turma {
       for (let i = 0; i < from.metasLista.length; i++) {
         this.metasLista[i] = from.metasLista[i];
       }
-      console.log("End of: copyFrom(" + from.toString() + ")");
+      //console.log("End of: copyFrom(" + from.toString() + ")");
     }
 
     insertAluno(a: Aluno): Aluno{
@@ -55,6 +55,26 @@ export class Turma {
 
     deleteAluno(cpf: string): Aluno{
       return this.alunoLista.deletar(cpf);
+    }
+
+    cleanAlunos(): void {
+      this.alunoLista = new CadastroAlunos();
+    }
+
+    insertManyAlunos(as: Array<Aluno>): void{
+      for (let a of as){
+        this.alunoLista.criar(a);
+      }
+    }
+
+    cleanMetas(): void {
+      this.metasLista = new Array<string>();
+    }
+
+    insertManyMetas(ms: Array<string>): void{
+      for (let m of ms){
+        this.metasLista.push(m);
+      }
     }
 
     toString(): string {

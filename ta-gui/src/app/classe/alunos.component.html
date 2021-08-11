@@ -1,5 +1,9 @@
 <html (mousemove)="onMove()">
-
+   <table>
+      <td><button routerLink="../">Lista de Turmas</button></td>
+      <td><button routerLink="../alunos">Alunos</button></td>
+      <td><button routerLink="../metas">Metas</button></td>
+   </table>
   <table>
  <tr>
     <td><label>Nome </label></td>
@@ -25,7 +29,6 @@
 </tr>
 <tr>
    <td><button (click)="criarAluno(aluno)">Adicionar</button></td>
-   <td><button (click)="deletarAluno(aluno)">Deletar</button></td>
 </tr>
  </table>
 
@@ -33,14 +36,16 @@
  <tr *ngIf="alunos.length > 0">
     <th>Nome</th>
     <th>CPF</th>
-    <th>e-mail</th>
-    <th>github</th>
+    <th>E-mail</th>
+    <th>Github</th>
+    <th>Deletar Aluno</th>
  </tr>
  <tr *ngFor="let a of alunos" name="alunolist">
     <td name="nomelist">{{a.nome}}</td>
     <td name="cpflist">{{a.cpf}}</td>
     <td>{{a.email}}</td>
     <td>{{a.github}}</td>
+    <td><button class="deleteButton" (click)="deletarAluno(a)">Deletar {{a.nome}}</button></td>
  </tr>
  </table>
 

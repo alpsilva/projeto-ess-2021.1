@@ -37,19 +37,19 @@ import { MetasComponent } from './classe/metas.component';
     ]),
     RouterModule.forChild([
       {
-        path: 'turmas',
+        path: 'teacher/turmas',
         component: TurmasComponent
       },
       {
-        path: 'classe',
+        path: 'teacher/turmas/classe/:id',
         component: ClasseComponent
       },
       {
-        path: 'metas',
+        path: 'teacher/turmas/classe/:id/metas',
         component: MetasComponent
       },
       {
-        path: 'alunos',
+        path: 'teacher/turmas/classe/:id/alunos',
         component: AlunosComponent
       }
     ])

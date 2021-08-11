@@ -21,32 +21,84 @@ export class MetasComponent implements OnInit {
   alunos: Aluno[];
 
   atualizarAluno(aluno: Aluno): void{
+    console.log(aluno);
     this.turma.updateAluno(aluno);
-    this.turmaService.atualizar(this.turma).subscribe(
-      (t) => { if (t == null) alert("Unexpected fatal error trying to update student information! Please contact the systems administrators."); },
+    this.turmaService.atualizarMetasUmAluno(this.turma.id, aluno.cpf, aluno.metas).subscribe(
+      (as) => { if (as == null){
+        alert("Unexpected fatal error trying to update student information! Please contact the systems administrators.");
+      }
+    },
       (msg) => { alert(msg.message); }
-   );;
+    );
   }
 
+
   ngOnInit(): void {
+    this.beginInit();
+    this.atualizarMetas();
+  }
+
+  beginInit(): void {
+    console.log("Start beginInit()");
     this.turmaId = this.turmaService.getAcessId();
+    this.turmaService.updateTurmas();
+    console.log(this.turmaService.turmas);
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
-        this.turma.copyFrom(t);
-        this.alunos = this.turma.getAlunos();
+        var nt: Turma = new Turma();
+        nt.nome = t.nome;
+        nt.descricao = t.descricao;
+        nt.id = t.id;
+        for (let a of t.alunoLista.alunos){
+          var aluno: Aluno = new Aluno();
+          aluno.nome = a.nome;
+          aluno.cpf = a.cpf;
+          aluno.email = a.email;
+          aluno.github = a.github;
+          for(var value in a.metas){
+            aluno.metas.set(value, a.metas.get(value));
+          }
+          nt.insertAluno(aluno);
+        }
+        for (let m of t.metasLista){
+          nt.insertMeta(m);
+        }
+        console.log(nt);
+        this.turma = nt;
+        this.alunos = this.turma.alunoLista.alunos;
+        console.log(this.alunos);
+        for (let a of this.alunos) {
+          this.turmaService.getMetasOf(this.turma.id, a).subscribe(
+            metas => {
+              console.log(metas);
+              for (let m of metas) {
+                a.metas.set(m[0], m[1]);
+              }
+            },
+            msg => {console.log(msg.message);}
+          );
+        }
       },
       msg => { alert(msg.message);}
-    ); 
+    );
+    console.log("End beginInit()");
+  }
+
+  onMove(): void {
+    this.atualizarMetas();
+    console.log("Try");
   }
 
   adicionarMeta(meta: string): void {
     var result = this.turma.insertMeta(meta);
     if (result){
-      this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { if (t == null){
+      this.turmaService.atualizarListaMetas(this.turma.id, this.turma.metasLista).subscribe(
+        (ms) => { if (ms == null){
           alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           //removes newly added goal
           this.turma.removeLastMeta();
+        } else {
+          this.turma.metasLista = ms;
         }
       },
       (msg) => { alert(msg.message); }
@@ -55,5 +107,22 @@ export class MetasComponent implements OnInit {
       alert("Meta já existente!");
       this.novaMeta = "";
     }
+  }
+
+  atualizarMetas(): void {
+    console.log("Start atualizarMetas()");
+    console.log(this.alunos);
+    for (let a of this.alunos) {
+      this.turmaService.getMetasOf(this.turma.id, a).subscribe(
+        metas => {
+          console.log(metas);
+          for (let m of metas) {
+            a.metas.set(m[0], m[1]);
+          }
+        },
+        msg => {console.log(msg.message);}
+      );
+    }
+    console.log("End atualizarMetas()");
   }
 }

@@ -26,12 +26,11 @@ export class AlunosComponent implements OnInit {
   criarAluno(a: Aluno): void {
     var result = this.turma.insertAluno(a);
     if (result){
-      this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { 
-            if (t == null){
+      this.turmaService.insertAluno(this.turma.id, result).subscribe(
+        (ar) => { 
+            if (ar == null){
               alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
             } else {
-              this.alunos.push(result);
               this.aluno = new Aluno();
             }
           },
@@ -43,26 +42,19 @@ export class AlunosComponent implements OnInit {
   }
 
   deletarAluno(a: Aluno): void {
-    var cpf = a.cpf;
-    var result = this.turma.deleteAluno(cpf);
-    if (result){
-      this.turmaService.atualizar(this.turma).subscribe(
-        (t) => { 
-          if (t == null){
+    if (confirm("Deseja mesmo excluir " + a.nome + "?")) {
+      this.turmaService.deleteAluno(this.turma.id, a).subscribe(
+        (ad) => { 
+          if (ad == null){
             alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           } else {
-            // procura a posição do objeto deletado no array local e dá splice
-            for (let i = 0; i < this.alunos.length; i++){
-              if (this.alunos[i].cpf == result.cpf){
-                this.alunos.splice(i, 1);
-              }
-            }
+            var result = this.turma.deleteAluno(ad.cpf);
+            this.alunos = this.turma.getAlunos();
             this.aluno = new Aluno();
           }
         },
         (msg) => { alert(msg.message); }
      );
-      
     }
   }
 
@@ -74,11 +66,29 @@ export class AlunosComponent implements OnInit {
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
-        this.turma.copyFrom(t);
-        this.alunos = this.turma.getAlunos();
+        var nt: Turma = new Turma();
+        nt.nome = t.nome;
+        nt.descricao = t.descricao;
+        nt.id = t.id;
+        for (let a of t.alunoLista.alunos){
+          var aluno: Aluno = new Aluno();
+          aluno.nome = a.nome;
+          aluno.cpf = a.cpf;
+          aluno.email = a.email;
+          aluno.github = a.github;
+          for(var value in a.metas){
+            aluno.metas.set(value, a.metas.get(value));
+          }
+          nt.insertAluno(aluno);
+        }
+        for (let m of t.metasLista){
+          nt.insertMeta(m);
+        }
+        this.turma = nt;
+        this.alunos = this.turma.alunoLista.alunos;
       },
       msg => { alert(msg.message);}
-    ); 
+    );
   }
 
 }

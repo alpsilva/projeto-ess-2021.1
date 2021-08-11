@@ -1,4 +1,5 @@
 import { Turma } from '../commons/turma';
+import { Aluno } from '../commons/aluno';
 
 export class CadastroDeTurmas{
     turmas: Turma[] = [];
@@ -35,6 +36,55 @@ export class CadastroDeTurmas{
             }
         }
         return result;
+    }
+
+    inserirAluno(id: number, newAluno: Aluno): Aluno{
+        var index = this.findIndexById(id);
+        return this.turmas[index].insertAluno(newAluno);     
+    }
+
+    deletarAluno(id: number, delCpf: string): Aluno{
+        var index = this.findIndexById(id);
+        return this.turmas[index].deleteAluno(delCpf);     
+    }
+
+    atualizarAlunos(id: number, newAlunos: Array<Aluno>): Turma {
+        var index = this.findIndexById(id);
+        this.turmas[index].cleanAlunos();
+        this.turmas[index].insertManyAlunos(newAlunos);
+        return this.turmas[index];
+    }
+
+    atualizarAluno(id: number, aluno: Aluno): Turma {
+        var index = this.findIndexById(id);
+        this.turmas[index].updateAluno(aluno);
+        return this.turmas[index];
+    }
+
+    atualizarMetas(id: number, metas: Array<string>): Turma {
+        var index = this.findIndexById(id);
+        this.turmas[index].cleanMetas();
+        this.turmas[index].insertManyMetas(metas);
+        return this.turmas[index];
+    }
+
+    atualizarMetasUmAluno(id: number, cpf: string, metas: Map<string, string>): Turma {
+        var index = this.findIndexById(id);
+        for (let i = 0; i < this.turmas[index].alunoLista.alunos.length; i++){
+            if (this.turmas[index].alunoLista.alunos[i].cpf == cpf){
+                this.turmas[index].alunoLista.alunos[i].metas = new Map<string, string>(metas);
+            }
+        }
+        return this.turmas[index];
+    }
+
+    findIndexById(id: number): number {
+        for (let i = 0; i < this.turmas.length; i++){
+            if (this.turmas[i].id == id){
+                return i;
+            }
+        }
+        return -1;
     }
 
     deletar(id: number): Turma {

@@ -1,12 +1,9 @@
 <html>
-
     <h4>
         <table *ngIf="listaTurmas.length > 0">
+            <td><button routerLink="../../">Inserir nova Turma</button></td>
             <td *ngFor="let t of listaTurmas" name="turmaList">
-                <button (click)="setId(t.id)">{{t.nome}}</button>
-                <!--
-                    <a name="goToTurma" routerLink = "/classe" (click)="goToTurma(t.id)">Acessar</a>
-                -->
+                <button (click)="setId(t.id)" [routerLink]="['../', t.id]">{{t.nome}}</button>
             </td>
         </table>
     </h4>
@@ -14,9 +11,15 @@
     <h4>ID: {{turma.id}}</h4>
     <h5>{{turma.descricao}}</h5>
 
+    <!--This is not functioning yet-->
     <nav>
-        <a name="alunos" routerLink="/alunos">Alunos</a> 
-        <a routerLink="/metas">Metas</a>
+        <a name="performance" routerLink="performance">Ver Performance da turma {{turma.nome}}</a>
+    </nav>
+    <!--Watch out!-->
+
+    <nav>
+        <a name="alunos" routerLink="alunos">Alunos</a> 
+        <a routerLink="metas">Metas</a>
     </nav>
 
     <router-outlet></router-outlet>
