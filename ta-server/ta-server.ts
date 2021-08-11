@@ -54,6 +54,21 @@ taserver.get('/turma/:id/metas', function (req: express.Request, res: express.Re
   res.send(JSON.stringify(cadastro.getOnlyTurma(idNum).getMetas()));
 })
 
+taserver.get('/turma/:id/metas/:cpf', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum = parseInt(id);
+  var cpf: string = <string> req.params.cpf;
+  var metas: [string,string][] = [];
+  var turma: Turma = cadastro.getOnlyTurma(idNum);
+  var aluno: Aluno = turma.alunoLista.getAluno(cpf);
+  console.log("Get req:");
+  for (let m of aluno.metas) {
+    metas.push(m);
+  }
+  console.log(metas);
+  res.send(JSON.stringify(metas));
+})
+
 taserver.post('/turma', function (req: express.Request, res: express.Response) {
   var turma: Turma = <Turma> req.body; //verificar se é mesmo Turma!
   var aux: Turma = new Turma();

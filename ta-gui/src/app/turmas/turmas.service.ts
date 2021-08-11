@@ -86,8 +86,6 @@ export class TurmaService {
       }
     }
     console.log(JSON.stringify(request));
-    //FORÇANDO UM STRINGFY MAS AINDA FALTA VERIFICAR A FORMATAÇÃO DA STRING
-    //O ELEMENTO É O TAL DO REQUEST
 
     return this.http.put<any>(this.taURL + "/turma/" + id + "/metas/" + cpf,JSON.stringify(request), {headers: this.headers}).pipe( 
       retry(2),
@@ -154,5 +152,9 @@ export class TurmaService {
     result = this.accessId;
     console.log("AccessId: ", result);
     return result;
+  }
+
+  getMetasOf(id: number, aluno: Aluno): Observable <[string,string][]> {
+    return this.http.get<[string,string][]>(this.taURL + "/turma/" + id + "/metas/" + aluno.cpf);
   }
 }

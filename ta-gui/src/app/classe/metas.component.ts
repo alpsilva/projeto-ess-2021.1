@@ -29,10 +29,17 @@ export class MetasComponent implements OnInit {
       }
     },
       (msg) => { alert(msg.message); }
-   );
+    );
   }
 
+
   ngOnInit(): void {
+    this.beginInit();
+    this.atualizarMetas();
+  }
+
+  beginInit(): void {
+    console.log("Start beginInit()");
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.updateTurmas();
     console.log(this.turmaService.turmas);
@@ -56,11 +63,30 @@ export class MetasComponent implements OnInit {
         for (let m of t.metasLista){
           nt.insertMeta(m);
         }
+        console.log(nt);
         this.turma = nt;
         this.alunos = this.turma.alunoLista.alunos;
+        console.log(this.alunos);
+        for (let a of this.alunos) {
+          this.turmaService.getMetasOf(this.turma.id, a).subscribe(
+            metas => {
+              console.log(metas);
+              for (let m of metas) {
+                a.metas.set(m[0], m[1]);
+              }
+            },
+            msg => {console.log(msg.message);}
+          );
+        }
       },
       msg => { alert(msg.message);}
     );
+    console.log("End beginInit()");
+  }
+
+  onMove(): void {
+    this.atualizarMetas();
+    console.log("Try");
   }
 
   adicionarMeta(meta: string): void {
@@ -81,5 +107,22 @@ export class MetasComponent implements OnInit {
       alert("Meta já existente!");
       this.novaMeta = "";
     }
+  }
+
+  atualizarMetas(): void {
+    console.log("Start atualizarMetas()");
+    console.log(this.alunos);
+    for (let a of this.alunos) {
+      this.turmaService.getMetasOf(this.turma.id, a).subscribe(
+        metas => {
+          console.log(metas);
+          for (let m of metas) {
+            a.metas.set(m[0], m[1]);
+          }
+        },
+        msg => {console.log(msg.message);}
+      );
+    }
+    console.log("End atualizarMetas()");
   }
 }
