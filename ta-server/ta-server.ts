@@ -30,11 +30,6 @@ taserver.get('/turma/idlivre', function (req: express.Request, res: express.Resp
   res.send(JSON.stringify(cadastro.getIdLivre()));
 })
 
-taserver.get('/', function (req: express.Request, res: express.Response) {
-  console.log("Get req:");
-  res.send(JSON.stringify(cadastro.getTurmas()));
-})
-
 taserver.get('/turmas', function (req: express.Request, res: express.Response) {
   console.log("Get req:");
   res.send(JSON.stringify(cadastro.getTurmas()));
