@@ -154,14 +154,19 @@ taserver.put('/turma/:id/:cpf/metas', function (req: express.Request, res: expre
 
 taserver.put('/turma/:id/metas/:cpf', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
+  console.log(id);
   var idNum: number = parseInt(id);
-  var aluno: Aluno = <Aluno> req.body;
+  var cpf: string = <string> req.params.cpf;
+  console.log(cpf);
+  var metas: [string, string][] = <[string, string][]> req.body;
   console.log("Put req:");
+  var turma: Turma = cadastro.getTurmas()[cadastro.findIndexById(idNum)];
+  var aluno: Aluno = turma.alunoLista.getAluno(cpf);
   console.log(aluno);
-  var metas: Map<string,string> = aluno.metas;
   console.log(metas);
   for (let i of metas) {
     console.log(i[0] + " => " + i[1]);
+    aluno.metas.set(i[0], i[1]);
   }
   var turma: Turma = cadastro.atualizarAluno(idNum, aluno);
   if (turma) {

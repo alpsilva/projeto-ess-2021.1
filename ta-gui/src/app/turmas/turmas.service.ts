@@ -67,39 +67,25 @@ export class TurmaService {
 
   atualizarMetasUmAluno(id: number, cpf: string, metas: Map<string, string>): Observable<Map<string, string>> {
     console.log(metas);
-    var a: Aluno = new Aluno();
     var lista: Turma[] = this.turmas;
     console.log(lista);
     console.log(metas);
-    var request: string = "";
+    var request: [string, string][] = [];
     for (let i of lista) {
       console.log(i);
       if (i.id == id) {
         for (let ga of i.alunoLista.alunos) {
           if (ga.cpf == cpf) {
-            a.nome = ga.nome;
-            a.cpf = ga.cpf;
-            a.email = ga.email;
-            a.github = ga.github;
-            request = JSON.stringify(a).substring(0,JSON.stringify(a).indexOf("}") - 1);
-            request += '"{';
             for (let m of metas) {
-              console.log(m);
               var chave: string = m[0];
               var val: string = m[1];
-              console.log(a.metas);
-              request += '"';
-              request += chave;
-              request += '":"';
-              request += val;
-              request += '"';
+              request.push([chave, val]);
             }
-            request += '}"';
-            console.log(request);
           }
         }
       }
     }
+    console.log(JSON.stringify(request));
     //FORÇANDO UM STRINGFY MAS AINDA FALTA VERIFICAR A FORMATAÇÃO DA STRING
     //O ELEMENTO É O TAL DO REQUEST
 
