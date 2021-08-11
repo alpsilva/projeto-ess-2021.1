@@ -12,7 +12,7 @@ defineSupportCode(function ({ GIVEN, WHEN, THEN }) {
         await $("a[name='classesBtn']").click();
     })
     WHEN(/I try to create a new class^$/, async() => {
-
+        
     })
     WHEN(/^I fill the class name with “ESS 2021.1 - Turma 1$/, async() => {
 
