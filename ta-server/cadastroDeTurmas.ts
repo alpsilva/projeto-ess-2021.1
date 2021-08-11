@@ -45,6 +45,12 @@ export class CadastroDeTurmas{
         return this.turmas[index];
     }
 
+    atualizarAluno(id: number, aluno: Aluno): Turma {
+        var index = this.findIndexById(id);
+        this.turmas[index].updateAluno(aluno);
+        return this.turmas[index];
+    }
+
     atualizarMetas(id: number, metas: Array<string>): Turma {
         var index = this.findIndexById(id);
         this.turmas[index].cleanMetas();

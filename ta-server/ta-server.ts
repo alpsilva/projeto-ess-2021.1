@@ -27,10 +27,12 @@ taserver.use(allowCrossDomain);
 taserver.use(bodyParser.json());
 
 taserver.get('/', function (req: express.Request, res: express.Response) {
+  console.log("Get req:");
   res.send(JSON.stringify(cadastro.getTurmas()));
 })
 
 taserver.get('/turmas', function (req: express.Request, res: express.Response) {
+  console.log("Get req:");
   res.send(JSON.stringify(cadastro.getTurmas()));
 })
 
@@ -101,8 +103,8 @@ taserver.put('/turma', function (req: express.Request, res: express.Response) {
 taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
-  var as: Array<Aluno> = <Array<Aluno>> req.body;
-  var alunos: Array<Aluno> = new Array<Aluno>();
+  var as: Aluno[] = <Aluno[]> req.body;
+  var alunos: Aluno[] = [];
   for (let a of as){
     var aluno: Aluno = new Aluno();
     aluno.nome = a.nome;
@@ -125,7 +127,7 @@ taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.R
 taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
-  var metas: Array<string> = <Array<string>> req.body;
+  var metas: string [] = <string []> req.body;
   var turma: Turma = cadastro.atualizarMetas(idNum, metas);
   if (turma) {
     res.send({"success": "A turma teve o cadastro de metas atualizado com sucesso"});
@@ -136,12 +138,32 @@ taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Re
 
 taserver.put('/turma/:id/:cpf/metas', function (req: express.Request, res: express.Response) {
   var id: string = <string> req.params.id;
+  console.log("Server Put -> Id:" + id);
   var idNum: number = parseInt(id);
   var cpf: string = <string> req.params.cpf;
-  console.log(req.body);
+  console.log("Server Put -> CPF:" + cpf);
   var metas: Map<string, string> = <Map<string, string>> req.body;
   console.log(metas);
   var turma: Turma = cadastro.atualizarMetasUmAluno(idNum, cpf, metas);
+  if (turma) {
+    res.send({"success": "O aluno teve as notas atualizadas com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pôde ter as notas atualizadas"});
+  }
+})
+
+taserver.put('/turma/:id/metas/:cpf', function (req: express.Request, res: express.Response) {
+  var id: string = <string> req.params.id;
+  var idNum: number = parseInt(id);
+  var aluno: Aluno = <Aluno> req.body;
+  console.log("Put req:");
+  console.log(aluno);
+  var metas: Map<string,string> = aluno.metas;
+  console.log(metas);
+  for (let i of metas) {
+    console.log(i[0] + " => " + i[1]);
+  }
+  var turma: Turma = cadastro.atualizarAluno(idNum, aluno);
   if (turma) {
     res.send({"success": "O aluno teve as notas atualizadas com sucesso"});
   } else {

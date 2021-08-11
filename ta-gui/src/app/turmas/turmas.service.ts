@@ -67,7 +67,43 @@ export class TurmaService {
 
   atualizarMetasUmAluno(id: number, cpf: string, metas: Map<string, string>): Observable<Map<string, string>> {
     console.log(metas);
-    return this.http.put<any>(this.taURL + "/turma/" + id + "/" + cpf + "/metas",JSON.stringify(metas), {headers: this.headers}).pipe( 
+    var a: Aluno = new Aluno();
+    var lista: Turma[] = this.turmas;
+    console.log(lista);
+    console.log(metas);
+    var request: string = "";
+    for (let i of lista) {
+      console.log(i);
+      if (i.id == id) {
+        for (let ga of i.alunoLista.alunos) {
+          if (ga.cpf == cpf) {
+            a.nome = ga.nome;
+            a.cpf = ga.cpf;
+            a.email = ga.email;
+            a.github = ga.github;
+            request = JSON.stringify(a).substring(0,JSON.stringify(a).indexOf("}") - 1);
+            request += '"{';
+            for (let m of metas) {
+              console.log(m);
+              var chave: string = m[0];
+              var val: string = m[1];
+              console.log(a.metas);
+              request += '"';
+              request += chave;
+              request += '":"';
+              request += val;
+              request += '"';
+            }
+            request += '}"';
+            console.log(request);
+          }
+        }
+      }
+    }
+    //FORÇANDO UM STRINGFY MAS AINDA FALTA VERIFICAR A FORMATAÇÃO DA STRING
+    //O ELEMENTO É O TAL DO REQUEST
+
+    return this.http.put<any>(this.taURL + "/turma/" + id + "/metas/" + cpf,JSON.stringify(request), {headers: this.headers}).pipe( 
       retry(2),
       map( res => {if (res.success) {return metas;} else {return null;}} )
     );
@@ -93,6 +129,22 @@ export class TurmaService {
               .pipe(
                 retry(2)
               );
+  }
+
+  updateTurmas(): void {
+    this.getTurmas().subscribe(
+      list => {
+        var nl: Turma[] = [];
+        for (let t of list) {
+          nl.push(t);
+          if (this.turmas.length == 0) {
+            this.turmas.push(t);
+          }
+        }
+        console.log(nl);
+      },
+      msg => {console.log(msg.message);}
+    );
   }
 
   updateAccessId(newAccessId: number): void {

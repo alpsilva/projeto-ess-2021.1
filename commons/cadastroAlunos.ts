@@ -48,6 +48,22 @@ export class CadastroAlunos{
       return result;
     }
 
+    getAluno(cpf: string): Aluno {
+      var result: Aluno = new Aluno();
+      var lista: Aluno[] = this.getAlunos();
+      console.log("Start of getAluno()");
+      console.log("Lista:");
+      console.log(lista);
+      for (let a of lista) {
+        console.log("Searching: " + cpf);
+        if (a.cpf == cpf) {
+          console.log("Found: " + cpf);
+          result = a;
+        }
+      }
+      return result;
+    }
+
     copyCadastroAlunosFrom(from: CadastroAlunos): void {
       //console.log("copyCadastroAlunosFrom([alunos: '" + from.alunos + "'])");
         this.alunos = [];

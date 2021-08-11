@@ -21,6 +21,7 @@ export class MetasComponent implements OnInit {
   alunos: Aluno[];
 
   atualizarAluno(aluno: Aluno): void{
+    console.log(aluno);
     this.turma.updateAluno(aluno);
     this.turmaService.atualizarMetasUmAluno(this.turma.id, aluno.cpf, aluno.metas).subscribe(
       (as) => { if (as == null){
@@ -33,6 +34,8 @@ export class MetasComponent implements OnInit {
 
   ngOnInit(): void {
     this.turmaId = this.turmaService.getAcessId();
+    this.turmaService.updateTurmas();
+    console.log(this.turmaService.turmas);
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
         var nt: Turma = new Turma();
