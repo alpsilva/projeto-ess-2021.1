@@ -10,7 +10,6 @@
         <tr>
             <td><label>Descrição </label></td>
             <td><input [(ngModel)]="turma.descricao" name="turmaDescriptionBox"></td>
-            <!--<td><button (click)="deletarTurma(turma)">Deletar</button></td>-->
         </tr>
         <tr>
             <td><button (click)="criarTurma(turma)">Adicionar</button></td>
@@ -18,31 +17,23 @@
     </table>
 
     <hr>
-    <h5>Deletar turmas:</h5>
-    <table>
-        <tr>
-            <td><label>ID </label></td>
-            <td><input [(ngModel)]="delId" name="deletTurmaIdBox"></td>
-            <td><button (click)="deletarTurma(delId)">Deletar</button></td>
-        </tr>
-    </table>
-
-    <table>
+    <table class="turmas">
         <tr *ngIf="turmas.length > 0">
             <th>ID</th>
             <th>Nome</th>
             <th>Descrição</th>
-            <th>Acessar</th>
+            <th>Acessar Turma</th>
+            <th>Deletar Turma</th>
         </tr>
         <tr *ngFor="let t of turmas" name="turmaList">
             <td name="turmaIdList">{{t.id}}</td>
             <td name="turmaNomeList">{{t.nome}}</td>
             <td name="turmaDescricaoList">{{t.descricao}}</td>
             <td>
-                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar</button>
-                <!--
-                    <a name="goToTurma" routerLink = "/classe" (click)="goToTurma(t.id)">Acessar</a>
-                -->
+                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar Turma {{t.id}}</button>
+            </td>
+            <td>
+                <button class="deleteButton" (click)="deletarTurma(t.id)">Deletar Turma: {{t.id}}</button>
             </td>
         </tr>
     </table>

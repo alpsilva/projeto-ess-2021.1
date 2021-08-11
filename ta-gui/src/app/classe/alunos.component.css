@@ -18,7 +18,8 @@
 
 button {
   font-family: Arial;
-  background-color: green;
+  background-color: black;
+  color: #cfd8dc;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -28,4 +29,10 @@ button {
 
 button:hover {
   background-color: #cfd8dc;
+  color: black;
+}
+
+.deleteButton:hover {
+  background-color: red;
+  color: black;
 }

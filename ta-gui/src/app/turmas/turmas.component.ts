@@ -55,19 +55,21 @@ export class TurmasComponent implements OnInit {
   }
 
   deletarTurma(id: number): void {
-    this.turmaService.deletar(id).subscribe(
-      resultId => {
-        if (resultId == id) {
-          // Procura o index do objeto td a ser deletado e usa o método splice para tirar ele do array.
-          for (let i = 0; i < this.turmas.length; i++){
-            if (this.turmas[i].id == id){
-              this.turmas.splice(i, 1);
-            }
-          }    
-        }
-      },
-      msg => { alert(msg.message); }
-    );
+    if (confirm("Você quem mesmo deletar a Turma " + id + "?")) {
+      this.turmaService.deletar(id).subscribe(
+        resultId => {
+          if (resultId == id) {
+            // Procura o index do objeto td a ser deletado e usa o método splice para tirar ele do array.
+            for (let i = 0; i < this.turmas.length; i++){
+              if (this.turmas[i].id == id){
+                this.turmas.splice(i, 1);
+              }
+            }    
+          }
+        },
+        msg => { alert(msg.message); }
+      );
+    }
   }
 
   onMove(): void {

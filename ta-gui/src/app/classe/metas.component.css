@@ -1,5 +1,5 @@
 th {
-  background-color: #3399ff;
+  background-color: black;
   color: #ffffff;
 }
 
@@ -20,4 +20,42 @@ tr:hover {
 .meta input {
   border: none;
   width: 40px;
+}
+
+.addMeta {
+  font-family: Arial;
+  background-color: #cfd8dc;
+  color: black;
+  border: solid;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.addMeta:hover {
+  background-color: black;
+  color: #cfd8dc;
+  border-color: #cfd8dc;
+}
+
+button {
+  font-family: Arial;
+  background-color: black;
+  color: #cfd8dc;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+  color: black;
+}
+
+.deleteButton:hover {
+  background-color: red;
+  color: black;
 }

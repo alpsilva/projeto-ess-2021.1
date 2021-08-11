@@ -1,4 +1,9 @@
 <table>
+   <td><button routerLink="../">Lista de Turmas</button></td>
+   <td><button routerLink="../alunos">Alunos</button></td>
+   <td><button routerLink="../metas">Metas</button></td>
+</table>
+<table>
  <tr>
     <th>Nome</th>
     <th>CPF</th>
@@ -10,7 +15,7 @@
        <input [(ngModel)]="novaMeta" name="novaMetaBox">
     </th>
     <th>
-      <button (click)="adicionarMeta(novaMeta)">Adicionar Meta</button>
+      <button class="addMeta" (click)="adicionarMeta(novaMeta)">Adicionar Meta</button>
    </th>
  </tr>
  <tr *ngFor="let a of alunos">
