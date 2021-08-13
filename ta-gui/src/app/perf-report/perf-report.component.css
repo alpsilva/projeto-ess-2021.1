@@ -36,3 +36,20 @@
     background-color: red;
     color: black;
   }
+
+  select {  
+    font-family: Arial;
+    background-color: black;
+    color: #cfd8dc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+    margin-left: 10px;
+  }
+  
+  select:hover {
+    background-color: #cfd8dc;
+    color: black;
+  }

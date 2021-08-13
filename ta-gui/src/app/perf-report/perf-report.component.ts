@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../commons/turma';
 import { Aluno } from '../../../../commons/aluno';
 import { TurmaService } from '../turmas/turmas.service';
-import { GoogleChartComponent } from 'angular-google-charts';
 import { ChartType } from 'angular-google-charts';
 
 declare var google: any;
@@ -16,13 +15,21 @@ export class PerfReportComponent implements OnInit {
   
   constructor(private turmaService: TurmaService) { }
   
+  selectedOption: string;
+  options: string[] = [
+    "Todos os alunos",
+    "Alunos Aprovados",
+    "Alunos na Final",
+    "Alunos Reprovados"
+  ]
+
   turmaId: number = 1;
   turma: Turma = new Turma();
   
   alunos: Aluno[] = [];
   metas: string[] = [];
   
-  meanTitle = "MeanChart: "; 
+  meanTitle = ""; 
   meanType = ChartType.PieChart;
   meanData: [string, number][] = [
     ["Aprovado", 0],
@@ -30,22 +37,78 @@ export class PerfReportComponent implements OnInit {
     ["Reprovado", 0]
   ];
   meanCollumns: string[] = ["Nota", "Quantidade de Alunos"];
-  meanOptions: {
-    colors: ['#0afb07','#fbec01','#fb0401'],
-    is3D: false
-  }
+  meanOptions: {};
 
   data: google.visualization.DataTable;
   chart: google.visualization.PieChart;
 
   onMove() {
-    this.updateChart();
+    if (this.alunos.length > 0) {
+      this.meanTitle = "Desempenho: ";
+      //this.updateChart();
+    } else {
+      this.meanTitle = "Not enough data on: ";
+    }
   }
-  
-  updateChart() {
+
+  setGraphOption(option: string) {
+    console.log("SetGraphOption choosen is " + option);
+    this.updateChart(option);    
+  }
+
+  updateButtonFunc() {
+    this.turmaId = this.turmaService.getAcessId();
+    this.turmaService.updateTurmas();
     this.meanData[0][1] = 0;
     this.meanData[1][1] = 0;
     this.meanData[2][1] = 0;
+    this.turmaService.getOnlyTurma(this.turmaId).subscribe(
+      t => {
+        var nt: Turma = new Turma();
+        nt.nome = t.nome;
+        nt.descricao = t.descricao;
+        nt.id = t.id;
+        for (let a of t.alunoLista.alunos){
+          var aluno: Aluno = new Aluno();
+          aluno.nome = a.nome;
+          aluno.cpf = a.cpf;
+          aluno.email = a.email;
+          aluno.github = a.github;
+          for(var value in a.metas){
+            aluno.metas.set(value, a.metas.get(value));
+          }
+          nt.insertAluno(aluno);
+        }
+        for (let m of t.metasLista){
+          nt.insertMeta(m);
+        }
+        this.turma = nt;
+        this.metas = this.turma.metasLista;
+        this.alunos = this.turma.alunoLista.alunos;
+        for (let a of this.alunos) {
+          this.turmaService.getMetasOf(this.turma.id, a).subscribe(
+            metas => {
+              for (let m of metas) {
+                a.metas.set(m[0], m[1]);
+              }
+              this.updateChart("Todos os alunos");
+            },
+            msg => {console.log(msg.message);}
+          );
+        }
+        this.updateChart("Todos os alunos");
+      },
+      msg => { alert(msg.message);}
+    );
+    this.updateChart("Todos os alunos");
+  }
+  
+  updateChart(viewOption: string) {
+    this.meanTitle = "Desempenho: ";
+    this.meanData[0][1] = 0;
+    this.meanData[1][1] = 0;
+    this.meanData[2][1] = 0;
+    
     for (let a of this.alunos) {
       var aInfo: string;
       var mean: number = 0;
@@ -72,15 +135,76 @@ export class PerfReportComponent implements OnInit {
       [this.meanData[2][0], this.meanData[2][1]]
     ]);
 
-    this.chart = new google.visualization.PieChart(document.getElementById('meanChart'));
-
-    this.chart.draw(this.data, {
-      title: this.meanTitle,
+    this.meanOptions = {
+      title: this.meanTitle + this.turma.nome,
       width: 400,
       height: 300,
       colors: ['#0afb07','#fbec01','#fb0401'],
       is3D: false
-    });
+    }
+
+    console.log("Case: " + viewOption);
+    switch (viewOption) {
+      case ("Todos os alunos"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false
+        };
+        break;
+      case ("Alunos Aprovados"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false,
+          slices: {
+            0: { color: '#0afb07'},
+            1: { color: 'transparent'},
+            2: { color: 'transparent'}
+          }
+        };
+        break;
+      case ("Alunos na Final"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false,
+          slices: {
+            0: { color: 'transparent'},
+            1: { color: '#fbec01'},
+            2: { color: 'transparent'}
+          }
+        };
+        break;
+      case ("Alunos Reprovados"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false,
+          slices: {
+            0: { color: 'transparent'},
+            1: { color: 'transparent'},
+            2: { color: '#fb0401'}
+          }
+        };
+        break;
+    }
+
+    this.chart = new google.visualization.PieChart(document.getElementById('meanChart'));
+
+    this.chart.draw(this.data, this.meanOptions);
   }
 
   ngOnInit(): void {
@@ -117,11 +241,13 @@ export class PerfReportComponent implements OnInit {
             metas => {
               for (let m of metas) {
                 a.metas.set(m[0], m[1]);
-              }              
+              }
+              this.updateChart("Todos os alunos");
             },
             msg => {console.log(msg.message);}
           );
         }
+        this.updateChart("Todos os alunos");
       },
       msg => { alert(msg.message);}
     );

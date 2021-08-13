@@ -5,10 +5,17 @@
         <td><button routerLink="../metas">Metas</button></td>
         <td><button routerLink="../performance">Performance da turma {{turma.nome}}</button></td>
      </table>
+     <h5>
+         <table>
+             <td>
+                 <button (click)="updateButtonFunc()">Atualizar Gráfico</button>
+                 <select [ngModel]="selectedOption" (ngModelChange)="setGraphOption($event)">
+                     <option [value]="opt" *ngFor="let opt of options">{{opt}}</option>
+                 </select>
+             </td>
+         </table>
+     </h5>
      <!--
-         <h5>
-             <button (click)="updateChart()">Atualizar Gráfico</button>
-         </h5>
      -->
      
     <div id="meanChart">
