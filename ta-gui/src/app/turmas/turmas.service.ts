@@ -88,23 +88,11 @@ export class TurmaService {
 
   atualizarMetasUmAluno(id: number, cpf: string, metas: Map<string, string>): Observable<Map<string, string>> {
     console.log(metas);
-    var lista: Turma[] = this.turmas;
-    console.log(lista);
-    console.log(metas);
     var request: [string, string][] = [];
-    for (let i of lista) {
-      console.log(i);
-      if (i.id == id) {
-        for (let ga of i.alunoLista.alunos) {
-          if (ga.cpf == cpf) {
-            for (let m of metas) {
-              var chave: string = m[0];
-              var val: string = m[1];
-              request.push([chave, val]);
-            }
-          }
-        }
-      }
+    for (let m of metas) {
+      var chave: string = m[0];
+      var val: string = m[1];
+      request.push([chave, val]);
     }
     console.log(JSON.stringify(request));
 
@@ -177,5 +165,22 @@ export class TurmaService {
 
   getMetasOf(id: number, aluno: Aluno): Observable <[string,string][]> {
     return this.http.get<[string,string][]>(this.taURL + "/turma/" + id + "/metas/" + aluno.cpf);
+  }
+
+  updateIdLivre(){
+    this.getIdLivre().subscribe(
+      il => {
+        var ilNum = parseInt(il);
+        this.idLivre = ilNum;
+      },
+      msg => {console.log(msg.message);}
+    );
+  }
+
+  getIdLivre(){
+    return this.http.get<string>(this.taURL + "/turma/idlivre", {headers: this.headers})
+    .pipe(
+      retry(2)
+    );
   }
 }

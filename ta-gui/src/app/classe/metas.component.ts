@@ -18,7 +18,7 @@ export class MetasComponent implements OnInit {
   turma: Turma = new Turma();
   novaMeta: string = "";
 
-  alunos: Aluno[];
+  alunos: Aluno[] = [];
 
   atualizarAluno(aluno: Aluno): void{
     console.log(aluno);

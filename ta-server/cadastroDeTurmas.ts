@@ -120,4 +120,8 @@ export class CadastroDeTurmas{
         return result;
     }
 
+    getIdLivre(): number {
+        return this.idLivre;
+    }
+
 }

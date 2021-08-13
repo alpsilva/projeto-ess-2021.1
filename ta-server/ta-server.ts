@@ -26,9 +26,8 @@ taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
-taserver.get('/', function (req: express.Request, res: express.Response) {
-  console.log("Get req:");
-  res.send(JSON.stringify(cadastro.getTurmas()));
+taserver.get('/turma/idlivre', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastro.getIdLivre()));
 })
 
 taserver.get('/turmas', function (req: express.Request, res: express.Response) {

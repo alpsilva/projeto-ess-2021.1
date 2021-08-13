@@ -77,6 +77,7 @@ export class TurmasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.turmaService.updateIdLivre();
     this.turmaService.getTurmas()
         .subscribe(
           tl => {this.turmas = tl;},
