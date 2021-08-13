@@ -18,12 +18,20 @@
      <!--
      -->
      
-    <div id="meanChart">
+    <section id="meanChart">
         <google-chart 
         [title]="meanTitle + turma.nome"
         [type]="meanType"
         [data]="meanData"
         [columns]="meanCollumns"
        ></google-chart>
-    </div>
+    </section>
+
+    <section id="listaAlunos">
+        <table>
+            <th>Lista com {{selectedOption}}</th>
+        </table>
+    </section>
+
+
 </div>
