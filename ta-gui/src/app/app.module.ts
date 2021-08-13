@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule }   from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { PerfReportComponent } from './perf-report/perf-report.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    GoogleChartsModule,
     RouterModule.forRoot([
       {
         path: 'teacher',

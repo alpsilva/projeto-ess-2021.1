@@ -8,21 +8,14 @@
         </table>
     </h4>
 
-    <!--This is not functioning yet-->
-    <h5>
-        <nav>
-            <a name="performance" routerLink="performance">Ver Performance da turma {{turma.nome}}</a>
-        </nav>        
-    </h5>
-    <!--Watch out!-->
-
     <h3>Turma: {{turma.nome}}</h3>
     <h4>ID: {{turma.id}}</h4>
     <h5>Descrição: {{turma.descricao}}</h5>
     
     <nav>
         <a name="alunos" routerLink="alunos">Alunos</a> 
-        <a routerLink="metas">Metas</a>
+        <a name="metas" routerLink="metas">Metas</a>
+        <a name="performance" routerLink="performance">Performance da turma {{turma.nome}}</a>
     </nav>
 
     <router-outlet></router-outlet>

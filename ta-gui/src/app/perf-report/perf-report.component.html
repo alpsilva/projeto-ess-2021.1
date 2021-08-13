@@ -1,1 +1,22 @@
-<p>perf-report works!</p>
+<div (mousemove)="onMove()">
+    <table>
+        <td><button routerLink="../">Lista de Turmas</button></td>
+        <td><button routerLink="../alunos">Alunos</button></td>
+        <td><button routerLink="../metas">Metas</button></td>
+        <td><button routerLink="../performance">Performance da turma {{turma.nome}}</button></td>
+     </table>
+     <!--
+         <h5>
+             <button (click)="updateChart()">Atualizar Gráfico</button>
+         </h5>
+     -->
+     
+    <div id="meanChart">
+        <google-chart 
+        [title]="meanTitle + turma.nome"
+        [type]="meanType"
+        [data]="meanData"
+        [columns]="meanCollumns"
+       ></google-chart>
+    </div>
+</div>
