@@ -30,10 +30,10 @@
             <td name="turmaNomeList">{{t.nome}}</td>
             <td name="turmaDescricaoList">{{t.descricao}}</td>
             <td>
-                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar Turma {{t.id}}</button>
+                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar Turma {{t.nome}}</button>
             </td>
             <td>
-                <button class="deleteButton" (click)="deletarTurma(t.id)">Deletar Turma: {{t.id}}</button>
+                <button class="deleteButton" (click)="deletarTurma(t.id)">Deletar Turma: {{t.nome}}</button>
             </td>
         </tr>
     </table>
