@@ -15,12 +15,15 @@ export class PerfReportComponent implements OnInit {
   
   constructor(private turmaService: TurmaService) { }
   
-  selectedOption: string;
+  selectedOption: string = "Todos os alunos";
   options: string[] = [
     "Todos os alunos",
     "Alunos Aprovados",
     "Alunos na Final",
-    "Alunos Reprovados"
+    "Alunos Reprovados",
+    "Alunos que não estão Aprovados",
+    "Alunos que não estão na Final",
+    "Alunos que não estão Reprovados"
   ]
 
   turmaId: number = 1;
@@ -53,7 +56,8 @@ export class PerfReportComponent implements OnInit {
 
   setGraphOption(option: string) {
     console.log("SetGraphOption choosen is " + option);
-    this.updateChart(option);    
+    this.updateChart(option);
+    this.selectedOption = option;
   }
 
   updateButtonFunc() {
@@ -197,6 +201,51 @@ export class PerfReportComponent implements OnInit {
             0: { color: 'transparent'},
             1: { color: 'transparent'},
             2: { color: '#fb0401'}
+          }
+        };
+        break;
+      case ("Alunos que não estão Aprovados"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false,
+          slices: {
+            0: { color: 'transparent'},
+            1: { color: '#fbec01'},
+            2: { color: '#fb0401'}
+          }
+        };
+        break;
+      case ("Alunos que não estão na Final"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false,
+          slices: {
+            0: { color: '#0afb07'},
+            1: { color: 'transparent'},
+            2: { color: '#fb0401'}
+          }
+        };
+        break;
+      case ("Alunos que não estão Reprovados"):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          title: this.meanTitle + this.turma.nome,
+          width: 400,
+          height: 300,
+          colors: ['#0afb07','#fbec01','#fb0401'],
+          is3D: false,
+          slices: {
+            0: { color: '#0afb07'},
+            1: { color: '#fbec01'},
+            2: { color: 'transparent'}
           }
         };
         break;
