@@ -14,6 +14,7 @@ import { TurmaService } from './turmas/turmas.service';
 import { ClasseComponent } from './classe/classe.component';
 import { AlunosComponent } from './classe/alunos.component';
 import { MetasComponent } from './classe/metas.component';
+import { PerfReportComponent } from './perf-report/perf-report.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MetasComponent } from './classe/metas.component';
     TurmasComponent,
     ClasseComponent,
     AlunosComponent,
-    MetasComponent
+    MetasComponent,
+    PerfReportComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,10 @@ import { MetasComponent } from './classe/metas.component';
       {
         path: 'teacher/turmas/classe/:id/alunos',
         component: AlunosComponent
+      },
+      {
+        path: 'teacher/turmas/classe/:id/performance',
+        component: PerfReportComponent
       }
     ])
   ],
