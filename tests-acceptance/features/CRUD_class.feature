@@ -34,30 +34,30 @@ Then I now see the class with the name “Top. Avançados ESS” in the list of 
 Then I now see the class with the name “Qualidade de Software” in the list of registered classes
 
 Scenario: Teacher tries to see more info about a class
-GIVEN I see, in the list of classes, a class with the name “ESS 2021.1 - Turma 1”
-WHEN I enter the class “ESS 2021.1 - Turma 1” detailed page
-THEN I see the description of the class
-THEN the list of students
-THEN their learning goals grades
-THEN options that let me insert new students
-THEN an option to delete the class
+Given I see, in the list of classes, a class with the name “ESS 2021.1 - Turma 1”
+When I enter the class “ESS 2021.1 - Turma 1” detailed page
+Then I see the description of the class
+Then the list of students
+Then their learning goals grades
+Then options that let me insert new students
+Then an option to delete the class
 ATENÇÃO: Ainda não recebemos feedback do professor acerca do que deveria ser armazenado em uma turma, então isso aqui provavelmente vai mudar.
 
 Scenario: Teacher tries to add new students to a registered class
-GIVEN I am at the “ESS 2021.1 - Turma 1” class detailed page
-GIVEN I see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
-WHEN I add a new student with the name "Helena Torres"
-THEN I can see "Carlos Magno", "Helena Torres", "João Paulo", "Maria Eugênia" in the students list
+Given I am at the “ESS 2021.1 - Turma 1” class detailed page
+Given I see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
+When I add a new student with the name "Helena Torres"
+Then I can see "Carlos Magno", "Helena Torres", "João Paulo", "Maria Eugênia" in the students list
 
 Scenario: Teacher tries to add new learning goals to a registered class
-GIVEN I am at the “ESS 2021.1 - Turma 1” class detailed page
-GIVEN there is no learning goal registered
-WHEN I register the following learning goals: "Requisitos", "Testes" and "Ger. de Configuração"
-THEN I can now see that the learning goals of this class are "Requisitos", "Testes" and "Ger. de Configuração"
-THEN it is now possible for me to give each student their goal grade
+Given I am at the “ESS 2021.1 - Turma 1” class detailed page
+Given there is no learning goal registered
+When I register the following learning goals: "Requisitos", "Testes" and "Ger. de Configuração"
+Then I can now see that the learning goals of this class are "Requisitos", "Testes" and "Ger. de Configuração"
+Then it is now possible for me to give each student their goal grade
 
 Scenario: Teacher tries to remove a student from a registered class
-GIVEN I am at the “ESS 2021.1 - Turma 1” class detailed page
-GIVEN I see "Carlos Magno", "Helena Torres", "João Paulo", "Maria Eugênia" in the students list
-WHEN I remove the student with the name "Helena Torres"
-THEN I can see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
+Given I am at the “ESS 2021.1 - Turma 1” class detailed page
+Given I see "Carlos Magno", "Helena Torres", "João Paulo", "Maria Eugênia" in the students list
+When I remove the student with the name "Helena Torres"
+Then I can see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
