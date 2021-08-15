@@ -43,14 +43,14 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.element(protractor_1.by.buttonText('Deletar Turma: ' + nomeTurma)).click();
     }));
     When(/^I say ok to the pop-up asking to confirm it$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
-        // lidar com a confirmação
+        // lidar com o confirm
     }));
     Then(/^I can no longer see a class named “([^\"]*)” in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         var allTurmas = protractor_1.element.all(protractor_1.by.name('turmaList'));
         yield allTurmas.filter(elem => sameTurmaName(elem, nomeTurma)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     }));
     Then(/^I see a message informing me that it was not registered because there is already a class with that name$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
-        //lidar com o alert
+        // lidar com o alert
     }));
     Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         //lidar com o alert
