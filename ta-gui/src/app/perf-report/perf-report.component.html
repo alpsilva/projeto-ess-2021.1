@@ -3,22 +3,25 @@
         <td><button routerLink="../">Lista de Turmas</button></td>
         <td><button routerLink="../alunos">Alunos</button></td>
         <td><button routerLink="../metas">Metas</button></td>
-        <td><button routerLink="../performance">Performance da turma {{turma.nome}}</button></td>
+        <td><button routerLink="../performance">Desempenho da turma {{turma.nome}}</button></td>
      </table>
      <h5>
          <table>
              <td>
-                 <button (click)="updateButtonFunc()">Atualizar Gráfico</button>
-                 <select [ngModel]="selectedOption" (ngModelChange)="setGraphOption($event)">
-                     <option [value]="opt" *ngFor="let opt of options">{{opt}}</option>
-                 </select>
+                <button (click)="updateButtonFunc()">Atualizar Gráfico</button>
+                <select [ngModel]="selectedOption" (ngModelChange)="setGraphOption($event)">
+                    <option [value]="opt" *ngFor="let opt of options">{{opt}}</option>
+                </select>
+             </td>
+             <td>
+                <p *ngIf="chooseOpt">Selecione uma opção ao lado</p>
              </td>
          </table>
      </h5>
      <!--
      -->
      
-    <section id="meanChart">
+    <section id="meanChart" *ngIf="alunos.length > 0">
         <google-chart 
         [title]="meanTitle + turma.nome"
         [type]="meanType"
@@ -27,9 +30,23 @@
        ></google-chart>
     </section>
 
-    <section id="listaAlunos">
-        <table>
+    <section id="listaAlunos" *ngIf="selectedLista.length > 0">
+        <table class="listTable">
             <th>Lista com {{selectedOption}}</th>
+            <tr>
+                <td>Nome:</td>
+                <td *ngFor="let m of metas">{{m}}:</td>
+                <td class="situacao">Situação do aluno:</td>
+            </tr>
+            <tr *ngFor="let a of selectedLista">
+                <td>{{a.nome}}</td>
+                <td *ngFor="let m of metas">{{a.metas.get(m)}}</td>
+                <td [ngClass]="{
+                    'aprov': situacaoAlunos[selectedLista.indexOf(a)] == 'Aprovado',
+                    'final': situacaoAlunos[selectedLista.indexOf(a)] == 'Final',
+                    'reprov': situacaoAlunos[selectedLista.indexOf(a)] == 'Reprovado'
+                }">{{situacaoAlunos[selectedLista.indexOf(a)]}}</td>
+            </tr>
         </table>
     </section>
 

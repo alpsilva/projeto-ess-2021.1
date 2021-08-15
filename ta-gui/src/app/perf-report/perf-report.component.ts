@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../commons/turma';
 import { Aluno } from '../../../../commons/aluno';
 import { TurmaService } from '../turmas/turmas.service';
@@ -15,7 +15,7 @@ export class PerfReportComponent implements OnInit {
   
   constructor(private turmaService: TurmaService) { }
   
-  selectedOption: string = "Todos os alunos";
+  selectedOption: string = "";
   options: string[] = [
     "Todos os alunos",
     "Alunos Aprovados",
@@ -31,12 +31,16 @@ export class PerfReportComponent implements OnInit {
   
   alunos: Aluno[] = [];
   metas: string[] = [];
+
+  selectedLista: Aluno[] = [];
+  situacaoAlunos: string[] = [];
+  chooseOpt: Boolean = false;
   
   meanTitle = ""; 
   meanType = ChartType.PieChart;
   meanData: [string, number][] = [
     ["Aprovado", 0],
-    ["Aluno na Final", 0],
+    ["Final", 0],
     ["Reprovado", 0]
   ];
   meanCollumns: string[] = ["Nota", "Quantidade de Alunos"];
@@ -56,7 +60,13 @@ export class PerfReportComponent implements OnInit {
 
   setGraphOption(option: string) {
     console.log("SetGraphOption choosen is " + option);
-    this.updateChart(option);
+    if (option != "") {
+      this.chooseOpt = false;
+      this.updateChart(option);
+      this.updateSelectedLista(option);
+    } else {
+      this.chooseOpt = true;
+    }
     this.selectedOption = option;
   }
 
@@ -95,16 +105,100 @@ export class PerfReportComponent implements OnInit {
               for (let m of metas) {
                 a.metas.set(m[0], m[1]);
               }
-              this.updateChart("Todos os alunos");
+              this.updateChart("");
             },
             msg => {console.log(msg.message);}
           );
         }
-        this.updateChart("Todos os alunos");
+        this.updateChart("");
       },
       msg => { alert(msg.message);}
     );
-    this.updateChart("Todos os alunos");
+    this.updateChart("");
+  }
+
+  updateSelectedLista(viewOption: string) {
+    this.selectedLista = [];
+    this.situacaoAlunos = [];
+    for (let a of this.alunos) {
+      var aInfo: string;
+      var mean: number = 0;
+      for (let m of a.metas) {
+        aInfo = m[1];
+        if (aInfo == "MA") {
+          mean += 2.0;
+        } else if (aInfo == "MPA") {
+          mean += 0.8;
+        }
+      }
+      switch (viewOption) {
+        case ("Todos os alunos"):
+        console.log("Inside Case: " + viewOption);
+        this.selectedLista.push(a);
+        if (mean >= 6) {
+          this.situacaoAlunos.push("Aprovado");
+        } else if (mean >= 3) {
+          this.situacaoAlunos.push("Final");
+        } else {
+          this.situacaoAlunos.push("Reprovado");
+        }
+        break;
+      case ("Alunos Aprovados"):
+        console.log("Inside Case: " + viewOption);
+        if (mean >= 6) {
+          this.selectedLista.push(a);
+          this.situacaoAlunos.push("Aprovado");
+        }
+        break;
+      case ("Alunos na Final"):
+        console.log("Inside Case: " + viewOption);
+        if (mean >= 3 && mean < 6) {
+          this.selectedLista.push(a);
+          this.situacaoAlunos.push("Final");
+        }
+        break;
+      case ("Alunos Reprovados"):
+        console.log("Inside Case: " + viewOption);
+        if (mean < 3) {
+          this.selectedLista.push(a);
+          this.situacaoAlunos.push("Reprovado");
+        }
+        break;
+      case ("Alunos que não estão Aprovados"):
+        console.log("Inside Case: " + viewOption);
+        if (mean < 6) {
+          this.selectedLista.push(a);
+          if (mean >= 3) {
+            this.situacaoAlunos.push("Final");
+          } else {
+            this.situacaoAlunos.push("Reprovado");
+          }
+        }
+        break;
+      case ("Alunos que não estão na Final"):
+        console.log("Inside Case: " + viewOption);
+        if (mean >= 6 || mean < 3) {
+          this.selectedLista.push(a);
+          if (mean >= 6) {
+            this.situacaoAlunos.push("Aprovado");
+          } else {
+            this.situacaoAlunos.push("Reprovado");
+          }
+        }
+        break;
+      case ("Alunos que não estão Reprovados"):
+        console.log("Inside Case: " + viewOption);
+        if (mean >= 3) {
+          this.selectedLista.push(a);
+          if (mean >= 6) {
+            this.situacaoAlunos.push("Aprovado");
+          } else {
+            this.situacaoAlunos.push("Final");
+          }
+        }
+        break;
+      }
+    }
   }
   
   updateChart(viewOption: string) {
@@ -141,21 +235,31 @@ export class PerfReportComponent implements OnInit {
 
     this.meanOptions = {
       title: this.meanTitle + this.turma.nome,
-      width: 400,
-      height: 300,
-      colors: ['#0afb07','#fbec01','#fb0401'],
+      colors: ['green','yellow','red'],
       is3D: false
     }
 
     console.log("Case: " + viewOption);
     switch (viewOption) {
+      case (""):
+        console.log("Inside Case: " + viewOption);
+        this.meanOptions = {
+          legend: 'none',
+          title: this.meanTitle + this.turma.nome,
+          colors: ['green','yellow','red'],
+          is3D: false,
+          slices: {
+            0: { color: 'transparent'},
+            1: { color: 'transparent'},
+            2: { color: 'transparent'}
+          }
+        };
+        break;
       case ("Todos os alunos"):
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false
         };
         break;
@@ -163,12 +267,10 @@ export class PerfReportComponent implements OnInit {
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false,
           slices: {
-            0: { color: '#0afb07'},
+            0: { color: 'green'},
             1: { color: 'transparent'},
             2: { color: 'transparent'}
           }
@@ -178,13 +280,11 @@ export class PerfReportComponent implements OnInit {
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false,
           slices: {
             0: { color: 'transparent'},
-            1: { color: '#fbec01'},
+            1: { color: 'yellow'},
             2: { color: 'transparent'}
           }
         };
@@ -193,14 +293,12 @@ export class PerfReportComponent implements OnInit {
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false,
           slices: {
             0: { color: 'transparent'},
             1: { color: 'transparent'},
-            2: { color: '#fb0401'}
+            2: { color: 'red'}
           }
         };
         break;
@@ -208,14 +306,12 @@ export class PerfReportComponent implements OnInit {
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false,
           slices: {
             0: { color: 'transparent'},
-            1: { color: '#fbec01'},
-            2: { color: '#fb0401'}
+            1: { color: 'yellow'},
+            2: { color: 'red'}
           }
         };
         break;
@@ -223,14 +319,12 @@ export class PerfReportComponent implements OnInit {
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false,
           slices: {
-            0: { color: '#0afb07'},
+            0: { color: 'green'},
             1: { color: 'transparent'},
-            2: { color: '#fb0401'}
+            2: { color: 'red'}
           }
         };
         break;
@@ -238,13 +332,11 @@ export class PerfReportComponent implements OnInit {
         console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
-          width: 400,
-          height: 300,
-          colors: ['#0afb07','#fbec01','#fb0401'],
+          colors: ['green','yellow','red'],
           is3D: false,
           slices: {
-            0: { color: '#0afb07'},
-            1: { color: '#fbec01'},
+            0: { color: 'green'},
+            1: { color: 'yellow'},
             2: { color: 'transparent'}
           }
         };
@@ -253,7 +345,10 @@ export class PerfReportComponent implements OnInit {
 
     this.chart = new google.visualization.PieChart(document.getElementById('meanChart'));
 
-    this.chart.draw(this.data, this.meanOptions);
+    if (viewOption != "") {
+      console.log('View Option == ""');
+      this.chart.draw(this.data, this.meanOptions);
+    }
   }
 
   ngOnInit(): void {
@@ -291,12 +386,12 @@ export class PerfReportComponent implements OnInit {
               for (let m of metas) {
                 a.metas.set(m[0], m[1]);
               }
-              this.updateChart("Todos os alunos");
+              this.setGraphOption("");
             },
             msg => {console.log(msg.message);}
           );
         }
-        this.updateChart("Todos os alunos");
+        this.setGraphOption("");
       },
       msg => { alert(msg.message);}
     );

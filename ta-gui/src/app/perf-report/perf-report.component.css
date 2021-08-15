@@ -53,3 +53,38 @@
     background-color: #cfd8dc;
     color: black;
   }
+
+  google-chart {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .listTable th {
+    border-collapse: collapse;
+  }
+
+  .listTable td {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  .situacao {
+    border-left: 15px;
+  }
+
+  .aprov {
+    border-left: 15px;
+    background-color: green;
+    color: white;
+  }
+
+  .final {
+    border-left: 15px;
+    background-color: yellow;
+  }
+
+  .reprov {
+    border-left: 15px;
+    background-color: red;
+    color: white;
+  }
