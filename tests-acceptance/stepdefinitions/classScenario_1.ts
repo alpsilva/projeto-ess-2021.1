@@ -72,6 +72,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, async(nomeTurma) => {
+        driver.switchTo().alert().accept();
         //lidar com o alert
     });
 
