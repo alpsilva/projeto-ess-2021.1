@@ -127,7 +127,12 @@ defineSupportCode(function ({ Given, When, Then }) {
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));;
         await allNames.filter(elem => sameAlunoName(elem,a2)).then
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));;
-    })
+    });
+
+    Given(/^there is no learning goal registered$/, async() =>
+    {
+        
+    });
 
     
 
