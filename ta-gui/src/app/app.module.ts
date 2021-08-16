@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TeacherComponent } from './teacher.component';
+import { StudentViewComponent } from './studentView.component';
 import { TurmasComponent, SelectorFileTypeDialog } from './turmas/turmas.component';
 import { Turma } from '../../../commons/turma';
 import { Aluno } from '../../../commons/aluno';
@@ -22,6 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
   declarations: [
     AppComponent,
     TeacherComponent,
+    StudentViewComponent,
     TurmasComponent,
     ClasseComponent,
     AlunosComponent,
@@ -39,6 +41,10 @@ import { MatDialog } from '@angular/material/dialog';
       {
         path: 'teacher',
         component: TeacherComponent
+      },
+      {
+        path: 'studentView',
+        component: StudentViewComponent
       }
     ]),
     RouterModule.forChild([
