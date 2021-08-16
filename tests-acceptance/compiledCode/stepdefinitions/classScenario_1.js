@@ -10,9 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const cucumber_1 = require("cucumber");
 const protractor_1 = require("protractor");
+require("selenium-webdriver");
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 let sameTurmaName = ((elem, name) => elem.element(protractor_1.by.name('turmaNomeList')).getText().then(text => text === name));
+let sameAlunoName = ((elem, name) => elem.element(protractor_1.by.name('alunolist')).getText().then(text => text === name));
+const { Builder, By, until } = require('selenium-webdriver');
+let driver = new Builder()
+    .forBrowser('firefox')
+    .build();
 cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
     Given(/^I am already logged in as a teacher$/, () => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.browser.get("http://localhost:4200/");
@@ -22,6 +28,7 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
     Given(/^I am in the classes page$/, () => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("a[name='classesBtn']").click();
     }));
+    //Scenario: teacher tries to create a new class
     When(/^I try to create a new class with the name “([^\"]*)” and description “([^\"]*)”$/, (nomeTurma, descricao) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("input[name='turmaNameBox']").sendKeys(nomeTurma);
         yield protractor_1.$("input[name='turmaDescriptionBox']").sendKeys(descricao);
@@ -43,16 +50,34 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.element(protractor_1.by.buttonText('Deletar Turma: ' + nomeTurma)).click();
     }));
     When(/^I say ok to the pop-up asking to confirm it$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
-        // lidar com o confirm
+        driver.switchTo().alert().accept();
     }));
     Then(/^I can no longer see a class named “([^\"]*)” in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         var allTurmas = protractor_1.element.all(protractor_1.by.name('turmaList'));
         yield allTurmas.filter(elem => sameTurmaName(elem, nomeTurma)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     }));
     Then(/^I see a message informing me that it was not registered because there is already a class with that name$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
-        // lidar com o alert
+        yield driver.isAlertPresent().then();
+        driver.switchTo().alert().getText();
+        expect(driver.getText().toBe("Nome duplicado! Turmas devem ter nomes únicos."));
     }));
     Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
-        //lidar com o alert
+        driver.switchTo().alert().accept();
+    }));
+    Given(/^I am at the “([^\"]*)” class detailed page$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
+        yield protractor_1.element(protractor_1.by.buttonText('Acessar Turma ' + nomeTurma)).click();
+    }));
+    Given(/^I see "“([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, (a1, a2, a3) => __awaiter(this, void 0, void 0, function* () {
+        yield protractor_1.$("a[name='alunos']").click();
+        //Simplificado para somente adicionar aluno
+    }));
+    When(/^I add a new student with the name “([^\"]*)”$/, (nome, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
+        yield protractor_1.$("input[name='namebox']").sendKeys(nome);
+        yield protractor_1.$("input[name='cpfbox']").sendKeys(cpf);
+        yield protractor_1.$("input[name='mailBox']").sendKeys(email);
+        yield protractor_1.$("input[name='githubbox']").sendKeys(git);
+        yield protractor_1.element(protractor_1.by.buttonText('Adicionar')).click();
+    }));
+    Then(/^I can see “([^\"]*)” and “([^\"]*)” in the students list$/, (a1, a2) => __awaiter(this, void 0, void 0, function* () {
     }));
 });

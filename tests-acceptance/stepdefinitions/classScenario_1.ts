@@ -4,13 +4,23 @@ import 'selenium-webdriver';
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
-let sameTurmaName = ((elem, name) => elem.element(by.name('turmaNomeList')).getText().then(text => text === name));
-
+//Declaração do WebDriver (usado para lidar com alertas)
 const {Builder, By, until} = require('selenium-webdriver');
-
 let driver = new Builder()
     .forBrowser('firefox')
     .build();
+
+//Função para turma
+let sameTurmaName = ((elem, name) => elem.element(by.name('turmaNomeList')).getText().then(text => text === name));
+
+
+//Funções para alunos
+let sameAlunoName = ((elem, name) => elem.element(by.name('nomelist')).getText().then(text => text === name));
+let sameAlunoCpf = ((elem, name) => elem.element(by.name('cpflist')).getText().then(text => text === name));
+let sameAlunoEmail = ((elem, name) => elem.element(by.name('emaillist')).getText().then(text => text === name));
+let sameAlunoGithub = ((elem, name) => elem.element(by.name('githublist')).getText().then(text => text === name));
+
+
 
 
 
@@ -75,7 +85,49 @@ defineSupportCode(function ({ Given, When, Then }) {
         driver.switchTo().alert().accept();
     });
 
+    Given(/^I am at the “([^\"]*)” class detailed page$/, async(nomeTurma) =>
+    {
+        await element(by.buttonText('Acessar Turma ' + nomeTurma)).click();
+    });
+
+    When(/^I add a new student with the name “([^\"]*)”, cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)”$/, async(nome, cpf, email, git) =>
+    {
+        await $("a[name='alunos']").click();
+        await $("input[name='namebox']").sendKeys(<string>nome);
+        await $("input[name='cpfbox']").sendKeys(<string>cpf);
+        await $("input[name='mailBox']").sendKeys(<string>email);
+        await $("input[name='githubbox']").sendKeys(<string>git);
+        await element(by.buttonText('Adicionar')).click();
+    });
+
+    Then(/^I see a student named “([^\"]*)”, with cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)” in the students list$/, async(name, cpf, email, git) =>
+    {
+        var allNames : ElementArrayFinder = element.all(by.name('nomelist'));
+        var allCpf : ElementArrayFinder = element.all(by.name
+        ('cpflist'));
+        var allEmail : ElementArrayFinder = element.all(by.name
+        ('email'));
+        var allGithub : ElementArrayFinder = element.all(by.name
+        ('githublist'));
+        await allNames.filter(elem => sameAlunoName(elem,name)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+        await allCpf.filter(elem => sameAlunoCpf(elem,cpf)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+        await allEmail.filter(elem => sameAlunoEmail(elem,email)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+        await allGithub.filter(elem => sameAlunoGithub(elem,git)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+    });
+
     
+    Then(/^I can see “([^\"]*)” and “([^\"]*)” in the students list$/, async(a1,a2) =>
+    {
+        var allNames : ElementArrayFinder = element.all(by.name('nomelist'));
+        await allNames.filter(elem => sameAlunoName(elem,a1)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));;
+        await allNames.filter(elem => sameAlunoName(elem,a2)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));;
+    })
 
     
 
