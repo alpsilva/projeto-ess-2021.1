@@ -49,6 +49,10 @@ export class Turma {
       return this.alunoLista.getAlunos();
     }
 
+    getOnlyAluno(cpf: string): Aluno {
+      return this.alunoLista.getAluno(cpf);
+    }
+
     updateAluno(a: Aluno): void{
       this.alunoLista.atualizar(a);
     }
