@@ -22,11 +22,11 @@
             <td>
                 <table class="metas">
                     <tr>
-                        <th *ngFor="let m of t.getMetas()"> {{m}} </th>
+                        <th *ngFor="let m of t.metasLista"> {{m}} </th>
                     </tr>
                     <tr>
-                        <td class="meta" *ngFor="let m of t.getMetas()">
-                            <label [ngModel]="t.getOnlyAluno(studentCpf).metas.get(m)"></label>
+                        <td class="meta" *ngFor="let m of t.metasLista">
+                            <input [ngModel]="getGrade(t.id, m)" name="grade in m of t.nome">                            
                         </td>
                     </tr>
                 </table>
