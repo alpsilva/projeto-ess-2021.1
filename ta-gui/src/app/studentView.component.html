@@ -1,0 +1,37 @@
+<html (mousemove)="onMove()">
+
+    <h3>Notas de aluno</h3>
+
+    <table>
+        <tr>
+            <td><label>CPF </label></td>
+            <td><input [(ngModel)]="studentCpf" name="cpfBox"></td>
+            <td><button (click)="getAllEnrolledClasses(studentCpf)">Procurar</button></td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>Turma</th>
+            <th>metas</th>
+        </tr>
+        <tr *ngFor="let t of turmas" name="turmaList">
+            <td name="turmaNomeList"> {{t.nome}} </td>
+            <td>
+                <table class="metas">
+                    <tr>
+                        <th *ngFor="let m of t.getMetas()"> {{m}} </th>
+                    </tr>
+                    <tr>
+                        <td class="meta" *ngFor="let m of t.getMetas()">
+                            <label [ngModel]="t.getOnlyAluno(studentCpf).metas.get(m)"></label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</html>

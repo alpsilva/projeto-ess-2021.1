@@ -1,0 +1,14 @@
+nav a {
+    padding: .5rem 1rem;
+    text-decoration: none;
+    display: inline-block;
+    background-color: black;
+    color: #cfd8dc;
+    border: none;
+    border-radius: 0.4rem;
+    margin: .5rem;
+  }
+  nav a:hover {
+    color: black;
+    background-color: #cfd8dc;
+  }
