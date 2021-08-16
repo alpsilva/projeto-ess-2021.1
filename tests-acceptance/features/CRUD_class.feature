@@ -35,9 +35,10 @@ Then I now see the class with the name “Qualidade de Software” in the list o
 
 Scenario: Teacher tries to add new students to a registered class
 Given I am at the “ESS 2021.1 - Turma 1” class detailed page
-Given I see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
-When I add a new student with the name "Helena Torres"
-Then I can see "Carlos Magno", "Helena Torres", "João Paulo", "Maria Eugênia" in the students list
+When I I add a new student with the name "Carlos Magno", cpf "4442", e-mail "carlosm@cin.ufpe.br" and github "carlo"
+Then I see a student named "Carlos Magno", with cpf "4442", e-mail "carlosm@cin.ufpe.br" and github "carlo" in the students list
+When I add a new student with the name "Helena Torres", cpf "1002", e-mail "helena@cin.ufpe" and github "helenaT"
+Then I can see "Carlos Magno" and "Helena Torres" in the students list
 
 Scenario: Teacher tries to add new learning goals to a registered class
 Given I am at the “ESS 2021.1 - Turma 1” class detailed page
