@@ -33,16 +33,6 @@ Then I now see the class with the name “ESS \2\0\2\1\.\1 - Turma \1” in the 
 Then I now see the class with the name “Top. Avançados ESS” in the list of registered classes
 Then I now see the class with the name “Qualidade de Software” in the list of registered classes
 
-Scenario: Teacher tries to see more info about a class
-Given I see, in the list of classes, a class with the name “ESS 2021.1 - Turma 1”
-When I enter the class “ESS 2021.1 - Turma 1” detailed page
-Then I see the description of the class
-Then the list of students
-Then their learning goals grades
-Then options that let me insert new students
-Then an option to delete the class
-ATENÇÃO: Ainda não recebemos feedback do professor acerca do que deveria ser armazenado em uma turma, então isso aqui provavelmente vai mudar.
-
 Scenario: Teacher tries to add new students to a registered class
 Given I am at the “ESS 2021.1 - Turma 1” class detailed page
 Given I see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
