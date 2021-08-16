@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <h3>
+    Gostaria de salvar esta turma em que formato?
+  </h3>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data.type" (mouseover)="setFileTypeXlsx()">.xlsx (Excel)</button>
+    <button mat-button [mat-dialog-close]="data.type" (mouseover)="setFileTypeCsv()">.csv</button>
+    <button mat-button (click)="onNoClick()">Não gostaria de salvar</button>
+  </div>

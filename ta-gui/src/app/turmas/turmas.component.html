@@ -24,16 +24,23 @@
             <th>Descrição</th>
             <th>Acessar Turma</th>
             <th>Deletar Turma</th>
+            <th>Exportar Turma</th>
         </tr>
         <tr *ngFor="let t of turmas" name="turmaList">
             <td name="turmaIdList">{{t.id}}</td>
             <td name="turmaNomeList">{{t.nome}}</td>
             <td name="turmaDescricaoList">{{t.descricao}}</td>
             <td>
-                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar Turma {{t.id}}</button>
+                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar Turma {{t.nome}}</button>
             </td>
             <td>
-                <button class="deleteButton" (click)="deletarTurma(t.id)">Deletar Turma: {{t.id}}</button>
+                <button class="deleteButton" (mouseover)="setTurmaToDel(t.id)" (click)="deletarTurma(t.id)">Deletar Turma: {{t.nome}}</button>
+            </td>
+            <!--
+                Check if button below are necessary
+            -->
+            <td>
+                <button mat-raised-button (mouseover)="setTurmaToDel(t.id)" (click)="openDialog()">Exportar Turma: {{t.nome}}</button>
             </td>
         </tr>
     </table>

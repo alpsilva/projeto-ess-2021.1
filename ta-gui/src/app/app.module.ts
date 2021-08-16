@@ -3,17 +3,20 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule }   from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TeacherComponent } from './teacher.component';
-import { TurmasComponent } from './turmas/turmas.component';
+import { TurmasComponent, SelectorFileTypeDialog } from './turmas/turmas.component';
 import { Turma } from '../../../commons/turma';
 import { Aluno } from '../../../commons/aluno';
 import { TurmaService } from './turmas/turmas.service';
 import { ClasseComponent } from './classe/classe.component';
 import { AlunosComponent } from './classe/alunos.component';
 import { MetasComponent } from './classe/metas.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -22,13 +25,16 @@ import { MetasComponent } from './classe/metas.component';
     TurmasComponent,
     ClasseComponent,
     AlunosComponent,
-    MetasComponent
+    MetasComponent,
+    SelectorFileTypeDialog
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    MatDialogModule,
     RouterModule.forRoot([
       {
         path: 'teacher',

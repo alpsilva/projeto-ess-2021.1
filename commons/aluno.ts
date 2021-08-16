@@ -4,6 +4,7 @@ export class Aluno {
   email: string;
   github: string;
   metas: Map<string,string>;
+  tuplaMetas: [string, string][];
 
   constructor() {
     this.clean();
@@ -15,6 +16,7 @@ export class Aluno {
     this.email = "";
     this.github = "";
     this.metas = new Map<string,string>();
+    this.tuplaMetas = [];
   }
 
   clone(): Aluno {
@@ -29,9 +31,27 @@ export class Aluno {
     this.email = from.email;
     this.github = from.github;
     this.copyMetasFrom(from.metas);
+    this.tuplaMetas = from.tuplaMetas;
   }
 
   copyMetasFrom(from: Map<string,string>): void {
-    this.metas = new Map<string,string>(from);
+    this.metas = new Map<string,string>();
+    for (let key in from) {
+      this.metas.set(key, from.get(key));
+    }
+  }
+
+  getMetas(): [string, string][] {
+    var result: [string, string][] = [];
+    var metas: Map<string, string> = this.metas;
+    console.log(metas.keys().next());
+    for (let key in metas) {
+      console.log(key);
+    }
+    for (let m of metas) {
+      console.log("Teste");
+      result.push([m[0], m[1]]);
+    }
+    return result;
   }
 }

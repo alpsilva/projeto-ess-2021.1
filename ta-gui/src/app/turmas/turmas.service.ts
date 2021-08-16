@@ -164,7 +164,9 @@ export class TurmaService {
   }
 
   getMetasOf(id: number, aluno: Aluno): Observable <[string,string][]> {
-    return this.http.get<[string,string][]>(this.taURL + "/turma/" + id + "/metas/" + aluno.cpf);
+    return this.http.get<[string,string][]>(this.taURL + "/turma/" + id + "/metas/" + aluno.cpf).pipe(
+      retry(2)
+    );
   }
 
   updateIdLivre(){
@@ -182,5 +184,9 @@ export class TurmaService {
     .pipe(
       retry(2)
     );
+  }
+
+  exportTurma() {
+
   }
 }

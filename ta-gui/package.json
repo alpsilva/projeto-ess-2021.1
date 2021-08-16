@@ -15,11 +15,15 @@
     "@angular/compiler": "~12.1.0",
     "@angular/core": "~12.1.0",
     "@angular/forms": "~12.1.0",
+    "@angular/material": "^12.2.1",
     "@angular/platform-browser": "~12.1.0",
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",
+    "export-to-csv": "^0.2.1",
+    "file-saver": "^2.0.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
