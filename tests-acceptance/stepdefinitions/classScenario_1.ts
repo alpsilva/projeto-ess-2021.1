@@ -5,6 +5,7 @@ let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
 let sameTurmaName = ((elem, name) => elem.element(by.name('turmaNomeList')).getText().then(text => text === name));
+
 const {Builder, By, until} = require('selenium-webdriver');
 
 let driver = new Builder()
@@ -68,12 +69,10 @@ defineSupportCode(function ({ Given, When, Then }) {
         await driver.isAlertPresent().then()
             driver.switchTo().alert().getText()
             expect (driver.getText().toBe("Nome duplicado! Turmas devem ter nomes únicos."));
-        // lidar com o alert
     });
 
     Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, async(nomeTurma) => {
         driver.switchTo().alert().accept();
-        //lidar com o alert
     });
 
     
