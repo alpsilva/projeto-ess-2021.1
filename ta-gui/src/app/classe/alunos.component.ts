@@ -21,6 +21,9 @@ export class AlunosComponent implements OnInit {
   // array de alunos local
   alunos: Aluno[] = new Array<Aluno>();
 
+  // Variável que armazena arquivo .csv importado
+  alunosImportFile: File | null = null;
+
   constructor(private turmaService: TurmaService) {}
 
   criarAluno(a: Aluno): void {
@@ -91,4 +94,34 @@ export class AlunosComponent implements OnInit {
     );
   }
 
+  handleFileInput(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    this.alunosImportFile = fileList.item(0);
+  }
+
+  importAlunosFromFile(){
+    if(this.alunosImportFile) {
+      let reader: FileReader = new FileReader();
+      reader.readAsText(this.alunosImportFile);
+      reader.onload = (e) => {
+         let csv: string = reader.result as string;
+         var lines = csv.split("\r\n");
+         console.log(lines);
+         for (let line of lines){
+           var alunoImport: Aluno = new Aluno();
+           var info = line.split(",");
+           console.log(line);
+           console.log(info);
+           alunoImport.nome = info[0];
+           alunoImport.cpf = info[1];
+           alunoImport.email = info[2];
+           alunoImport.github = info[3];
+           this.criarAluno(alunoImport);
+         }
+      }
+    } else {
+      alert("Você precisa fazer upload de um arquivo csv.")
+    }
+  }
 }

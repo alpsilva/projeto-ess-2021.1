@@ -32,6 +32,14 @@
 </tr>
  </table>
 
+<hr>
+<div class="form-group">
+   <label for="file">Importar alunos de um arquivo .csv</label>
+   <input type="file" id="file" (change)="handleFileInput($event)">
+   <td><button (click)="importAlunosFromFile()">Importar</button></td>
+</div>
+<hr>
+
   <table>
  <tr *ngIf="alunos.length > 0">
     <th>Nome</th>
