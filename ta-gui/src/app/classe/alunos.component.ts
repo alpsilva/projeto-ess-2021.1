@@ -107,12 +107,9 @@ export class AlunosComponent implements OnInit {
       reader.onload = (e) => {
          let csv: string = reader.result as string;
          var lines = csv.split("\r\n");
-         console.log(lines);
          for (let line of lines){
            var alunoImport: Aluno = new Aluno();
            var info = line.split(",");
-           console.log(line);
-           console.log(info);
            alunoImport.nome = info[0];
            alunoImport.cpf = info[1];
            alunoImport.email = info[2];
