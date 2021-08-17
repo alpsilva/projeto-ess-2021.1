@@ -32,7 +32,17 @@
 </tr>
  </table>
 
-  <table>
+<hr>
+<div class="form-group">
+   <table>
+      <td><label for="file">Importar alunos de um arquivo .csv</label></td>
+      <td><input type="file" id="file" (change)="handleFileInput($event)"></td>
+      <td><button (click)="importAlunosFromFile()">Importar</button></td>
+   </table> 
+</div>
+<hr>
+
+<table>
  <tr *ngIf="alunos.length > 0">
     <th>Nome</th>
     <th>CPF</th>
@@ -47,6 +57,6 @@
     <td>{{a.github}}</td>
     <td><button class="deleteButton" (click)="deletarAluno(a)">Deletar {{a.nome}}</button></td>
  </tr>
- </table>
+</table>
 
   </html>
