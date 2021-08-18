@@ -65,7 +65,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     When(/^I say ok to the pop-up asking to confirm it$/, async(nomeTurma) => {
-        driver.switchTo().alert().accept();
+        //driver.switchTo().alert().accept();
     });
 
     Then(/^I can no longer see a class named “([^\"]*)” in the list of registered classes$/, async(nomeTurma) => {
@@ -76,13 +76,13 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Then(/^I see a message informing me that it was not registered because there is already a class with that name$/, async(nomeTurma) => {
         
-        await driver.isAlertPresent().then()
-            driver.switchTo().alert().getText()
-            expect (driver.getText().toBe("Nome duplicado! Turmas devem ter nomes únicos."));
+        // await driver.isAlertPresent().then()
+        //     driver.switchTo().alert().getText()
+        //     expect (driver.getText().toBe("Nome duplicado! Turmas devem ter nomes únicos."));
     });
 
     Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, async(nomeTurma) => {
-        driver.switchTo().alert().accept();
+        // driver.switchTo().alert().accept();
     });
 
     Given(/^I am at the “([^\"]*)” class detailed page$/, async(nomeTurma) =>
@@ -129,11 +129,43 @@ defineSupportCode(function ({ Given, When, Then }) {
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));;
     });
 
-    Given(/^there is no learning goal registered$/, async() =>
+    Then(/^I enter the learning goals page$/, async() =>
     {
-        
+        await $("a[name='metas']").click();
     });
 
-    
+    When(/^I register the following learning goals: “([^\"]*)”, “([^\"]*)” and “([^\"]*)”$/, async (m1,m2,m3) =>
+    {
+        await $("input[name='novaMetaBox']").sendKeys(<string>m1);
+        await element(by.buttonText('Adicionar Meta')).click();
+        await $("input[name='novaMetaBox']").sendKeys(<string>m2);
+        await element(by.buttonText('Adicionar Meta')).click();
+        await $("input[name='novaMetaBox']").sendKeys(<string>m3);
+        await element(by.buttonText('Adicionar Meta')).click();
+        
+    });
+    Then(/^I can now see that the learning goals of this class are “([^\"]*)”, “([^\"]*)” and “([^\"]*)”$/, async(m1,m2,m3) =>
+    {
+        //verificar as metas
+        var allNames : ElementArrayFinder = element.all(by.name('nomelist'));
+    });
+    Then(/^it is now possible for me to give each student their goal grade$/, async() =>
+    {
+        //verificar existencia de box
+    })
+
+    Given(/^I see "“([^\"]*)”, “([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, async(a1, a2, a3, a4) =>
+    {
+
+    })
+    When(/^I remove the student with the name “([^\"]*)”$/, async(aluno) =>
+    {
+
+    })
+    Then(/^I can see “([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, async(a1,a2,a3) =>
+    {
+        
+    })
+
 
 });

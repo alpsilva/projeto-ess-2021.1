@@ -42,7 +42,7 @@ Then I can see "Carlos Magno" and "Helena Torres" in the students list
 
 Scenario: Teacher tries to add new learning goals to a registered class
 Given I am at the “ESS 2021.1 - Turma 1” class detailed page
-Given there is no learning goal registered
+Then I enter the learning goals page
 When I register the following learning goals: "Requisitos", "Testes" and "Ger. de Configuração"
 Then I can now see that the learning goals of this class are "Requisitos", "Testes" and "Ger. de Configuração"
 Then it is now possible for me to give each student their goal grade
