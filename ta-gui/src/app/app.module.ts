@@ -5,6 +5,7 @@ import { RouterModule }   from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { ClasseComponent } from './classe/classe.component';
 import { AlunosComponent } from './classe/alunos.component';
 import { MetasComponent } from './classe/metas.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PerfReportComponent } from './perf-report/perf-report.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MatDialog } from '@angular/material/dialog';
     ClasseComponent,
     AlunosComponent,
     MetasComponent,
-    SelectorFileTypeDialog
+    SelectorFileTypeDialog,
+    PerfReportComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { MatDialog } from '@angular/material/dialog';
     FormsModule,
     HttpClientModule,
     MatDialogModule,
+    GoogleChartsModule,
     RouterModule.forRoot([
       {
         path: 'teacher',
@@ -63,6 +67,10 @@ import { MatDialog } from '@angular/material/dialog';
       {
         path: 'teacher/turmas/classe/:id/alunos',
         component: AlunosComponent
+      },
+      {
+        path: 'teacher/turmas/classe/:id/performance',
+        component: PerfReportComponent
       }
     ])
   ],

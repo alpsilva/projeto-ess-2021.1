@@ -27,33 +27,43 @@ taserver.use(allowCrossDomain);
 taserver.use(bodyParser.json());
 
 taserver.get('/turma/idlivre', function (req: express.Request, res: express.Response) {
+  console.log("Get req:" + req.path);
   res.send(JSON.stringify(cadastro.getIdLivre()));
 })
 
+taserver.get('/', function (req: express.Request, res: express.Response) {
+  console.log("Get req:" + req.path);
+  res.send(JSON.stringify(cadastro.getTurmas()));
+})
+
 taserver.get('/turmas', function (req: express.Request, res: express.Response) {
-  console.log("Get req:");
+  console.log("Get req:" + req.path);
   res.send(JSON.stringify(cadastro.getTurmas()));
 })
 
 taserver.get('/turma/:id', function (req: express.Request, res: express.Response) {
+  console.log("Get req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum = parseInt(id);
   res.send(JSON.stringify(cadastro.getOnlyTurma(idNum)));
 })
 
 taserver.get('/turma/:id/alunos', function (req: express.Request, res: express.Response) {
+  console.log("Get req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum = parseInt(id);
   res.send(JSON.stringify(cadastro.getOnlyTurma(idNum).getAlunos()));
 })
 
 taserver.get('/turma/:id/metas', function (req: express.Request, res: express.Response) {
+  console.log("Get req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum = parseInt(id);
   res.send(JSON.stringify(cadastro.getOnlyTurma(idNum).getMetas()));
 })
 
 taserver.get('/turma/:id/metas/:cpf', function (req: express.Request, res: express.Response) {
+  console.log("Get req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum = parseInt(id);
   var cpf: string = <string> req.params.cpf;
@@ -69,6 +79,7 @@ taserver.get('/turma/:id/metas/:cpf', function (req: express.Request, res: expre
 })
 
 taserver.post('/turma', function (req: express.Request, res: express.Response) {
+  console.log("Post req:" + req.path);
   var turma: Turma = <Turma> req.body; //verificar se é mesmo Turma!
   var aux: Turma = new Turma();
   aux.nome = turma.nome;
@@ -82,6 +93,7 @@ taserver.post('/turma', function (req: express.Request, res: express.Response) {
 })
 
 taserver.put('/turma', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var aux: Turma = <Turma> req.body;
   var turma: Turma = new Turma();
   turma.nome = aux.nome;
@@ -115,6 +127,7 @@ taserver.put('/turma', function (req: express.Request, res: express.Response) {
 })
 
 taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
   var as: Aluno[] = <Aluno[]> req.body;
@@ -139,6 +152,7 @@ taserver.put('/turma/:id/alunos', function (req: express.Request, res: express.R
 })
 
 taserver.put('/turma/:id/aluno', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
   var a: Aluno = <Aluno> req.body.newAluno;
@@ -166,6 +180,7 @@ taserver.put('/turma/:id/aluno', function (req: express.Request, res: express.Re
 })
 
 taserver.put('/turma/:id/:cpf/aluno', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
   var delCpf: string = req.params.cpf;
@@ -179,6 +194,7 @@ taserver.put('/turma/:id/:cpf/aluno', function (req: express.Request, res: expre
 })
 
 taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
   var metas: string [] = <string []> req.body;
@@ -191,6 +207,7 @@ taserver.put('/turma/:id/metas', function (req: express.Request, res: express.Re
 })
 
 taserver.put('/turma/:id/:cpf/metas', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var id: string = <string> req.params.id;
   console.log("Server Put -> Id:" + id);
   var idNum: number = parseInt(id);
@@ -207,6 +224,7 @@ taserver.put('/turma/:id/:cpf/metas', function (req: express.Request, res: expre
 })
 
 taserver.put('/turma/:id/metas/:cpf', function (req: express.Request, res: express.Response) {
+  console.log("Put req:" + req.path);
   var id: string = <string> req.params.id;
   console.log(id);
   var idNum: number = parseInt(id);
@@ -231,6 +249,7 @@ taserver.put('/turma/:id/metas/:cpf', function (req: express.Request, res: expre
 })
 
 taserver.delete('/turma/:id', function (req: express.Request, res: express.Response) {
+  console.log("Delete req:" + req.path);
   var id: string = <string> req.params.id;
   var idNum: number = parseInt(id);
   var turma: Turma = cadastro.deletar(idNum);

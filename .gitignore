@@ -41,6 +41,9 @@ yarn-error.log
 testem.log
 /typings
 
+#package-lock files
+*/package-lock.json
+
 # System Files
 .DS_Store
 Thumbs.db

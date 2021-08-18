@@ -1,0 +1,91 @@
+.alunos {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+  }
+  
+  .alunos li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: cyan;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  
+  button {
+    font-family: Arial;
+    background-color: black;
+    color: #cfd8dc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+  }
+  
+  button:hover {
+    background-color: #cfd8dc;
+    color: black;
+  }
+  
+  .deleteButton:hover {
+    background-color: red;
+    color: black;
+  }
+
+  select {  
+    font-family: Arial;
+    background-color: black;
+    color: #cfd8dc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+    margin-left: 10px;
+  }
+  
+  select:hover {
+    background-color: #cfd8dc;
+    color: black;
+  }
+
+  google-chart {
+    width: fit-content;
+    min-height: 50vh;
+    height: fit-content;
+  }
+
+  .listTable th {
+    border-collapse: collapse;
+  }
+
+  .listTable td {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  .situacao {
+    border-left: 15px;
+  }
+
+  .aprov {
+    border-left: 15px;
+    background-color: green;
+    color: white;
+  }
+
+  .final {
+    border-left: 15px;
+    background-color: yellow;
+  }
+
+  .reprov {
+    border-left: 15px;
+    background-color: red;
+    color: white;
+  }
