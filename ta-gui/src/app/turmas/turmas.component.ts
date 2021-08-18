@@ -55,7 +55,7 @@ export class TurmasComponent implements OnInit {
   }
 
   deletarTurma(id: number): void {
-    if (confirm("Você quem mesmo deletar a Turma " + id + "?")) {
+    //if (confirm("Você quem mesmo deletar a Turma " + id + "?")) {
       this.turmaService.deletar(id).subscribe(
         resultId => {
           if (resultId == id) {
@@ -69,7 +69,7 @@ export class TurmasComponent implements OnInit {
         },
         //msg => { alert(msg.message); }
       );
-    }
+    //}
   }
 
   onMove(): void {

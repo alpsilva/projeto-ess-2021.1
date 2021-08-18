@@ -64,7 +64,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await element(by.buttonText('Deletar Turma: ' + nomeTurma)).click();
     });
 
-    When(/^I say ok to the pop-up asking to confirm it$/, async(nomeTurma) => {
+    When(/^I say ok to the pop-up asking to confirm it$/, async() => {
         //driver.switchTo().alert().accept();
     });
 
@@ -74,14 +74,14 @@ defineSupportCode(function ({ Given, When, Then }) {
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     });
 
-    Then(/^I see a message informing me that it was not registered because there is already a class with that name$/, async(nomeTurma) => {
+    Then(/^I see a message informing me that it was not registered because there is already a class with that name$/, async() => {
         
         // await driver.isAlertPresent().then()
         //     driver.switchTo().alert().getText()
         //     expect (driver.getText().toBe("Nome duplicado! Turmas devem ter nomes únicos."));
     });
 
-    Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, async(nomeTurma) => {
+    Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, async() => {
         // driver.switchTo().alert().accept();
     });
 
