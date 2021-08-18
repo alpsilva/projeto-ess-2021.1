@@ -5,16 +5,29 @@ Repositório para desenvolvimento do projeto e roteiro da disciplina Engenharia 
 ---
 ### **Features:** Turmas
 
-- Cadastro e manutenção de turmas (inserir, remover, atualizar) **(Peso 2)**
-  * Responsáveis:
-    - André Luiz (Criação e remoção)  
-    - Pietro Masur (Consulta)  
-    - Igor Mascarenhas (Atualização)  
+- Cadastro e manutenção de turmas (inserir, remover, atualizar) **(Peso 2)**  
+- Relatório de desempenho da turma (percentuais de alunos que passou por média, vai para a final, foi reprovado por nota, etc.) **(Peso 1)** 
 
-- Comparação de desempenho entre turmas de uma mesma disciplina (gráfico de média, número de alunos matriculados, aprovados, reprovados por nota e falta, aprovados por média) **(Peso 1)**
-  * Responsável:
-    - Sheyla Lima  
-  
-- Relatório de desempenho da turma (percentuais de alunos que passou por média, vai para a final, foi reprovado por nota, etc.) **(Peso 1)**
-  * Responsável: 
-    - Breno Rodrigues  
+### **Alunos:**
+
+- André Luiz
+- Breno Rodrigues
+- Pietro Masur
+
+### **Instruções de uso via git clone:**
+- **Passo 0**
+  * Verifique sua versão do node, no mínimo: `7.19.0`
+  * Caso não saiba, em um terminal execute: `npm --version`
+  * Verifique sua versão do Angular, no mínimo: `12.1.0`
+  * Caso não saiba, em um terminal execute: `ng --version`
+- **GUI**
+  * Após clonar o repositório, em um terminal vá para a pasta `/ta-gui`
+  * Execute: `npm install`
+  * Então: `npm start`
+- **Servidor**
+  * Em um terminal vá para a pasta `/ta-server`
+  * Execute: `npm install`
+  * Então: `npm start`
+- **Voilá**
+  * O sistema já deve estar funcionando!!!
+  * No seu navegador, vá para: [localhost:4200](url)
