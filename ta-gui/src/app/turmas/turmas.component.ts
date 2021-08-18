@@ -49,14 +49,14 @@ export class TurmasComponent implements OnInit {
                               //server POST failure msg
                             }
                           },
-                          msg => { msg.alert }
+                          //msg => { msg.alert }
                         );
       } else {
-        alert("Nome duplicado! Turmas devem ter nomes únicos.");
+        //alert("Nome duplicado! Turmas devem ter nomes únicos.");
         this.turma.nome = "";
       }
     } else {
-      alert("Limite de 3 turmas atingido! Delete uma antes de tentar registrar a nova.");
+      //alert("Limite de 3 turmas atingido! Delete uma antes de tentar registrar a nova.");
     }
   }
 

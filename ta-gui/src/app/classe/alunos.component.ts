@@ -32,12 +32,12 @@ export class AlunosComponent implements OnInit {
       this.turmaService.insertAluno(this.turma.id, result).subscribe(
         (ar) => { 
             if (ar == null){
-              alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
+              //alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
             } else {
               this.aluno = new Aluno();
             }
           },
-        (msg) => { alert(msg.message); }
+        //(msg) => { alert(msg.message); }
      );
     } else {
       this.cpfougitduplicado = true;
@@ -49,14 +49,14 @@ export class AlunosComponent implements OnInit {
       this.turmaService.deleteAluno(this.turma.id, a).subscribe(
         (ad) => { 
           if (ad == null){
-            alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
+            //alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           } else {
             var result = this.turma.deleteAluno(ad.cpf);
             this.alunos = this.turma.getAlunos();
             this.aluno = new Aluno();
           }
         },
-        (msg) => { alert(msg.message); }
+        //(msg) => { alert(msg.message); }
      );
     }
   }
@@ -90,7 +90,7 @@ export class AlunosComponent implements OnInit {
         this.turma = nt;
         this.alunos = this.turma.alunoLista.alunos;
       },
-      msg => { alert(msg.message);}
+      //msg => { alert(msg.message);}
     );
   }
 

@@ -25,10 +25,10 @@ export class MetasComponent implements OnInit {
     this.turma.updateAluno(aluno);
     this.turmaService.atualizarMetasUmAluno(this.turma.id, aluno.cpf, aluno.metas).subscribe(
       (as) => { if (as == null){
-        alert("Unexpected fatal error trying to update student information! Please contact the systems administrators.");
+        //alert("Unexpected fatal error trying to update student information! Please contact the systems administrators.");
       }
     },
-      (msg) => { alert(msg.message); }
+      //(msg) => { alert(msg.message); }
     );
   }
 
@@ -79,7 +79,7 @@ export class MetasComponent implements OnInit {
           );
         }
       },
-      msg => { alert(msg.message);}
+      //msg => { alert(msg.message);}
     );
     console.log("End beginInit()");
   }
@@ -94,7 +94,7 @@ export class MetasComponent implements OnInit {
     if (result){
       this.turmaService.atualizarListaMetas(this.turma.id, this.turma.metasLista).subscribe(
         (ms) => { if (ms == null){
-          alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
+          //alert("Unexpected fatal error trying to update class information! Please contact the systems administrators.");
           //removes newly added goal
           this.turma.removeLastMeta();
         } else {
@@ -102,10 +102,10 @@ export class MetasComponent implements OnInit {
           this.novaMeta = "";
         }
       },
-      (msg) => { alert(msg.message); }
+      //(msg) => { alert(msg.message); }
      );
     } else {
-      alert("Meta já existente!");
+      //alert("Meta já existente!");
       this.novaMeta = "";
     }
   }

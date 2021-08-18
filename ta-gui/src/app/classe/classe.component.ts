@@ -49,7 +49,7 @@ export class ClasseComponent implements OnInit {
         }
         this.turma = nt;
       },
-      msg => { alert(msg.message);}
+      //msg => { alert(msg.message);}
     );
     this.turmaService.getTurmas().subscribe(
       list => {
@@ -61,7 +61,7 @@ export class ClasseComponent implements OnInit {
         this.listaTurmas = nl;
         console.log(this.listaTurmas);
       },
-      msg => { alert(msg.message); }
+      //msg => { alert(msg.message); }
     );
   }
 
@@ -72,7 +72,7 @@ export class ClasseComponent implements OnInit {
       t => {
         this.turma = t;
       },
-      msg => { alert(msg.message);}
+      //msg => { alert(msg.message);}
     ); 
     console.log("End of: setId(" + id + ")");
   }
