@@ -90,15 +90,15 @@ defineSupportCode(function ({ Given, When, Then }) {
         await element(by.buttonText('Acessar Turma ' + nomeTurma)).click();
     });
 
-    When(/^I add a new student with the name “([^\"]*)”, cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)”$/, async(nome, cpf, email, git) =>
-    {
-        await $("a[name='alunos']").click();
-        await $("input[name='namebox']").sendKeys(<string>nome);
-        await $("input[name='cpfbox']").sendKeys(<string>cpf);
-        await $("input[name='mailBox']").sendKeys(<string>email);
-        await $("input[name='githubbox']").sendKeys(<string>git);
-        await element(by.buttonText('Adicionar')).click();
-    });
+        When(/^I add a new student with the name “([^\"]*)”, cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)”$/, async(nome, cpf, email, git) =>
+        {
+            await $("a[name='alunos']").click();
+            await $("input[name='namebox']").sendKeys(<string>nome);
+            await $("input[name='cpfbox']").sendKeys(<string>cpf);
+            await $("input[name='mailBox']").sendKeys(<string>email);
+            await $("input[name='githubbox']").sendKeys(<string>git);
+            await element(by.buttonText('Adicionar')).click();
+        });
 
     Then(/^I see a student named “([^\"]*)”, with cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)” in the students list$/, async(name, cpf, email, git) =>
     {
