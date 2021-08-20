@@ -35,7 +35,7 @@ Then I now see the class with the name “Qualidade de Software” in the list o
 
 Scenario: Teacher tries to add new students to a registered class
 Given I am at the “ESS - Turma Um” class detailed page
-When I I add a new student with the name "Carlos Magno", cpf "4442", e-mail "carlosm@cin.ufpe.br" and github "carlo"
+When I add a new student with the name "Carlos Magno", cpf "4442", e-mail "carlosm@cin.ufpe.br" and github "carlo"
 Then I see a student named "Carlos Magno", with cpf "4442", e-mail "carlosm@cin.ufpe.br" and github "carlo" in the students list
 When I add a new student with the name "Helena Torres", cpf "1002", e-mail "helena@cin.ufpe" and github "helenaT"
 Then I can see "Carlos Magno" and "Helena Torres" in the students list
