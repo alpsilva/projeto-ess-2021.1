@@ -99,6 +99,7 @@ export class MetasComponent implements OnInit {
           this.turma.removeLastMeta();
         } else {
           this.turma.metasLista = ms;
+          this.novaMeta = "";
         }
       },
       (msg) => { alert(msg.message); }
