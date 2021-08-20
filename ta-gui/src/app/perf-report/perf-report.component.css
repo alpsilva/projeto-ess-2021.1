@@ -60,6 +60,10 @@
     height: fit-content;
   }
 
+  .listTable {
+    margin: auto;
+  }
+
   .listTable th {
     border-collapse: collapse;
   }
