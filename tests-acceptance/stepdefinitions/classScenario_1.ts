@@ -37,19 +37,19 @@ defineSupportCode(function ({ Given, When, Then }) {
         await $("a[name='classesBtn']").click();
     });
     //Scenario: teacher tries to create a new class
-    When(/^I try to create a new class with the name “([^\"]*)” and description “([^\"]*)”$/, async(nomeTurma, descricao) => {
+    When(/^I try to create a new class with the name "([^\"]*)" and description "([^\"]*)"$/, async(nomeTurma, descricao) => {
         await $("input[name='turmaNameBox']").sendKeys(<string>nomeTurma);
         await $("input[name='turmaDescriptionBox']").sendKeys(<string>descricao);
         await element(by.buttonText('Adicionar')).click();
     });
 
-    Then(/^I now see the class with the name “([^\"]*)” in the list of registered classes$/, async(nomeTurma) => {
+    Then(/^I now see the class with the name "([^\"]*)" in the list of registered classes$/, async(nomeTurma) => {
         var allTurmas : ElementArrayFinder = element.all(by.name('turmaList'));
         await allTurmas.filter(elem => sameTurmaName(elem,nomeTurma)).then
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     });
     
-    Given(/^I see the class with the name “([^\"]*)” in the list of registered classes$/, async(nomeTurma) => {
+    Given(/^I see the class with the name "([^\"]*)" in the list of registered classes$/, async(nomeTurma) => {
         await $("input[name='turmaNameBox']").sendKeys(<string>nomeTurma);
         await $("input[name='turmaDescriptionBox']").sendKeys(<string>"");
         await element(by.buttonText('Adicionar')).click();
@@ -60,7 +60,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
 
     // delete
-    When(/^I try to delete the class with the name “([^\"]*)”$/, async(nomeTurma) => {
+    When(/^I try to delete the class with the name "([^\"]*)"$/, async(nomeTurma) => {
         await element(by.buttonText('Deletar Turma: ' + nomeTurma)).click();
     });
 
@@ -68,7 +68,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         //driver.switchTo().alert().accept();
     });
 
-    Then(/^I can no longer see a class named “([^\"]*)” in the list of registered classes$/, async(nomeTurma) => {
+    Then(/^I can no longer see a class named "([^\"]*)" in the list of registered classes$/, async(nomeTurma) => {
         var allTurmas : ElementArrayFinder = element.all(by.name('turmaList'));
         await allTurmas.filter(elem => sameTurmaName(elem,nomeTurma)).then
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
@@ -85,12 +85,12 @@ defineSupportCode(function ({ Given, When, Then }) {
         // driver.switchTo().alert().accept();
     });
 
-    Given(/^I am at the “([^\"]*)” class detailed page$/, async(nomeTurma) =>
+    Given(/^I am at the "([^\"]*)" class detailed page$/, async(nomeTurma) =>
     {
         await element(by.buttonText('Acessar Turma ' + nomeTurma)).click();
     });
     
-    When(/^I add a new student with the name “([^\"]*)”, cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)”$/, async(nome, cpf, email, git) =>
+    When(/^I add a new student with the name "([^\"]*)", cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)"$/, async(nome, cpf, email, git) =>
     {
         await $("a[name='alunos']").click();
         await $("input[name='namebox']").sendKeys(<string>nome);
@@ -100,7 +100,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await element(by.buttonText('Adicionar')).click();
     });
 
-    Then(/^I see a student named “([^\"]*)”, with cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)” in the students list$/, async(name, cpf, email, git) =>
+    Then(/^I see a student named "([^\"]*)", with cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)" in the students list$/, async(name, cpf, email, git) =>
     {
         var allNames : ElementArrayFinder = element.all(by.name('nomelist'));
         var allCpf : ElementArrayFinder = element.all(by.name
@@ -120,7 +120,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     
-    Then(/^I can see “([^\"]*)” and “([^\"]*)” in the students list$/, async(a1,a2) =>
+    Then(/^I can see "([^\"]*)" and "([^\"]*)" in the students list$/, async(a1,a2) =>
     {
         var allNames : ElementArrayFinder = element.all(by.name('nomelist'));
         await allNames.filter(elem => sameAlunoName(elem,a1)).then
@@ -134,7 +134,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await $("a[name='metas']").click();
     });
 
-    When(/^I register the following learning goals: “([^\"]*)”, “([^\"]*)” and “([^\"]*)”$/, async (m1,m2,m3) =>
+    When(/^I register the following learning goals: "([^\"]*)", "([^\"]*)" and "([^\"]*)"$/, async (m1,m2,m3) =>
     {
         await $("input[name='novaMetaBox']").sendKeys(<string>m1);
         await element(by.buttonText('Adicionar Meta')).click();
@@ -144,7 +144,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await element(by.buttonText('Adicionar Meta')).click();
         
     });
-    Then(/^I can now see that the learning goals of this class are “([^\"]*)”, “([^\"]*)” and “([^\"]*)”$/, async(m1,m2,m3) =>
+    Then(/^I can now see that the learning goals of this class are "([^\"]*)", "([^\"]*)" and "([^\"]*)"$/, async(m1,m2,m3) =>
     {
         //verificar as metas
         var allNames : ElementArrayFinder = element.all(by.name('nomelist'));
@@ -154,15 +154,15 @@ defineSupportCode(function ({ Given, When, Then }) {
         //verificar existencia de box
     })
 
-    Given(/^I see "“([^\"]*)”, “([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, async(a1, a2, a3, a4) =>
+    Given(/^I see "([^\"]*)", "([^\"]*)", "([^\"]*)", "([^\"]*)" in the students list$/, async(a1, a2, a3, a4) =>
     {
 
     })
-    When(/^I remove the student with the name “([^\"]*)”$/, async(aluno) =>
+    When(/^I remove the student with the name "([^\"]*)"$/, async(aluno) =>
     {
 
     })
-    Then(/^I can see “([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, async(a1,a2,a3) =>
+    Then(/^I can see "([^\"]*)", "([^\"]*)", "([^\"]*)" in the students list$/, async(a1,a2,a3) =>
     {
         
     })

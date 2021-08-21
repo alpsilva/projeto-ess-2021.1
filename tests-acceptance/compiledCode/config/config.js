@@ -5,12 +5,15 @@ exports.config = {
     seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
     SELENIUM_PROMISE_MANAGER: false,
     capabilities: {
-        browserName: 'firefox'
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+            'args': ['--headless']
+        }
     },
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
     specs: [
-        '../../features/*.feature'
+        '../../features/CRUD_class.feature'
     ],
     onPrepare: () => {
         protractor_1.browser.ignoreSynchronization = true;

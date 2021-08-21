@@ -35,16 +35,16 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.$("a[name='classesBtn']").click();
     }));
     //Scenario: teacher tries to create a new class
-    When(/^I try to create a new class with the name “([^\"]*)” and description “([^\"]*)”$/, (nomeTurma, descricao) => __awaiter(this, void 0, void 0, function* () {
+    When(/^I try to create a new class with the name "([^\"]*)" and description "([^\"]*)"$/, (nomeTurma, descricao) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("input[name='turmaNameBox']").sendKeys(nomeTurma);
         yield protractor_1.$("input[name='turmaDescriptionBox']").sendKeys(descricao);
         yield protractor_1.element(protractor_1.by.buttonText('Adicionar')).click();
     }));
-    Then(/^I now see the class with the name “([^\"]*)” in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I now see the class with the name "([^\"]*)" in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         var allTurmas = protractor_1.element.all(protractor_1.by.name('turmaList'));
         yield allTurmas.filter(elem => sameTurmaName(elem, nomeTurma)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
-    Given(/^I see the class with the name “([^\"]*)” in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
+    Given(/^I see the class with the name "([^\"]*)" in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("input[name='turmaNameBox']").sendKeys(nomeTurma);
         yield protractor_1.$("input[name='turmaDescriptionBox']").sendKeys("");
         yield protractor_1.element(protractor_1.by.buttonText('Adicionar')).click();
@@ -52,13 +52,13 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield allTurmas.filter(elem => sameTurmaName(elem, nomeTurma)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
     // delete
-    When(/^I try to delete the class with the name “([^\"]*)”$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
+    When(/^I try to delete the class with the name "([^\"]*)"$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.element(protractor_1.by.buttonText('Deletar Turma: ' + nomeTurma)).click();
     }));
     When(/^I say ok to the pop-up asking to confirm it$/, () => __awaiter(this, void 0, void 0, function* () {
         //driver.switchTo().alert().accept();
     }));
-    Then(/^I can no longer see a class named “([^\"]*)” in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I can no longer see a class named "([^\"]*)" in the list of registered classes$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         var allTurmas = protractor_1.element.all(protractor_1.by.name('turmaList'));
         yield allTurmas.filter(elem => sameTurmaName(elem, nomeTurma)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     }));
@@ -70,10 +70,10 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
     Then(/^I see a message informing me that it was not registered because there is already 3 classes registered$/, () => __awaiter(this, void 0, void 0, function* () {
         // driver.switchTo().alert().accept();
     }));
-    Given(/^I am at the “([^\"]*)” class detailed page$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
+    Given(/^I am at the "([^\"]*)" class detailed page$/, (nomeTurma) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.element(protractor_1.by.buttonText('Acessar Turma ' + nomeTurma)).click();
     }));
-    When(/^I add a new student with the name “([^\"]*)”, cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)”$/, (nome, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
+    When(/^I add a new student with the name "([^\"]*)", cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)"$/, (nome, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("a[name='alunos']").click();
         yield protractor_1.$("input[name='namebox']").sendKeys(nome);
         yield protractor_1.$("input[name='cpfbox']").sendKeys(cpf);
@@ -81,7 +81,7 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.$("input[name='githubbox']").sendKeys(git);
         yield protractor_1.element(protractor_1.by.buttonText('Adicionar')).click();
     }));
-    Then(/^I see a student named “([^\"]*)”, with cpf “([^\"]*)”, e-mail “([^\"]*)” and github “([^\"]*)” in the students list$/, (name, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I see a student named "([^\"]*)", with cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)" in the students list$/, (name, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
         var allNames = protractor_1.element.all(protractor_1.by.name('nomelist'));
         var allCpf = protractor_1.element.all(protractor_1.by.name('cpflist'));
         var allEmail = protractor_1.element.all(protractor_1.by.name('email'));
@@ -91,7 +91,7 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield allEmail.filter(elem => sameAlunoEmail(elem, email)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
         yield allGithub.filter(elem => sameAlunoGithub(elem, git)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
-    Then(/^I can see “([^\"]*)” and “([^\"]*)” in the students list$/, (a1, a2) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I can see "([^\"]*)" and "([^\"]*)" in the students list$/, (a1, a2) => __awaiter(this, void 0, void 0, function* () {
         var allNames = protractor_1.element.all(protractor_1.by.name('nomelist'));
         yield allNames.filter(elem => sameAlunoName(elem, a1)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
         ;
@@ -101,7 +101,7 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
     Then(/^I enter the learning goals page$/, () => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("a[name='metas']").click();
     }));
-    When(/^I register the following learning goals: “([^\"]*)”, “([^\"]*)” and “([^\"]*)”$/, (m1, m2, m3) => __awaiter(this, void 0, void 0, function* () {
+    When(/^I register the following learning goals: "([^\"]*)", "([^\"]*)" and "([^\"]*)"$/, (m1, m2, m3) => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("input[name='novaMetaBox']").sendKeys(m1);
         yield protractor_1.element(protractor_1.by.buttonText('Adicionar Meta')).click();
         yield protractor_1.$("input[name='novaMetaBox']").sendKeys(m2);
@@ -109,17 +109,17 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.$("input[name='novaMetaBox']").sendKeys(m3);
         yield protractor_1.element(protractor_1.by.buttonText('Adicionar Meta')).click();
     }));
-    Then(/^I can now see that the learning goals of this class are “([^\"]*)”, “([^\"]*)” and “([^\"]*)”$/, (m1, m2, m3) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I can now see that the learning goals of this class are "([^\"]*)", "([^\"]*)" and "([^\"]*)"$/, (m1, m2, m3) => __awaiter(this, void 0, void 0, function* () {
         //verificar as metas
         var allNames = protractor_1.element.all(protractor_1.by.name('nomelist'));
     }));
     Then(/^it is now possible for me to give each student their goal grade$/, () => __awaiter(this, void 0, void 0, function* () {
         //verificar existencia de box
     }));
-    Given(/^I see "“([^\"]*)”, “([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, (a1, a2, a3, a4) => __awaiter(this, void 0, void 0, function* () {
+    Given(/^I see "([^\"]*)", "([^\"]*)", "([^\"]*)", "([^\"]*)" in the students list$/, (a1, a2, a3, a4) => __awaiter(this, void 0, void 0, function* () {
     }));
-    When(/^I remove the student with the name “([^\"]*)”$/, (aluno) => __awaiter(this, void 0, void 0, function* () {
+    When(/^I remove the student with the name "([^\"]*)"$/, (aluno) => __awaiter(this, void 0, void 0, function* () {
     }));
-    Then(/^I can see “([^\"]*)”, “([^\"]*)”, “([^\"]*)” in the students list$/, (a1, a2, a3) => __awaiter(this, void 0, void 0, function* () {
+    Then(/^I can see "([^\"]*)", "([^\"]*)", "([^\"]*)" in the students list$/, (a1, a2, a3) => __awaiter(this, void 0, void 0, function* () {
     }));
 });
