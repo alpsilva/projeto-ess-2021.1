@@ -92,7 +92,7 @@ export class TurmasComponent implements OnInit {
               }    
             }
           },
-          msg => { alert(msg.message); }
+          //msg => { alert(msg.message); }
         );
         
       }
@@ -154,7 +154,7 @@ export class TurmasComponent implements OnInit {
         this.turmaToDel = nt;
         console.log(this.turmaToDel);
     },
-    msg => { alert(msg.message);}
+    //msg => { alert(msg.message);}
     );
   }
 

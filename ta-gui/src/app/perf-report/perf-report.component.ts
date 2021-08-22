@@ -112,7 +112,7 @@ export class PerfReportComponent implements OnInit {
         }
         this.updateChart("");
       },
-      msg => { alert(msg.message);}
+      //msg => { alert(msg.message);}
     );
     this.updateChart("");
   }
@@ -393,7 +393,7 @@ export class PerfReportComponent implements OnInit {
         }
         this.setGraphOption("");
       },
-      msg => { alert(msg.message);}
+      //msg => { alert(msg.message);}
     );
   }
 

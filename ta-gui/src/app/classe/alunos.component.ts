@@ -118,7 +118,7 @@ export class AlunosComponent implements OnInit {
          }
       }
     } else {
-      alert("Você precisa fazer upload de um arquivo csv.")
+      //alert("Você precisa fazer upload de um arquivo csv.")
     }
   }
 }

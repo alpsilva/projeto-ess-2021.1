@@ -45,7 +45,7 @@ export class StudentViewComponent implements OnInit {
           //server POST failure msg
         }
       },
-      msg => { msg.alert }
+      //msg => { msg.alert }
     );
   }
 
