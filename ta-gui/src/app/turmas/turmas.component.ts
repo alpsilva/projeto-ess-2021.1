@@ -171,8 +171,6 @@ export class TurmasComponent implements OnInit {
     var dataAlunos = [];
     console.log(turma.alunoLista.alunos);
     
-
-
     for (let a of turma.alunoLista.alunos) {
       var aMetas = [];
       var mean: number = 0;
@@ -183,6 +181,9 @@ export class TurmasComponent implements OnInit {
         [email]: a.email,
         Github: a.github
       };
+      for (let m of turma.metasLista) {
+        aluno[m] = "";
+      }
       for (let m of a.tuplaMetas) {
         aMetas.push({
           [m[0]]: m[1]
