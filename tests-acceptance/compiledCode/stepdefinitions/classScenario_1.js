@@ -21,10 +21,11 @@ let driver = new Builder()
 //Função para turma
 let sameTurmaName = ((elem, name) => elem.element(protractor_1.by.name('turmaNomeList')).getText().then(text => text === name));
 //Funções para alunos
-let sameAlunoName = ((elem, name) => elem.element(protractor_1.by.name('nomelist')).getText().then(text => text === name));
-let sameAlunoCpf = ((elem, name) => elem.element(protractor_1.by.name('cpflist')).getText().then(text => text === name));
-let sameAlunoEmail = ((elem, name) => elem.element(protractor_1.by.name('emaillist')).getText().then(text => text === name));
-let sameAlunoGithub = ((elem, name) => elem.element(protractor_1.by.name('githublist')).getText().then(text => text === name));
+let sameAlunoName1 = ((elem, name) => elem.element(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[1]')).getText().then(text => text === name));
+let sameAlunoName2 = ((elem, name) => elem.element(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[3]/td[1]')).getText().then(text => text === name));
+let sameAlunoCpf = ((elem, name) => elem.element(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[2]')).getText().then(text => text === name));
+let sameAlunoEmail = ((elem, name) => elem.element(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[3]')).getText().then(text => text === name));
+let sameAlunoGithub = ((elem, name) => elem.element(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[4]')).getText().then(text => text === name));
 cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
     Given(/^I am already logged in as a teacher$/, () => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.browser.get("http://localhost:4200/");
@@ -81,22 +82,31 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
         yield protractor_1.$("input[name='githubbox']").sendKeys(git);
         yield protractor_1.element(protractor_1.by.buttonText('Adicionar')).click();
     }));
+    When(/^I add a second new student with the name "([^\"]*)", cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)"$/, (nome, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
+        yield protractor_1.$("input[name='namebox']").sendKeys(nome);
+        yield protractor_1.$("input[name='cpfbox']").sendKeys(cpf);
+        yield protractor_1.$("input[name='mailBox']").sendKeys(email);
+        yield protractor_1.$("input[name='githubbox']").sendKeys(git);
+        yield protractor_1.element(protractor_1.by.buttonText('Adicionar')).click();
+    }));
     Then(/^I see a student named "([^\"]*)", with cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)" in the students list$/, (name, cpf, email, git) => __awaiter(this, void 0, void 0, function* () {
-        var allNames = protractor_1.element.all(protractor_1.by.name('nomelist'));
-        var allCpf = protractor_1.element.all(protractor_1.by.name('cpflist'));
-        var allEmail = protractor_1.element.all(protractor_1.by.name('email'));
-        var allGithub = protractor_1.element.all(protractor_1.by.name('githublist'));
-        yield allNames.filter(elem => sameAlunoName(elem, name)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+        var allNames = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[1]'));
+        var allCpf = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[2]'));
+        var allEmail = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[3]'));
+        var allGithub = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[4]'));
+        yield allNames.filter(elem => sameAlunoName1(elem, name)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
         yield allCpf.filter(elem => sameAlunoCpf(elem, cpf)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
         yield allEmail.filter(elem => sameAlunoEmail(elem, email)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
         yield allGithub.filter(elem => sameAlunoGithub(elem, git)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
-    Then(/^I can see "([^\"]*)" and "([^\"]*)" in the students list$/, (a1, a2) => __awaiter(this, void 0, void 0, function* () {
-        var allNames = protractor_1.element.all(protractor_1.by.name('nomelist'));
-        yield allNames.filter(elem => sameAlunoName(elem, a1)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
-        ;
-        yield allNames.filter(elem => sameAlunoName(elem, a2)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
-        ;
+    Then(/^I can see "([^\"]*)" in the students list firt position$/, (name) => __awaiter(this, void 0, void 0, function* () {
+        var nameSearch = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[1]'));
+        yield nameSearch.filter(elem => sameAlunoName1(elem, name)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+    }));
+    Then(/^I can see "([^\"]*)" in the students list second position$/, (name) => __awaiter(this, void 0, void 0, function* () {
+        var nameSearch = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[3]/td[1]'));
+        console.log(nameSearch);
+        yield nameSearch.filter(elem => sameAlunoName2(elem, name)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
     Then(/^I enter the learning goals page$/, () => __awaiter(this, void 0, void 0, function* () {
         yield protractor_1.$("a[name='metas']").click();
