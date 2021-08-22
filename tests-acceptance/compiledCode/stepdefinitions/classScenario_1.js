@@ -105,7 +105,6 @@ cucumber_1.defineSupportCode(function ({ Given, When, Then }) {
     }));
     Then(/^I can see "([^\"]*)" in the students list second position$/, (name) => __awaiter(this, void 0, void 0, function* () {
         var nameSearch = protractor_1.element.all(protractor_1.by.xpath('/html/body/app-root/alunos/html/table[3]/tr[3]/td[1]'));
-        console.log(nameSearch);
         yield nameSearch.filter(elem => sameAlunoName2(elem, name)).then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     }));
     Then(/^I enter the learning goals page$/, () => __awaiter(this, void 0, void 0, function* () {

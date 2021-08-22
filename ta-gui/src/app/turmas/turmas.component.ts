@@ -72,7 +72,7 @@ export class TurmasComponent implements OnInit {
 
   deletarTurma(id: number): void {
     console.log(this.turmaToDel);
-    if (confirm("Você quem mesmo deletar a Turma " + id + "?")) {
+    //if (confirm("Você quem mesmo deletar a Turma " + id + "?")) {
       console.log(this.turmaToDel);
       if (this.turmaToDel) {
         this.openDialog();
@@ -96,7 +96,7 @@ export class TurmasComponent implements OnInit {
         );
         
       }
-    }
+    //}
   }
 
   onMove(): void {
