@@ -35,10 +35,11 @@ Then I now see the class with the name "Qualidade de Software" in the list of re
 
 Scenario: Teacher tries to add new students to a registered class
 Given I am at the "ESS - Turma Um" class detailed page
+Given I am at the alunos page
 When I add a new student with the name "Carlos Magno", cpf "4442", e-mail "carlosmcin.ufpe.br" and github "carlo"
 Then I see a student named "Carlos Magno", with cpf "4442", e-mail "carlosmcin.ufpe.br" and github "carlo" in the students list
-When I add a second new student with the name "Helena Torres", cpf "1002", e-mail "helenacin.ufpe" and github "helenaT"
-Then I can see "Carlos Magno" in the students list firt position
+When I add a new student with the name "Helena Torres", cpf "1002", e-mail "helenacin.ufpe" and github "helenaT"
+Then I can see "Carlos Magno" in the students list first position
 Then I can see "Helena Torres" in the students list second position
 
 Scenario: Teacher tries to add new learning goals to a registered class
@@ -50,6 +51,10 @@ Then it is now possible for me to give each student their goal grade
 
 Scenario: Teacher tries to remove a student from a registered class
 Given I am at the "ESS - Turma Um" class detailed page
-Given I see "Carlos Magno", "Helena Torres", "João Paulo", "Maria Eugênia" in the students list
-When I remove the student with the name "Helena Torres"
-Then I can see "Carlos Magno", "João Paulo", "Maria Eugênia" in the students list
+Given I am at the alunos page
+Then I can see "Carlos Magno" in the students list first position
+Then I can see "Helena Torres" in the students list second position
+When  I add a new student with the name "João Paulo", cpf "4441", e-mail "joaop.ufpe.br" and github "jp"
+When I add a new student with the name "Maria Eugênia", cpf "5555", e-mail "marieug.ufpe.br" and github "eugm"
+When I remove the student in the second position
+Then I can no longer see "Helena Torres" in the students list second position

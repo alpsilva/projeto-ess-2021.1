@@ -45,7 +45,7 @@ export class AlunosComponent implements OnInit {
   }
 
   deletarAluno(a: Aluno): void {
-    if (confirm("Deseja mesmo excluir " + a.nome + "?")) {
+    //if (confirm("Deseja mesmo excluir " + a.nome + "?")) {
       this.turmaService.deleteAluno(this.turma.id, a).subscribe(
         (ad) => { 
           if (ad == null){
@@ -58,7 +58,7 @@ export class AlunosComponent implements OnInit {
         },
         //(msg) => { alert(msg.message); }
      );
-    }
+    //}
   }
 
   onMove(): void {

@@ -6,9 +6,6 @@ Feature: Performance Report as teacher
   Background:
     Given I am already logged in my teacher level account
     And I am in the "Performance Report" page
-    And the following "Performance comparison list" exists:
-      |approved|onFinal|disapproved|total|
-      |25      |12     |10         |47   |
 
   Scenario: Teacher tries to see the percentage of approved students on class
     When I try to see the percentage of approved students

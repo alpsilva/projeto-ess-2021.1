@@ -67,6 +67,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     When(/^I say ok to the pop-up asking to confirm it$/, async() => {
         //driver.switchTo().alert().accept();
+        //await element(by.xpath('//*[@id="mat-dialog-0"]/selector-file-type-dialog/div[2]/button[3]')).click();
     });
 
     Then(/^I can no longer see a class named "([^\"]*)" in the list of registered classes$/, async(nomeTurma) => {
@@ -90,18 +91,11 @@ defineSupportCode(function ({ Given, When, Then }) {
     {
         await element(by.buttonText('Acessar Turma ' + nomeTurma)).click();
     });
-    
-    When(/^I add a new student with the name "([^\"]*)", cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)"$/, async(nome, cpf, email, git) =>
+    Given(/^I am at the alunos page$/, async() =>
     {
         await $("a[name='alunos']").click();
-        await $("input[name='namebox']").sendKeys(<string>nome);
-        await $("input[name='cpfbox']").sendKeys(<string>cpf);
-        await $("input[name='mailBox']").sendKeys(<string>email);
-        await $("input[name='githubbox']").sendKeys(<string>git);
-        await element(by.buttonText('Adicionar')).click();
     });
-    
-    When(/^I add a second new student with the name "([^\"]*)", cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)"$/, async(nome, cpf, email, git) =>
+    When(/^I add a new student with the name "([^\"]*)", cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)"$/, async(nome, cpf, email, git) =>
     {
         await $("input[name='namebox']").sendKeys(<string>nome);
         await $("input[name='cpfbox']").sendKeys(<string>cpf);
@@ -109,6 +103,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await $("input[name='githubbox']").sendKeys(<string>git);
         await element(by.buttonText('Adicionar')).click();
     });
+    
 
     Then(/^I see a student named "([^\"]*)", with cpf "([^\"]*)", e-mail "([^\"]*)" and github "([^\"]*)" in the students list$/, async(name, cpf, email, git) =>
     {
@@ -126,7 +121,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     });
 
-    Then(/^I can see "([^\"]*)" in the students list firt position$/, async(name) =>
+    Then(/^I can see "([^\"]*)" in the students list first position$/, async(name) =>
     {
         
         var nameSearch : ElementArrayFinder = element.all(by.xpath('/html/body/app-root/alunos/html/table[3]/tr[2]/td[1]'));
@@ -134,12 +129,20 @@ defineSupportCode(function ({ Given, When, Then }) {
         await nameSearch.filter(elem => sameAlunoName1(elem,name)).then
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     });
+    
     Then(/^I can see "([^\"]*)" in the students list second position$/, async(name) =>
     {
         
         var nameSearch : ElementArrayFinder = element.all(by.xpath('/html/body/app-root/alunos/html/table[3]/tr[3]/td[1]'));
         await nameSearch.filter(elem => sameAlunoName2(elem,name)).then
         (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+    });
+    Then(/^I can no longer see "([^\"]*)" in the students list second position$/, async(name) =>
+    {
+        
+        var nameSearch : ElementArrayFinder = element.all(by.xpath('/html/body/app-root/alunos/html/table[3]/tr[3]/td[1]'));
+        await nameSearch.filter(elem => sameAlunoName2(elem,name)).then
+        (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     });
 
     Then(/^I enter the learning goals page$/, async() =>
@@ -171,9 +174,9 @@ defineSupportCode(function ({ Given, When, Then }) {
     {
 
     })
-    When(/^I remove the student with the name "([^\"]*)"$/, async(aluno) =>
+    When(/^I remove the student in the second position$/, async() =>
     {
-
+        await element(by.xpath('/html/body/app-root/alunos/html/table[3]/tr[3]/td[5]/button')).click();
     })
     Then(/^I can see "([^\"]*)", "([^\"]*)", "([^\"]*)" in the students list$/, async(a1,a2,a3) =>
     {
