@@ -4,11 +4,6 @@ import 'selenium-webdriver';
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
-//Declaração do WebDriver (usado para lidar com alertas)
-const {Builder, By, until} = require('selenium-webdriver');
-let driver = new Builder()
-    .forBrowser('firefox')
-    .build();
 
 //Função para turma
 let sameTurmaName = ((elem, name) => elem.element(by.name('turmaNomeList')).getText().then(text => text === name));
