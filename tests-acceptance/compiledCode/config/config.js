@@ -13,7 +13,7 @@ exports.config = {
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
     specs: [
-        '../../features/CRUD_class.feature'
+        '../../features/*'
     ],
     onPrepare: () => {
         protractor_1.browser.ignoreSynchronization = true;

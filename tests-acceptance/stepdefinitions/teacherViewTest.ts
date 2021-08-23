@@ -1,6 +1,5 @@
 import { defineSupportCode } from 'cucumber';
 import { browser, $, element, ElementArrayFinder, by, WebDriver } from 'protractor';
-import 'selenium-webdriver';
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
