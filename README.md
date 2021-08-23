@@ -31,3 +31,19 @@ Repositório para desenvolvimento do projeto e roteiro da disciplina Engenharia 
 - **Voilá**
   * O sistema já deve estar funcionando!!!
   * No seu navegador, vá para: [localhost:4200](url)
+
+### **Instruções para testes automáticos:**
+- **Passo 0**
+  * Troque para a branch de testes
+  * Ver Passo 0 do uso via git clone
+- **Iniciar GUI e Servidor**
+  * Da mesma forma que nas instruções de uso via git clone
+- **Testes**
+  * Em um terminal:
+    - Vá para a pasta `/testes-acceptance`
+    - Execute: `npm install`
+    - Atualize o webdriver com: `npm run webdriver-update`
+    - Inicie o webdriver: `npm run webdriver-start`
+  * Em outro terminal:
+    - Vá para a pasta `/testes-acceptance`
+    - Execute os testes com: `npm test`
