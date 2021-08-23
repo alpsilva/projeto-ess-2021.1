@@ -20,11 +20,6 @@ export class ClasseComponent implements OnInit {
 
   constructor(private turmaService: TurmaService) {}
 
-  onMove(): void {
-    //pode vir a ter algo
-    
-  }
-
   ngOnInit(): void {
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
@@ -54,19 +49,16 @@ export class ClasseComponent implements OnInit {
     this.turmaService.getTurmas().subscribe(
       list => {
         var nl: Turma[] = [];
-        console.log(list);
         for (let t of list) {
           nl.push(t);
         }
         this.listaTurmas = nl;
-        console.log(this.listaTurmas);
       },
       msg => { alert(msg.message); }
     );
   }
 
   setId(id: number): void {
-    console.log("setId(" + id + ")");
     this.turmaId = id;
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
@@ -74,6 +66,5 @@ export class ClasseComponent implements OnInit {
       },
       msg => { alert(msg.message);}
     ); 
-    console.log("End of: setId(" + id + ")");
   }
 }

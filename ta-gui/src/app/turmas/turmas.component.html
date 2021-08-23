@@ -1,4 +1,4 @@
-<html (mousemove)="onMove()">
+<html>
 
     <h3>Turmas</h3>
 
@@ -31,14 +31,11 @@
             <td name="turmaNomeList">{{t.nome}}</td>
             <td name="turmaDescricaoList">{{t.descricao}}</td>
             <td>
-                <button (mouseover)="goToTurma(t.id)" [routerLink]="['classe', t.id]">Acessar Turma {{t.nome}}</button>
+                <button [routerLink]="['classe', t.id]">Acessar Turma {{t.nome}}</button>
             </td>
             <td>
                 <button class="deleteButton" (mouseover)="setTurmaToDel(t.id)" (click)="deletarTurma(t.id)">Deletar Turma: {{t.nome}}</button>
             </td>
-            <!--
-                Check if button below are necessary
-            -->
             <td>
                 <button mat-raised-button (mouseover)="setTurmaToDel(t.id)" (click)="openDialog()">Exportar Turma: {{t.nome}}</button>
             </td>

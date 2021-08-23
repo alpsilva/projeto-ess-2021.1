@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
 import { Turma } from '../../../commons/turma';
-import { Aluno } from '../../../commons/aluno';
 import { TurmaService } from './turmas/turmas.service';
 
 @Component({
@@ -53,10 +52,6 @@ export class StudentViewComponent implements OnInit {
     var metas: Map<string, string> = new Map<string, string>(this.grades.get(id));
     var str = metas.get(meta);
     return str;
-  }
-
-  onMove(): void {
-    //pode vir a ter algo
   }
 
   ngOnInit(): void {

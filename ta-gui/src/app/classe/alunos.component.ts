@@ -13,9 +13,7 @@ export class AlunosComponent implements OnInit {
 
   turmaId: number = 1;
   turma: Turma = new Turma();
-
   aluno: Aluno = new Aluno();
-
   cpfougitduplicado: boolean = false;
 
   // array de alunos local

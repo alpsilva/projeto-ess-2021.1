@@ -1,12 +1,14 @@
 <div class="content" role="main">
 
-  <h1>Teaching Assistant</h1>
-
-  <h3> Acessar o sistema como:</h3>
-  <nav>
-    <a name="teacherBtn" routerLink = "/teacher" >Professor</a>
-    <a name="studentBtn" routerLink = "/studentView" >Aluno</a>
-  </nav>
+  <section *ngIf="isOnRoot()">
+    <h1>Teaching Assistant</h1>
+    
+    <h3> Acessar o sistema como:</h3>
+    <nav>
+      <a name="teacherBtn" routerLink = "/teacher" >Professor</a>
+      <a name="studentBtn" routerLink = "/studentView" >Aluno</a>
+    </nav>
+  </section>
 
 </div>
 

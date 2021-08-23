@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Teaching Assistant';
+
+  isOnRoot(): boolean {
+    var curURL: string = document.location.href;
+    if (curURL == "http://localhost:4200/") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

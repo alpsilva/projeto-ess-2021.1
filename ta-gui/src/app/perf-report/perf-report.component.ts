@@ -52,14 +52,12 @@ export class PerfReportComponent implements OnInit {
   onMove() {
     if (this.alunos.length > 0) {
       this.meanTitle = "Desempenho: ";
-      //this.updateChart();
     } else {
       this.meanTitle = "Not enough data on: ";
     }
   }
 
   setGraphOption(option: string) {
-    console.log("SetGraphOption choosen is " + option);
     if (option != "") {
       this.chooseOpt = false;
       this.updateChart(option);
@@ -133,7 +131,6 @@ export class PerfReportComponent implements OnInit {
       }
       switch (viewOption) {
         case ("Todos os alunos"):
-        console.log("Inside Case: " + viewOption);
         this.selectedLista.push(a);
         if (mean >= 6) {
           this.situacaoAlunos.push("Aprovado");
@@ -144,28 +141,24 @@ export class PerfReportComponent implements OnInit {
         }
         break;
       case ("Alunos Aprovados"):
-        console.log("Inside Case: " + viewOption);
         if (mean >= 6) {
           this.selectedLista.push(a);
           this.situacaoAlunos.push("Aprovado");
         }
         break;
       case ("Alunos na Final"):
-        console.log("Inside Case: " + viewOption);
         if (mean >= 3 && mean < 6) {
           this.selectedLista.push(a);
           this.situacaoAlunos.push("Final");
         }
         break;
       case ("Alunos Reprovados"):
-        console.log("Inside Case: " + viewOption);
         if (mean < 3) {
           this.selectedLista.push(a);
           this.situacaoAlunos.push("Reprovado");
         }
         break;
       case ("Alunos que não estão Aprovados"):
-        console.log("Inside Case: " + viewOption);
         if (mean < 6) {
           this.selectedLista.push(a);
           if (mean >= 3) {
@@ -176,7 +169,6 @@ export class PerfReportComponent implements OnInit {
         }
         break;
       case ("Alunos que não estão na Final"):
-        console.log("Inside Case: " + viewOption);
         if (mean >= 6 || mean < 3) {
           this.selectedLista.push(a);
           if (mean >= 6) {
@@ -187,7 +179,6 @@ export class PerfReportComponent implements OnInit {
         }
         break;
       case ("Alunos que não estão Reprovados"):
-        console.log("Inside Case: " + viewOption);
         if (mean >= 3) {
           this.selectedLista.push(a);
           if (mean >= 6) {
@@ -239,10 +230,8 @@ export class PerfReportComponent implements OnInit {
       is3D: false
     }
 
-    console.log("Case: " + viewOption);
     switch (viewOption) {
       case (""):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           legend: 'none',
           title: this.meanTitle + this.turma.nome,
@@ -256,7 +245,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Todos os alunos"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -264,7 +252,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Alunos Aprovados"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -277,7 +264,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Alunos na Final"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -290,7 +276,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Alunos Reprovados"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -303,7 +288,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Alunos que não estão Aprovados"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -316,7 +300,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Alunos que não estão na Final"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -329,7 +312,6 @@ export class PerfReportComponent implements OnInit {
         };
         break;
       case ("Alunos que não estão Reprovados"):
-        console.log("Inside Case: " + viewOption);
         this.meanOptions = {
           title: this.meanTitle + this.turma.nome,
           colors: ['green','yellow','red'],
@@ -346,7 +328,6 @@ export class PerfReportComponent implements OnInit {
     this.chart = new google.visualization.PieChart(document.getElementById('meanChart'));
 
     if (viewOption != "") {
-      console.log('View Option == ""');
       this.chart.draw(this.data, this.meanOptions);
     }
   }

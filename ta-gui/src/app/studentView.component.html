@@ -1,4 +1,4 @@
-<html (mousemove)="onMove()">
+<html>
 
     <h3>Notas de aluno</h3>
 
@@ -26,7 +26,7 @@
                     </tr>
                     <tr>
                         <td class="meta" *ngFor="let m of t.metasLista">
-                            <input [ngModel]="getGrade(t.id, m)" name="grade in m of t.nome">                            
+                            <input [ngModel]="getGrade(t.id, m)" name="grade in m of t.nome" readonly>                            
                         </td>
                     </tr>
                 </table>

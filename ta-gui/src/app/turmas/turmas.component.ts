@@ -7,7 +7,6 @@ import { Turma } from '../../../../commons/turma';
 import { Aluno } from '../../../../commons/aluno';
 import { TurmaService } from './turmas.service';
 import { ClasseComponent } from '../classe/classe.component';
-import { stringify } from '@angular/compiler/src/util';
 
 interface FileType {
   type: string;
@@ -27,7 +26,7 @@ export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
   turmaToDel: Turma;
 
-  fileType: string;
+  fileType: string = "";
   exportAsCsv: boolean = false;
   exportAsExcel: boolean = false;
 
@@ -36,10 +35,13 @@ export class TurmasComponent implements OnInit {
   
   classe: ClasseComponent = new ClasseComponent(this.turmaService);
 
+  /*
+    Criação de turma: 
+  */
   criarTurma(t: Turma): void {
     if (this.turmas.length < 3){
       if (!this.nomeDuplicado(t)){
-        var result = this.turmaService.criar(t)
+        this.turmaService.criar(t)
                         .subscribe(
                           tr => {
                             if (tr) {
@@ -60,6 +62,9 @@ export class TurmasComponent implements OnInit {
     }
   }
 
+  /*
+    Verificação de nome de turma: 
+  */
   nomeDuplicado(t: Turma): boolean {
     // Procura na lista de turmas se alguma tem o mesmo nome
     for (let i = 0; i < this.turmas.length; i++){
@@ -70,16 +75,19 @@ export class TurmasComponent implements OnInit {
     return false;
   }
 
+  /*
+    Deletar turma: 
+  */
   deletarTurma(id: number): void {
-    console.log(this.turmaToDel);
     if (confirm("Você quem mesmo deletar a Turma " + id + "?")) {
-      console.log(this.turmaToDel);
       if (this.turmaToDel) {
-        this.openDialog();
-        var result: string = this.exportTurmaTo();
-        console.log(result);
         /*
-          Exportar turma aqui 
+          Fase de Exportação 
+        */
+        this.openDialog();
+        this.exportTurmaTo();
+        /*
+          Fase de remoção 
         */
         this.turmaService.deletar(id).subscribe(
           resultId => {
@@ -93,16 +101,14 @@ export class TurmasComponent implements OnInit {
             }
           },
           msg => { alert(msg.message); }
-        );
-        
+        );        
       }
     }
   }
 
-  onMove(): void {
-    //pode vir a ter algo
-  }
-
+  /*
+    Função OnInit: 
+  */
   ngOnInit(): void {
     this.turmaService.updateIdLivre();
     this.turmaService.getTurmas()
@@ -112,13 +118,9 @@ export class TurmasComponent implements OnInit {
         );
   }
 
-  goToTurma(id: number): void {
-    console.log("goToTurma(" + id + ")");
-    this.classe.setId(id);
-    this.turmaService.updateAccessId(id);
-    console.log("End of: goToTurma(" + id + ")");
-  }
-
+  /*
+    Função auxiliar (para remoção de turma): 
+  */
   setTurmaToDel(id: number): void {
     this.turmaService.getOnlyTurma(id).subscribe(
       t => {
@@ -152,29 +154,30 @@ export class TurmasComponent implements OnInit {
           );
         }
         this.turmaToDel = nt;
-        console.log(this.turmaToDel);
     },
     msg => { alert(msg.message);}
     );
   }
 
+  /*
+    Função auxiliar (para exportação): 
+  */
   exportTurmaTo(): string {    
     if (this.turmaToDel) {
-      return this.stringifyTurmaData(this.turmaToDel);
+      return this.exportTurmaData(this.turmaToDel);
     }
     return null;
   }
 
-  stringifyTurmaData(turma: Turma): string {
-    var listaMetas: string[] = turma.metasLista;
+  /*
+    Função auxiliar (para exportação): 
+  */
+  exportTurmaData(turma: Turma): string {
     var email: string = "E-mail";
     var dataAlunos = [];
-    console.log(turma.alunoLista.alunos);
     
     for (let a of turma.alunoLista.alunos) {
-      var aMetas = [];
       var mean: number = 0;
-      console.log(a);
       var aluno = {
         Nome: a.nome,
         Cpf: a.cpf,
@@ -185,9 +188,6 @@ export class TurmasComponent implements OnInit {
         aluno[m] = "";
       }
       for (let m of a.tuplaMetas) {
-        aMetas.push({
-          [m[0]]: m[1]
-        });
         aluno[m[0]] = m[1];
         if (m[1] == "MA") {
           mean += 2.0;
@@ -201,11 +201,8 @@ export class TurmasComponent implements OnInit {
         aluno["Situação"] = "Final";
       } else {
         aluno["Situação"] = "Reprovado";
-      }
-      var stringMetas: string = JSON.stringify(aMetas);
-      
+      }      
       dataAlunos.push(aluno);
-      console.log(dataAlunos);
     }
     const options = {
       filename: turma.nome,
@@ -241,9 +238,13 @@ export class TurmasComponent implements OnInit {
 
     this.exportAsExcel = false;
     this.exportAsCsv = false;
+    this.fileType = "";
     return JSON.stringify(dataAlunos);
   }
 
+  /*
+    Função auxiliar (para exportação): 
+  */
   openDialog() {
     this.fileType = "";
     const dialogRef = this.dialog.open(SelectorFileTypeDialog, {
@@ -254,15 +255,13 @@ export class TurmasComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       choice => {
         this.fileType = choice;
-        console.log(choice);
-        this.stringifyTurmaData(this.turmaToDel);
-        console.log(this.fileType);
+        this.exportTurmaData(this.turmaToDel);
       }
     );
 
     if (this.turmaToDel) {
       if (this.fileType != "") {
-        this.stringifyTurmaData(this.turmaToDel);
+        this.exportTurmaData(this.turmaToDel);
       }
     }
   }
@@ -274,7 +273,6 @@ export class TurmasComponent implements OnInit {
       CLASSE DO DIALOG DE EXPORTAÇÃO DA TURMA ABAIXO
     ==========================================================
 */
-
 
 @Component({
   selector: 'selector-file-type-dialog',
@@ -289,7 +287,6 @@ export class SelectorFileTypeDialog {
 
   setFileTypeCsv() {
     this.data.type = 'csv';
-    console.log(this.data.type);
   }
 
   setFileTypeXlsx() {

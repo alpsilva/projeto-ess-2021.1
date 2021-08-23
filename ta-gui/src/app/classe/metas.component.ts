@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
 
 import { Turma } from '../../../../commons/turma';
 import { TurmaService } from '../turmas/turmas.service';
@@ -21,7 +20,6 @@ export class MetasComponent implements OnInit {
   alunos: Aluno[] = [];
 
   atualizarAluno(aluno: Aluno): void{
-    console.log(aluno);
     this.turma.updateAluno(aluno);
     this.turmaService.atualizarMetasUmAluno(this.turma.id, aluno.cpf, aluno.metas).subscribe(
       (as) => { if (as == null){
@@ -32,17 +30,14 @@ export class MetasComponent implements OnInit {
     );
   }
 
-
   ngOnInit(): void {
     this.beginInit();
     this.atualizarMetas();
   }
 
   beginInit(): void {
-    console.log("Start beginInit()");
     this.turmaId = this.turmaService.getAcessId();
     this.turmaService.updateTurmas();
-    console.log(this.turmaService.turmas);
     this.turmaService.getOnlyTurma(this.turmaId).subscribe(
       t => {
         var nt: Turma = new Turma();
@@ -63,14 +58,11 @@ export class MetasComponent implements OnInit {
         for (let m of t.metasLista){
           nt.insertMeta(m);
         }
-        console.log(nt);
         this.turma = nt;
         this.alunos = this.turma.alunoLista.alunos;
-        console.log(this.alunos);
         for (let a of this.alunos) {
           this.turmaService.getMetasOf(this.turma.id, a).subscribe(
             metas => {
-              console.log(metas);
               for (let m of metas) {
                 a.metas.set(m[0], m[1]);
               }
@@ -81,12 +73,10 @@ export class MetasComponent implements OnInit {
       },
       msg => { alert(msg.message);}
     );
-    console.log("End beginInit()");
   }
 
   onMove(): void {
     this.atualizarMetas();
-    console.log("Try");
   }
 
   adicionarMeta(meta: string): void {
@@ -111,12 +101,9 @@ export class MetasComponent implements OnInit {
   }
 
   atualizarMetas(): void {
-    console.log("Start atualizarMetas()");
-    console.log(this.alunos);
     for (let a of this.alunos) {
       this.turmaService.getMetasOf(this.turma.id, a).subscribe(
         metas => {
-          console.log(metas);
           for (let m of metas) {
             a.metas.set(m[0], m[1]);
           }
@@ -124,6 +111,5 @@ export class MetasComponent implements OnInit {
         msg => {console.log(msg.message);}
       );
     }
-    console.log("End atualizarMetas()");
   }
 }

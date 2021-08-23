@@ -29,8 +29,21 @@ button:hover {
   color: black;
 }
 
-
 .deleteButton:hover {
   background-color: red;
   color: black;
+}
+
+th {
+  background-color: black;
+  color: #ffffff;
+}
+
+td, th {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #cce6ff;
 }
