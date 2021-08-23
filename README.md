@@ -30,14 +30,14 @@ Repositório para desenvolvimento do projeto e roteiro da disciplina Engenharia 
   * Então: `npm start`
 - **Voilá**
   * O sistema já deve estar funcionando!!!
-  * No seu navegador, vá para: [localhost:4200](url)
+  * No seu navegador, vá para: [localhost:4200](localhost:4200)
 
 ### **Instruções para testes automáticos:**
 - **Passo 0**
   * Troque para a branch de testes
-  * Ver Passo 0 do uso via git clone
+  * Ver [Passo 0](https://github.com/alpsilva/projeto-ess-2021.1#instru%C3%A7%C3%B5es-de-uso-via-git-clone) do uso via git clone
 - **Iniciar GUI e Servidor**
-  * Da mesma forma que nas instruções de uso via git clone
+  * Da mesma forma que nas [instruções de uso via git clone](https://github.com/alpsilva/projeto-ess-2021.1#instru%C3%A7%C3%B5es-de-uso-via-git-clone)
 - **Testes**
   * Em um terminal:
     - Vá para a pasta `/testes-acceptance`
