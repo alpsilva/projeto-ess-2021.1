@@ -30,7 +30,7 @@ Repositório para desenvolvimento do projeto e roteiro da disciplina Engenharia 
   * Então: `npm start`
 - **Voilá**
   * O sistema já deve estar funcionando!!!
-  * No seu navegador, vá para: [localhost:4200](localhost:4200)
+  * No seu navegador, vá para: [localhost:4200](http://localhost:4200)
 
 ### **Instruções para testes automáticos:**
 - **Passo 0**
